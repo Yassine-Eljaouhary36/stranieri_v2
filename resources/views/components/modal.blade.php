@@ -70,12 +70,12 @@
  
 
             if (error) {
-                Swal.fire({
-                    title: "Error",
-                    text: "there is something wrong",
-                    icon: 'wrong',
-                    confirmButtonText: 'try again'
-                });
+                // Swal.fire({
+                //     title: "Error",
+                //     text: "there is something wrong",
+                //     icon: 'wrong',
+                //     confirmButtonText: 'try again'
+                // });
                 // console.log(error)
             } else {
 

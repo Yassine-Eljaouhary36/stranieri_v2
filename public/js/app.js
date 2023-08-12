@@ -19823,7 +19823,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         this.saveCartToCookie();
         this.selectedTime = null;
         this.cart = [];
-        window.location.href = '/appointment-details';
+        window.location.href = '/customer/appointment-details';
       }
     },
     inactiveDay: function inactiveDay() {

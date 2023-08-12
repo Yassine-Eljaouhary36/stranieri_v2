@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('meetings', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('ref')->nullable();
-            $table->string('DateMeeting');
+            $table->double('paid_amount');
+            $table->double('discount');
+            $table->double('price');
             $table->string('status')->nullable();
             $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('order_id')->nullable();
             $table->timestamps();
-
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meetings');
+        Schema::dropIfExists('orders');
     }
 };
