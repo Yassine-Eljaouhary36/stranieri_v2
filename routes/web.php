@@ -21,9 +21,11 @@ use TCG\Voyager\Facades\Voyager;
 
 Route::prefix('customer')->group(function () {
 
-    Route::get('/meetings-panel', [MeetingController::class, 'index'])->name('index');
-    Route::get('/appointment-details', [MeetingController::class, 'showDetails'])->middleware('meeting_requirements')->name('show-Details');
-    Route::post('/appointment-details', [MeetingController::class, 'payMeeting'])->name('pay-meeting');
+    Route::middleware(['client.auth','is_verify_email'])->group(function () {
+        Route::get('/meetings-panel', [MeetingController::class, 'index'])->name('index');
+        Route::get('/appointment-details', [MeetingController::class, 'showDetails'])->middleware('meeting_requirements')->name('show-Details');
+        Route::post('/appointment-details', [MeetingController::class, 'payMeeting'])->name('pay-meeting');
+    });
 
     Route::middleware('client.guest')->group(function () {
         Route::get('/login', [LoginController::class, 'showLoginForm'])->name('showLoginForm');

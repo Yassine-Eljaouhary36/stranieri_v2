@@ -66,6 +66,35 @@
 .custom-text-danger {
     color: #ff9797;
 }
+.card-form{
+    margin: 15px 0px;
+    padding: 40px 23px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.my-input-card{
+    padding: 9px;
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#card-holder-name::-webkit-input-placeholder { /* Edge */
+    color: #aab7c4;
+}
+  
+#card-holder-name:-ms-input-placeholder { /* Internet Explorer */
+  color: #aab7c4;
+}
+
+#card-holder-name::placeholder {
+  color: #aab7c4;
+}
 @media screen and (max-width: 480px) {
     .cart-container {
         padding: 10px;
