@@ -4,11 +4,11 @@ import { createApp } from 'vue'
 // import store from './store';
 
 import MeetingsManager from './components/MeetingsManager'
-import CartComponent from './components/CartComponent.vue';
+import AppointmentDetails from './components/AppointmentDetails';
 const app = createApp({})
 
 // app.use(store);
-app.component('cart-component', CartComponent);
+app.component('appointment-details', AppointmentDetails);
 
 
 app.component('meetings-manager', MeetingsManager)

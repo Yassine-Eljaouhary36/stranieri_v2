@@ -19569,10 +19569,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=script&lang=js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=script&lang=js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=script&lang=js":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19588,6 +19588,10 @@ function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    discount: Number,
+    price: Number
+  },
   data: function data() {
     return {
       cart: []
@@ -19615,13 +19619,56 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _iterator.f();
       }
       return null;
+    },
+    clearCartToCookie: function clearCartToCookie() {
+      var expirationDate = new Date();
+      expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000); // Expires in 10 min
+      document.cookie = "cart=".concat(JSON.stringify([]), ";expires=").concat(expirationDate.toUTCString());
+    },
+    formatDateToCustomFormat: function formatDateToCustomFormat(isoString) {
+      var date = new Date(isoString);
+      var options = {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      };
+      return date.toLocaleDateString('en-US', options);
+    },
+    formatTimeToCustomFormat: function formatTimeToCustomFormat(isoString) {
+      var date = new Date(isoString);
+      var options = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      };
+      return date.toLocaleTimeString('en-US', options);
+    },
+    formatPrice: function formatPrice(price) {
+      return '$' + price.toFixed(2);
     }
   },
   created: function created() {
     var cartData = this.getCookie('cart');
-    console.log(cartData);
     if (cartData) {
       this.cart = JSON.parse(cartData);
+      this.clearCartToCookie();
+    }
+  },
+  computed: {
+    subtotal: function subtotal() {
+      return this.cart.length * this.price;
+    },
+    discounted: function discounted() {
+      return this.subtotal * this.discount / 100;
+    },
+    total: function total() {
+      return this.subtotal - this.discounted;
+    },
+    isCouponValid: function isCouponValid() {
+      var _this = this;
+      return this.coupons.some(function (coupon) {
+        return coupon.code === _this.enteredCouponCode;
+      });
     }
   }
 });
@@ -19641,7 +19688,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -19665,7 +19711,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       currentDate: new Date(),
       selectedOption: 'day',
       selectedTime: null,
-      DateToDisplay: null,
       cart: []
     };
   },
@@ -19673,6 +19718,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     selectTime: function selectTime(timeSlot, status) {
       if (status) {
         this.selectedTime = timeSlot;
+      } else {
+        this.inactiveDay();
       }
     },
     formatToISOString: function formatToISOString(time) {
@@ -19736,6 +19783,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }
       }
     },
+    getAMorPM: function getAMorPM(time) {
+      var hours = Number(time.split(':')[0]);
+      return hours >= 0 && hours <= 11 ? 'AM' : hours >= 12 && hours <= 23 ? 'PM' : 'Invalid time';
+    },
     getFirstTimeSlot: function getFirstTimeSlot(timeSlots) {
       if (timeSlots.length > 0) {
         return timeSlots[0].hour;
@@ -19771,44 +19822,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         this.cart.push(this.selectedTime);
         this.saveCartToCookie();
         this.selectedTime = null;
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Meeting Added', 'Product has been added to your cart.', 'success');
+        this.cart = [];
+        window.location.href = '/appointment-details';
       }
     },
-    removeFromCart: function removeFromCart(index) {
-      var item = this.cart[index];
-      if (item.quantity > 1) {
-        item.quantity--;
-      } else {
-        this.cart.splice(index, 1);
-      }
-      this.saveCartToCookie();
+    inactiveDay: function inactiveDay() {
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('reserved Meeting', 'sorry this meeting already reserved .', 'warning');
+      this.selectedTime = null;
+      return;
     },
     saveCartToCookie: function saveCartToCookie() {
       var expirationDate = new Date();
-      expirationDate.setTime(expirationDate.getTime() + 5 * 60 * 1000); // Expires in 1 day
+      expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000); // Expires in 1 day
       document.cookie = "cart=".concat(JSON.stringify(this.cart), ";expires=").concat(expirationDate.toUTCString());
-    },
-    getCookie: function getCookie(name) {
-      var cookies = document.cookie.split('; ');
-      var _iterator = _createForOfIteratorHelper(cookies),
-        _step;
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var cookie = _step.value;
-          var _cookie$split = cookie.split('='),
-            _cookie$split2 = _slicedToArray(_cookie$split, 2),
-            cookieName = _cookie$split2[0],
-            cookieValue = _cookie$split2[1];
-          if (cookieName === name) {
-            return decodeURIComponent(cookieValue);
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-      return null;
     }
   },
   mounted: function mounted() {
@@ -19845,21 +19871,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }
       return weekdays;
     }
-  },
-  created: function created() {
-    var cartData = this.getCookie('cart');
-    if (cartData) {
-      this.cart = JSON.parse(cartData);
-    }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=template&id=e7ab8a3c&scoped=true":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=template&id=e7ab8a3c&scoped=true ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19870,15 +19890,81 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _withScopeId = function _withScopeId(n) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-e7ab8a3c"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-4f490dce"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
-var _hoisted_1 = {
-  "class": "cart-container"
+var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "cart-header"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "My meeting appointment details")], -1 /* HOISTED */);
+});
+var _hoisted_2 = {
+  "class": "cart-items"
 };
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"cart-header\" data-v-e7ab8a3c><h1 data-v-e7ab8a3c>My Meetings Cart</h1></div><div class=\"cart-items\" data-v-e7ab8a3c><!-- Sample Cart Item --><div class=\"cart-item\" data-v-e7ab8a3c><div class=\"item-details\" data-v-e7ab8a3c><div class=\"item-description\" data-v-e7ab8a3c>Meeting </div><div class=\"item-date-time\" data-v-e7ab8a3c><div class=\"item-date\" data-v-e7ab8a3c>4 August 2023</div><div class=\"item-time\" data-v-e7ab8a3c>16:00</div></div></div><div class=\"item-price\" data-v-e7ab8a3c>$50.00</div><button class=\"remove-button\" data-v-e7ab8a3c><i class=\"fa-solid fa-trash\" data-v-e7ab8a3c></i></button></div><div class=\"cart-item\" data-v-e7ab8a3c><div class=\"item-details\" data-v-e7ab8a3c><div class=\"item-description\" data-v-e7ab8a3c>Meeting </div><div class=\"item-date-time\" data-v-e7ab8a3c><div class=\"item-date\" data-v-e7ab8a3c>4 August 2023</div><div class=\"item-time\" data-v-e7ab8a3c>16:00</div></div></div><div class=\"item-price\" data-v-e7ab8a3c>$50.00</div><button class=\"remove-button\" data-v-e7ab8a3c><i class=\"fa-solid fa-trash\" data-v-e7ab8a3c></i></button></div><!-- Add more cart items here --></div><div class=\"cart-total\" data-v-e7ab8a3c><div class=\"subtotal\" data-v-e7ab8a3c><div class=\"subtotal-title\" data-v-e7ab8a3c>Subtotal</div><div class=\"subtotal-value\" data-v-e7ab8a3c> $50.00</div></div><div class=\"discount\" data-v-e7ab8a3c><div class=\"discount-title\" data-v-e7ab8a3c>Discount</div><div class=\"discount-value\" data-v-e7ab8a3c> -$10.00</div></div><div class=\"discount\" data-v-e7ab8a3c><div class=\"total-title\" data-v-e7ab8a3c>Total</div><div class=\"total-value\" data-v-e7ab8a3c> $40.00</div></div></div><div class=\"more-infos\" data-v-e7ab8a3c><div class=\"promo-section\" data-v-e7ab8a3c><input type=\"text\" class=\"promo-input\" placeholder=\"Enter Promo Code\" data-v-e7ab8a3c><button class=\"apply-button\" data-v-e7ab8a3c>Apply Discount</button></div><div class=\"checkout-buttons\" data-v-e7ab8a3c><button class=\"checkout-button\" data-v-e7ab8a3c>Checkout</button><button class=\"continue-shopping-button\" data-v-e7ab8a3c>Continue Shopping</button></div></div>", 4);
-var _hoisted_6 = [_hoisted_2];
+var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "item-details"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "item-description"
+  }, " Book a meeting ")], -1 /* HOISTED */);
+});
+var _hoisted_4 = {
+  "class": "item-date-time"
+};
+var _hoisted_5 = {
+  "class": "item-date"
+};
+var _hoisted_6 = {
+  "class": "item-date-time"
+};
+var _hoisted_7 = {
+  "class": "item-time"
+};
+var _hoisted_8 = {
+  "class": "item-price"
+};
+var _hoisted_9 = {
+  "class": "cart-total"
+};
+var _hoisted_10 = {
+  "class": "subtotal"
+};
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "subtotal-title"
+  }, "Subtotal", -1 /* HOISTED */);
+});
+var _hoisted_12 = {
+  "class": "subtotal-value"
+};
+var _hoisted_13 = {
+  "class": "discount"
+};
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "discount-title"
+  }, "Discount", -1 /* HOISTED */);
+});
+var _hoisted_15 = {
+  "class": "discount-value"
+};
+var _hoisted_16 = {
+  "class": "total"
+};
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "total-title"
+  }, "Total", -1 /* HOISTED */);
+});
+var _hoisted_18 = {
+  "class": "total-value"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, _hoisted_6);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sample Cart Item "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.cart, function (item) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      "class": "cart-item",
+      key: item
+    }, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToCustomFormat(item)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTimeToCustomFormat(item)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($props.price)), 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($options.subtotal)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, " -" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($options.discounted)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($options.total)), 1 /* TEXT */)])])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -19922,7 +20008,8 @@ var _hoisted_10 = {
     "flex-direction": "column",
     "justify-content": "center",
     "align-items": "center"
-  }
+  },
+  "class": "mb-3"
 };
 var _hoisted_11 = {
   style: {
@@ -19993,10 +20080,9 @@ var _hoisted_32 = ["onClick"];
 var _hoisted_33 = {
   "class": "add-to-cart-button"
 };
-var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Add to Cart ");
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Make an appointement ");
 var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "fa fa-shopping-cart",
-  "aria-hidden": "true"
+  "class": "ml-1 fa-solid fa-calendar-check"
 }, null, -1 /* HOISTED */);
 var _hoisted_36 = [_hoisted_34, _hoisted_35];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -20033,60 +20119,61 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.goToNextDay && $options.goToNextDay.apply($options, arguments);
     })
   }, _hoisted_9)])]), $data.selectedOption === 'day' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToWeekDay($data.currentDate)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToDay($data.currentDate)), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.filteredDay.active && $data.selectedOption === 'day' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Morning period (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'morning';
+    return $options.getAMorPM(h.hour) === 'AM';
   }))) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getLastTimeSlot($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'morning';
+    return $options.getAMorPM(h.hour) === 'AM';
   }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'morning';
+    return $options.getAMorPM(h.hour) === 'AM';
   }), function (hour) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: hour.hour,
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
         'time-slot': true,
         'selected': $data.selectedTime === $options.formatToISOString(hour.hour),
-        'Unselectable': $options.isUnselectable($options.formatToISOString(hour.hour)),
-        'selectable': !$options.isUnselectable($options.formatToISOString(hour.hour))
+        'Unselectable': $options.isUnselectable($options.formatToISOString(hour.hour))
       }),
       onClick: function onClick($event) {
         return $options.selectTime($options.formatToISOString(hour.hour), !$options.isUnselectable($options.formatToISOString(hour.hour)));
       }
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 11 /* TEXT, CLASS, PROPS */, _hoisted_16);
   }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Evening period (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'evening';
+    return $options.getAMorPM(h.hour) === 'PM';
   }))) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getLastTimeSlot($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'evening';
+    return $options.getAMorPM(h.hour) === 'PM';
   }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'evening';
+    return $options.getAMorPM(h.hour) === 'PM';
   }), function (hour) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: hour.hour,
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
         'time-slot': true,
         'selected': $data.selectedTime === $options.formatToISOString(hour.hour),
-        'Unselectable': $options.isUnselectable($options.formatToISOString(hour.hour)),
-        'selectable': !$options.isUnselectable($options.formatToISOString(hour.hour))
+        'Unselectable': $options.isUnselectable($options.formatToISOString(hour.hour))
       }),
       onClick: function onClick($event) {
         return $options.selectTime($options.formatToISOString(hour.hour), !$options.isUnselectable($options.formatToISOString(hour.hour)));
       }
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 11 /* TEXT, CLASS, PROPS */, _hoisted_20);
   }), 128 /* KEYED_FRAGMENT */))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$options.filteredDay.active && $data.selectedOption === 'day' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Morning period (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'morning';
+    return $options.getAMorPM(h.hour) === 'AM';
   }))) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getLastTimeSlot($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'morning';
+    return $options.getAMorPM(h.hour) === 'AM';
   }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'morning';
+    return $options.getAMorPM(h.hour) === 'AM';
   }), function (hour) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: hour.hour,
-      "class": "time-slot Unselectable"
+      "class": "time-slot Unselectable",
+      onClick: _cache[4] || (_cache[4] = function () {
+        return $options.inactiveDay && $options.inactiveDay.apply($options, arguments);
+      })
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 1 /* TEXT */);
   }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Evening period (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'evening';
+    return $options.getAMorPM(h.hour) === 'PM';
   }))) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getLastTimeSlot($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'evening';
+    return $options.getAMorPM(h.hour) === 'PM';
   }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
-    return h.period === 'evening';
+    return $options.getAMorPM(h.hour) === 'PM';
   }), function (hour) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: hour.hour,
@@ -20100,10 +20187,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
         key: hour.hour,
         "class": "hour-btn Unselectable",
-        style: {
-          "cursor": "not-allowed",
-          "border": "2px dashed #823434"
-        }
+        onClick: _cache[5] || (_cache[5] = function () {
+          return $options.inactiveDay && $options.inactiveDay.apply($options, arguments);
+        })
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 1 /* TEXT */);
     }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), day.filtredDay.active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_31, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(day.filtredDay.hours, function (hour) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
@@ -20114,14 +20200,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
           'hour-btn': true,
           'selected': $data.selectedTime === $options.formatToISOStringParamter(hour.hour, day.dayweek),
-          'Unselectable': $options.isUnselectable($options.formatToISOStringParamter(hour.hour, day.dayweek)),
-          'selectable': !$options.isUnselectable($options.formatToISOStringParamter(hour.hour, day.dayweek))
+          'Unselectable': $options.isUnselectable($options.formatToISOStringParamter(hour.hour, day.dayweek))
         })
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 11 /* TEXT, CLASS, PROPS */, _hoisted_32);
     }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
   }), 128 /* KEYED_FRAGMENT */))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "add-to-cart-btn",
-    onClick: _cache[4] || (_cache[4] = function () {
+    onClick: _cache[6] || (_cache[6] = function () {
       return $options.addToCart && $options.addToCart.apply($options, arguments);
     })
   }, _hoisted_36)])]);
@@ -20139,7 +20224,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _components_MeetingsManager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/MeetingsManager */ "./resources/js/components/MeetingsManager.vue");
-/* harmony import */ var _components_CartComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/CartComponent.vue */ "./resources/js/components/CartComponent.vue");
+/* harmony import */ var _components_AppointmentDetails__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/AppointmentDetails */ "./resources/js/components/AppointmentDetails.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 // import store from './store';
@@ -20149,7 +20234,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({});
 
 // app.use(store);
-app.component('cart-component', _components_CartComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
+app.component('appointment-details', _components_AppointmentDetails__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.component('meetings-manager', _components_MeetingsManager__WEBPACK_IMPORTED_MODULE_1__["default"]);
 app.mount('#app');
 
@@ -20191,10 +20276,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20208,7 +20293,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n /* Reset some default browser styles */\n*[data-v-e7ab8a3c] {\r\n    margin: 0;\r\n    padding: 0;\r\n    box-sizing: border-box;\n}\r\n\r\n/* Cart Container */\n.cart-container[data-v-e7ab8a3c] {\r\n    max-width: 1000px;\r\n    margin: 50px auto;\r\n    padding: 20px;\r\n    background-color: #f2f5f7;\r\n    border: 1px solid #ccc;\r\n    border-radius: 10px;\r\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\r\n    font-family: Arial, sans-serif;\n}\nh1[data-v-e7ab8a3c]{\r\n    color: #777;\n}\n.cart-header[data-v-e7ab8a3c] {\r\n    text-align: center;\r\n    margin-bottom: 20px;\n}\r\n\r\n/* Cart Items */\n.cart-items[data-v-e7ab8a3c]{\r\n    padding: 10px 20px 25px 20px;\n}\n.cart-item[data-v-e7ab8a3c] {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 15px 2px;  \r\n    border-bottom: 2px solid #e5e5e5;\n}\n.item-details[data-v-e7ab8a3c] {\r\n    /* flex: 1; */\r\n    padding-right: 20px;\n}\n.item-description[data-v-e7ab8a3c] {\r\n    font-weight: bold;\r\n    color: #333;\n}\n.item-date-time[data-v-e7ab8a3c] {\r\n    color: #777;\n}\n.item-price[data-v-e7ab8a3c] {\r\n    font-weight: bold;\r\n    color: #828282; /* Green color for positive price */\r\n    padding:0px 10px\n}\n.remove-button[data-v-e7ab8a3c] {\r\n\r\n    display: inline-block;\r\n    padding: 10px 20px;\r\n    font-size: 16px;\r\n    font-weight: 600;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    border: none;\r\n    border-radius: 4px;\r\n    cursor: pointer;\r\n    transition: background-color 0.3s ease, color 0.3s ease;\r\n    background-color: #ffffff;\r\n    color: #e74c3c;\r\n    border: 2px solid #e74c3c;\n}\n.remove-button[data-v-e7ab8a3c]:hover {\r\n    transform: scale(1.05); /* Slight scale-up on hover */\r\n    background-color: #c0392b;\r\n    color: #ffffff;\r\n    border: 2px solid #c0392b;\n}\n.more-infos[data-v-e7ab8a3c]{\r\n    display: flex;\r\n    margin-top:10px;\r\n  justify-content: space-between;\r\n    padding:20px 0px 0px 0px;\n}\r\n/* Promo Section */\n.promo-section[data-v-e7ab8a3c] {\r\n    width:70%;\n}\n.promo-input[data-v-e7ab8a3c] {\r\n    width: 70%;\r\n    padding: 15px;\r\n    border: 1px solid #ccc;\r\n    border-radius: 4px 0px 0px 4px;\n}\n.apply-button[data-v-e7ab8a3c] {\r\n    background-color: #001742;\r\n    color: #fff;\r\n    border: none;\r\n    border-radius: 0px 4px 4px 0px;\r\n    padding: 15px 12px;\r\n    cursor: pointer;\n}\n.apply-button[data-v-e7ab8a3c]:hover {\r\n    background-color: #2980b9;\n}\r\n/* Cart Total */\n.cart-total[data-v-e7ab8a3c] {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    justify-content: space-between;\r\n    align-items: center;\n}\n.subtotal[data-v-e7ab8a3c],\r\n.discount[data-v-e7ab8a3c],\r\n.total[data-v-e7ab8a3c] {\r\n    flex-basis: 100%; /* Full width by default */\r\n    margin-bottom: 10px;\r\n    border: 2px solid #dfdfdf;\r\n    border-radius: 3px; \r\n    padding: 20px 30px;\r\n    margin: 10px 0px;\r\n    display: flex;\r\n    color:#777;\r\n    justify-content: center;\r\n    align-items: center;\r\n   flex-direction: column;\n}\n.subtotal-value[data-v-e7ab8a3c],\r\n.discount-value[data-v-e7ab8a3c],\r\n.total-value[data-v-e7ab8a3c] {\r\n   font-weight: bold;\n}\r\n\r\n/* Checkout Buttons */\n.checkout-buttons[data-v-e7ab8a3c] {\r\n    text-align: center;\r\n    display: flex;\r\n    align-items: center;\r\n  flex-direction: column;\r\n  width:25%\n}\n.checkout-button[data-v-e7ab8a3c], .continue-shopping-button[data-v-e7ab8a3c] {\r\n    background-color: #001742;\r\n    color: #fff;\r\n    border: none;\r\n    border-radius: 4px;\r\n    padding: 15px 12px;\r\n    margin: 5px 0px;\r\n    cursor: pointer;\r\n    width:100%\n}\n.checkout-button[data-v-e7ab8a3c]:hover, .continue-shopping-button[data-v-e7ab8a3c]:hover {\r\n    background-color: #2980b9;\n}\n@media screen and (min-width: 576px) {\n.subtotal[data-v-e7ab8a3c],\r\n    .discount[data-v-e7ab8a3c],\r\n    .total[data-v-e7ab8a3c] {\r\n        flex-basis: calc(50% - 10px); /* Divide into 2 equal columns with spacing */\r\n        margin-bottom: 0;\n}\n}\n@media screen and (max-width: 650px) {\n.promo-section[data-v-e7ab8a3c] {\r\n        display: flex;\r\n        flex-direction: column;\r\n        align-items: flex-start;\r\n        margin-top: 20px;\r\n        width: 100%;\n}\n.promo-input[data-v-e7ab8a3c],\r\n    .apply-button[data-v-e7ab8a3c] {\r\n        width: 100%;\r\n        margin-bottom: 10px;\r\n        border-radius: 0px;\n}\n.more-infos[data-v-e7ab8a3c] {\r\n        flex-direction: column;\r\n        margin-top:0px;\n}\n.cart-total[data-v-e7ab8a3c] {\r\n        text-align: left;\r\n        margin-top: 20px;\n}\n.checkout-buttons[data-v-e7ab8a3c] {\r\n      margin-top:5px;\r\n      width: 100%;\r\n      align-items: end;\n}\n.checkout-button[data-v-e7ab8a3c], .continue-shopping-button[data-v-e7ab8a3c] {\r\n    width:40%\n}\n}\n@media screen and (min-width: 768px) {\n.subtotal[data-v-e7ab8a3c],\r\n    .discount[data-v-e7ab8a3c],\r\n    .total[data-v-e7ab8a3c] {\r\n        flex-basis: calc(33.33% - 10px); /* Divide into 3 equal columns with spacing */\r\n        margin-bottom: 0;\n}\n}\r\n/* Responsive Styles */\n@media screen and (max-width: 480px) {\n.cart-container[data-v-e7ab8a3c] {\r\n        padding: 10px;\n}\n.cart-item[data-v-e7ab8a3c] {\r\n        flex-direction: column;\n}\n.item-details[data-v-e7ab8a3c] {\r\n        padding-right: 0;\r\n        margin-bottom: 10px;\n}\n.remove-button[data-v-e7ab8a3c] {\r\n        margin-top: 10px;\n}\n.checkout-buttons[data-v-e7ab8a3c] {\r\n        text-align: left;\r\n        margin-top: 20px;\n}\n.checkout-button[data-v-e7ab8a3c],\r\n    .continue-shopping-button[data-v-e7ab8a3c] {\r\n        width: 100%;\r\n        margin: 5px 0;\n}\n}\r\n\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n /* Reset some default browser styles */\n*[data-v-4f490dce] {\r\n    margin: 0;\r\n    padding: 0;\r\n    box-sizing: border-box;\n}\nh1[data-v-4f490dce]{\r\n    color: #91bee1;\r\n    font-size: 25px;\n}\n.cart-header[data-v-4f490dce] {\r\n    text-align: center;\r\n    margin: 8px 0px;\n}\r\n\r\n/* Cart Items */\n.cart-items[data-v-4f490dce]{\r\n    padding: 10px 20px 25px 20px;\n}\n.cart-item[data-v-4f490dce] {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 15px 2px;  \r\n    border-bottom: 2px solid #e5e5e5;\n}\n.item-details[data-v-4f490dce] {\r\n    /* flex: 1; */\r\n    padding-right: 20px;\n}\n.item-description[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #838383;\n}\n.item-date-time[data-v-4f490dce] {\r\n    color: #777;\n}\n.item-price[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #76c6ff; \r\n    padding: 5px 10px;\r\n    border: 2px solid #76c6ff;\r\n    border-radius: 10px;\n}\n.more-infos[data-v-4f490dce]{\r\n    display: flex;\r\n    margin-top:10px;\r\n  justify-content: space-between;\r\n    padding:20px 0px 0px 0px;\n}\r\n\r\n\r\n/* Cart Total */\n.cart-total[data-v-4f490dce] {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    justify-content: space-between;\r\n    align-items: center;\n}\n.subtotal[data-v-4f490dce],\r\n.discount[data-v-4f490dce],\r\n.total[data-v-4f490dce] {\r\n    flex-basis: 100%; /* Full width by default */\r\n    margin-bottom: 10px;\r\n    /* border: 2px solid #dfdfdf; */\r\n    border-radius: 10px; \r\n    padding: 20px 30px;\r\n    margin: 10px 0px;\r\n    display: flex;\r\n    color:#777;\r\n    justify-content: center;\r\n    align-items: center;\r\n   flex-direction: column;\n}\n.subtotal[data-v-4f490dce] {\r\n    border: 2px solid #6fb7ff;\r\n    /* color: #76c6ff; */\n}\n.discount[data-v-4f490dce] {\r\n    border: 2px solid #ff9494;\r\n    /* color: #ff9494; */\n}\n.total[data-v-4f490dce] {\r\n    border: 2px solid #96c879;\r\n    /* color:#96c879; */\n}\n.subtotal-value[data-v-4f490dce],\r\n.discount-value[data-v-4f490dce],\r\n.total-value[data-v-4f490dce] {\r\n   font-weight: bold;\n}\n@media screen and (min-width: 576px) {\n.subtotal[data-v-4f490dce],\r\n    .discount[data-v-4f490dce],\r\n    .total[data-v-4f490dce] {\r\n        flex-basis: calc(50% - 10px); /* Divide into 2 equal columns with spacing */\r\n        margin-bottom: 0;\n}\n}\n@media screen and (max-width: 650px) {\n.more-infos[data-v-4f490dce] {\r\n        flex-direction: column;\r\n        margin-top:0px;\n}\n.cart-total[data-v-4f490dce] {\r\n        text-align: left;\r\n        margin-top: 20px;\n}\n.cart-item[data-v-4f490dce] {\r\n        flex-direction: column;\n}\n.item-details[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n.item-date-time[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n}\n@media screen and (min-width: 768px) {\n.subtotal[data-v-4f490dce],\r\n    .discount[data-v-4f490dce],\r\n    .total[data-v-4f490dce] {\r\n        flex-basis: calc(33.33% - 10px); /* Divide into 3 equal columns with spacing */\r\n        margin-bottom: 0;\n}\n.h1[data-v-4f490dce] {\r\n        font-size: 16px;\n}\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20232,7 +20317,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nbody {\r\n  font-family: Arial, sans-serif;\r\n  margin: 0;\r\n  padding: 0;\r\n  background-color: #f5f5f5;\n}\n.meeting-panel {\r\n  max-width: 1000px;\r\n  margin: 50px auto;\r\n  padding: 20px;\r\n  background: #f2f5f7;\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\nh1 {\r\n  text-align: center;\r\n  margin-bottom: 20px;\r\n  color: #333;\n}\n.time-section {\r\n  margin-bottom: 30px;\n}\nh2 {\r\n  text-align: center;\r\n  font-size: 1.2rem;\r\n  margin-bottom: 10px;\r\n  color: #808080;\n}\n.time-slots {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\n}\n.time-slot {\r\n    width: 150px;\r\n    height: 50px;\r\n    line-height: 50px;\r\n    text-align: center;\r\n    border-radius: 7px;\r\n    margin: 5px;\r\n    transition: background-color 0.3s ease;\r\n    box-shadow: 1px 1px 2px 0px #ddd;\r\n    background: linear-gradient(180deg, #ffffff, #f9f9f9);\r\n    color: #444;\n}\n.time-slot:hover {\r\n  background-color: #f2f2f2;\n}\n.calendar {\r\n  margin: 10px auto 0px auto;\r\n  padding: 0px 25px;\n}\n.calendar-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.nav-btn {\r\n  color: #949494;\r\n  background-color: transparent;\r\n  font-size: 2rem;\r\n  font-weight: 900;\r\n  padding: 10px 20px;\r\n  cursor: pointer;\n}\n.nav-btn:hover {\r\n    color: #5cde8e;\n}\n.date {\r\n  font-size: 1.5rem;\r\n  color: #333;\n}\n.radio-label {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  cursor: pointer;\r\n  font-size: 14px;\r\n  color: #7b7b7b;\r\n  margin: 0px 5px;\n}\n.radio-label input[type=\"radio\"] {\r\n  display: none;\n}\n.selectedOption {\r\n  color: #007BFF;\r\n  padding: 5px 10px;\r\n  border: 2px dashed #007BFF;\r\n  border-radius: 10px;\n}\n.selected {\r\n    border: 2px dashed #5d4190;\r\n    border-radius: 10px;\r\n    color: #5d4190;\n}\n.Unselectable{\r\n    border: 2px dashed #823434;\r\n    background: linear-gradient(180deg, #ff65658a, #ff7e7e91);\r\n    cursor: not-allowed;\r\n    text-decoration-line: line-through; \r\n    text-decoration-color: rgb(91, 91, 91);\n}\n.selectable{\r\n   cursor: pointer;\n}\n.calendar-week {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: 20px;\r\n    justify-content: center;\r\n    margin: 20px auto;\r\n    max-width: 800px;\n}\n.day {\r\n    flex: 1;\r\n    min-width: 200px;\r\n    background-color: #e2edff;\r\n    border: 1px solid #e0e0e0;\r\n    border-radius: 8px;\r\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n}\n.weekday {\r\n    text-align: center;\r\n    font-size: 1.2rem;\r\n    font-weight: bold;\r\n    padding: 10px 0px 5px 0px;\r\n    background-color: #f1f1f1;\r\n    border-top-left-radius: 8px;\r\n    border-top-right-radius: 8px;\n}\n.fullweekday {\r\n    text-align: center;\r\n    font-size: .7rem;\r\n    padding: 0px 0px 5px 0px;\r\n    background-color: #f1f1f1;\n}\n.hours {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: 10px;\r\n    justify-content: center;\r\n    padding: 10px;\n}\n.hour-btn {\r\n    background-color: #ffffff;\r\n    /* border: 1px solid #d1d1d1; */\r\n    border-radius: 5px;\r\n    padding: 8px 12px;\r\n    font-size: 0.9rem;\r\n    /* cursor: pointer; */\r\n    transition: background-color 0.3s ease;\n}\n.hour-btn:hover {\r\n    background-color: #f3f3f3;\n}\r\n/* Styling for the Add to Cart button */\n.add-to-cart-button {\r\n    display: flex;\r\n    justify-content: center;\r\n    margin-top: 20px;\n}\n.add-to-cart-btn {\r\n    display: inline-block;\r\n    padding: 10px 20px;\r\n    font-size: 16px;\r\n    font-weight: 600;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    border: none;\r\n    border-radius: 4px;\r\n    cursor: pointer;\r\n    transition: background-color 0.3s ease, color 0.3s ease;\r\n    background-color: #ffffff;\r\n    color: #ffa206;\r\n    border: 2px solid #f0c36f;\n}\n.add-to-cart-btn:hover {\r\n    background-color: #ffa206;\r\n    color: #ffffff;\r\n    border: 2px solid #ffa206;\n}\r\n\r\n/* Responsive styles */\n@media screen and (max-width: 768px) {\n.calendar-week {\r\n        flex-direction: column;\r\n        align-items: center;\n}\n.add-to-cart-btn {\r\n        padding: 8px 16px;\r\n        font-size: 14px;\n}\n}\n@media screen and (max-width: 600px) {\n.day {\r\n      max-width: 100%;\n}\n}\r\n\r\n\r\n/* Responsive Styles */\n@media screen and (max-width: 768px) {\n.meeting-panel {\r\n    padding: 10px;\n}\r\n\r\n  /* .time-slots {\r\n    justify-content: flex-start;\r\n  } */\n.time-slot {\r\n    /* width: 80px; */\r\n    height: 40px;\r\n    line-height: 40px;\n}\n}\r\n\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nbody {\r\n  font-family: Arial, sans-serif;\r\n  margin: 0;\r\n  padding: 0;\r\n  background-color: #f5f5f5;\n}\n.meeting-panel {\r\n  max-width: 1000px;\r\n  margin: 50px auto;\r\n  padding: 20px;\r\n  background: #f2f5f7;\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\nh1 {\r\n  text-align: center;\r\n  margin-bottom: 20px;\r\n  color: #333;\n}\n.time-section {\r\n  margin-bottom: 30px;\n}\nh2 {\r\n  text-align: center;\r\n  font-size: 1.2rem;\r\n  margin-bottom: 10px;\r\n  color: #808080;\n}\n.time-slots {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\n}\n.time-slot {\r\n    width: 150px;\r\n    height: 50px;\r\n    line-height: 50px;\r\n    text-align: center;\r\n    border-radius: 7px;\r\n    margin: 5px;\r\n    transition: background-color 0.3s ease;\r\n    box-shadow: 1px 1px 2px 0px #ddd;\r\n    background: linear-gradient(180deg, #ffffff, #f9f9f9);\r\n    color: #444;\r\n    cursor: pointer;\n}\n.time-slot:hover {\r\n  background-color: #f2f2f2;\n}\n.calendar {\r\n  margin: 10px auto 0px auto;\r\n  padding: 0px 25px;\n}\n.calendar-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.nav-btn {\r\n  color: #949494;\r\n  background-color: transparent;\r\n  font-size: 2rem;\r\n  font-weight: 900;\r\n  padding: 10px 20px;\r\n  cursor: pointer;\n}\n.nav-btn:hover {\r\n    color: #5cde8e;\n}\n.date {\r\n  font-size: 1.5rem;\r\n  color: #333;\n}\n.radio-label {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  cursor: pointer;\r\n  font-size: 14px;\r\n  color: #7b7b7b;\r\n  margin: 0px 5px;\n}\n.radio-label input[type=\"radio\"] {\r\n  display: none;\n}\n.selectedOption {\r\n  color: #007BFF;\r\n  padding: 5px 10px;\r\n  border: 2px dashed #007BFF;\r\n  border-radius: 10px;\n}\n.selected {\r\n    border: 2px dashed #5d4190;\r\n    border-radius: 10px;\r\n    color: #5d4190;\n}\n.Unselectable{\r\n    border: 2px dashed #823434;\r\n    background: linear-gradient(180deg, #ff65658a, #ff7e7e91);\r\n    /* cursor: not-allowed; */\r\n    text-decoration-line: line-through; \r\n    text-decoration-color: rgb(91, 91, 91);\n}\n.calendar-week {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: 20px;\r\n    justify-content: center;\r\n    margin: 20px auto;\r\n    max-width: 800px;\n}\n.day {\r\n    flex: 1;\r\n    min-width: 200px;\r\n    background-color: #e2edff;\r\n    border: 1px solid #e0e0e0;\r\n    border-radius: 8px;\r\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n}\n.weekday {\r\n    text-align: center;\r\n    font-size: 1.2rem;\r\n    font-weight: bold;\r\n    padding: 10px 0px 5px 0px;\r\n    background-color: #f1f1f1;\r\n    border-top-left-radius: 8px;\r\n    border-top-right-radius: 8px;\n}\n.fullweekday {\r\n    text-align: center;\r\n    font-size: .7rem;\r\n    padding: 0px 0px 5px 0px;\r\n    background-color: #f1f1f1;\n}\n.hours {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: 10px;\r\n    justify-content: center;\r\n    padding: 10px;\n}\n.hour-btn {\r\n    background-color: #ffffff;\r\n    /* border: 1px solid #d1d1d1; */\r\n    border-radius: 5px;\r\n    padding: 8px 12px;\r\n    font-size: 0.9rem;\r\n    cursor: pointer;\r\n    transition: background-color 0.3s ease;\n}\n.hour-btn:hover {\r\n    background-color: #f3f3f3;\n}\r\n/* Styling for the Add to Cart button */\n.add-to-cart-button {\r\n    display: flex;\r\n    justify-content: center;\r\n    margin-top: 20px;\n}\n.add-to-cart-btn {\r\n    display: inline-block;\r\n    padding: 10px 20px;\r\n    font-size: 16px;\r\n    font-weight: 600;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    border: none;\r\n    border-radius: 7px;\r\n    cursor: pointer;\r\n    transition: background-color 0.3s ease, color 0.3s ease;\r\n    background-color: #ffffff;\r\n    color: #ffa206;\r\n    border: 2px solid #f0c36f;\n}\n.add-to-cart-btn:hover {\r\n    background-color: #ffa206;\r\n    color: #ffffff;\r\n    border: 2px solid #ffa206;\n}\r\n\r\n/* Responsive styles */\n@media screen and (max-width: 768px) {\n.calendar-week {\r\n        flex-direction: column;\r\n        align-items: center;\n}\n.add-to-cart-btn {\r\n        padding: 8px 16px;\r\n        font-size: 14px;\n}\n}\n@media screen and (max-width: 600px) {\n.day {\r\n      max-width: 100%;\n}\n}\r\n\r\n\r\n/* Responsive Styles */\n@media screen and (max-width: 768px) {\n.meeting-panel {\r\n    padding: 10px;\n}\r\n\r\n  /* .time-slots {\r\n    justify-content: flex-start;\r\n  } */\n.time-slot {\r\n    /* width: 80px; */\r\n    height: 40px;\r\n    line-height: 40px;\n}\n}\r\n\r\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -37734,10 +37819,10 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -37747,7 +37832,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CartComponent_vue_vue_type_style_index_0_id_e7ab8a3c_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppointmentDetails_vue_vue_type_style_index_0_id_4f490dce_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css");
 
             
 
@@ -37756,11 +37841,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CartComponent_vue_vue_type_style_index_0_id_e7ab8a3c_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppointmentDetails_vue_vue_type_style_index_0_id_4f490dce_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CartComponent_vue_vue_type_style_index_0_id_e7ab8a3c_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppointmentDetails_vue_vue_type_style_index_0_id_4f490dce_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -42306,10 +42391,10 @@ exports["default"] = (sfc, props) => {
 
 /***/ }),
 
-/***/ "./resources/js/components/CartComponent.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/components/CartComponent.vue ***!
-  \***************************************************/
+/***/ "./resources/js/components/AppointmentDetails.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/AppointmentDetails.vue ***!
+  \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -42317,9 +42402,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _CartComponent_vue_vue_type_template_id_e7ab8a3c_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CartComponent.vue?vue&type=template&id=e7ab8a3c&scoped=true */ "./resources/js/components/CartComponent.vue?vue&type=template&id=e7ab8a3c&scoped=true");
-/* harmony import */ var _CartComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CartComponent.vue?vue&type=script&lang=js */ "./resources/js/components/CartComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var _CartComponent_vue_vue_type_style_index_0_id_e7ab8a3c_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css */ "./resources/js/components/CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css");
+/* harmony import */ var _AppointmentDetails_vue_vue_type_template_id_4f490dce_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true */ "./resources/js/components/AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true");
+/* harmony import */ var _AppointmentDetails_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppointmentDetails.vue?vue&type=script&lang=js */ "./resources/js/components/AppointmentDetails.vue?vue&type=script&lang=js");
+/* harmony import */ var _AppointmentDetails_vue_vue_type_style_index_0_id_4f490dce_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css */ "./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css");
 /* harmony import */ var C_xampp_htdocs_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
@@ -42328,7 +42413,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_CartComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CartComponent_vue_vue_type_template_id_e7ab8a3c_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-e7ab8a3c"],['__file',"resources/js/components/CartComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AppointmentDetails_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AppointmentDetails_vue_vue_type_template_id_4f490dce_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-4f490dce"],['__file',"resources/js/components/AppointmentDetails.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -42368,18 +42453,18 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./resources/js/components/CartComponent.vue?vue&type=script&lang=js":
-/*!***************************************************************************!*\
-  !*** ./resources/js/components/CartComponent.vue?vue&type=script&lang=js ***!
-  \***************************************************************************/
+/***/ "./resources/js/components/AppointmentDetails.vue?vue&type=script&lang=js":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/AppointmentDetails.vue?vue&type=script&lang=js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CartComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppointmentDetails_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CartComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CartComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppointmentDetails_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AppointmentDetails.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -42400,18 +42485,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/CartComponent.vue?vue&type=template&id=e7ab8a3c&scoped=true":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/components/CartComponent.vue?vue&type=template&id=e7ab8a3c&scoped=true ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/components/AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true ***!
+  \**************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CartComponent_vue_vue_type_template_id_e7ab8a3c_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppointmentDetails_vue_vue_type_template_id_4f490dce_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CartComponent_vue_vue_type_template_id_e7ab8a3c_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CartComponent.vue?vue&type=template&id=e7ab8a3c&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=template&id=e7ab8a3c&scoped=true");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppointmentDetails_vue_vue_type_template_id_4f490dce_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true");
 
 
 /***/ }),
@@ -42432,15 +42517,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/js/components/CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css ***!
-  \***********************************************************************************************************/
+/***/ "./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CartComponent_vue_vue_type_style_index_0_id_e7ab8a3c_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CartComponent.vue?vue&type=style&index=0&id=e7ab8a3c&scoped=true&lang=css");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppointmentDetails_vue_vue_type_style_index_0_id_4f490dce_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css");
 
 
 /***/ }),

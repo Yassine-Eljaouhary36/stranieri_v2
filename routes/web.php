@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\DayController;
+use App\Http\Controllers\MeetingController;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
 
@@ -15,10 +15,10 @@ use TCG\Voyager\Facades\Voyager;
 |
 */
 
-Route::get('/', [DayController::class, 'index']);
-Route::get('/cart', function(){
-    return view('cart');
-});
+Route::get('/', [MeetingController::class, 'index'])->name('index');
+Route::get('/appointment-details', [MeetingController::class, 'showDetails'])->middleware('meeting_requirements')->name('show-Details');
+Route::post('/appointment-details', [MeetingController::class, 'payMeeting'])->name('pay-meeting');
+
 
 
 Route::group(['prefix' => 'admin'], function () {

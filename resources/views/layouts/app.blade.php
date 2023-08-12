@@ -19,6 +19,8 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+        <link rel="stylesheet" href="{{ asset('css/custom-style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <script src="https://kit.fontawesome.com/ab2018bbfb.js" crossorigin="anonymous"></script>
     </head>
     <body class="antialiased">
@@ -26,6 +28,13 @@
             {{-- @include('layouts.navbar') --}}
             @yield('content')
         </div>
+
+        <x-partials.alert />
+
         <script src="{{ mix('js/app.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+        @stack('scripts')
+        
     </body>
 </html>

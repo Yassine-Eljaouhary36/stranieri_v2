@@ -20,19 +20,18 @@
                 </button>
             </div>
         </div>
-        <div v-if="selectedOption === 'day'" style="display: flex; flex-direction: column;justify-content: center;align-items: center;">
+        <div v-if="selectedOption === 'day'" style="display: flex; flex-direction: column;justify-content: center;align-items: center;" class="mb-3">
             <h1 style="margin: 0px;">{{ formatDateToWeekDay(currentDate) }}</h1>
             <h5 style="margin: 0px;">{{  formatDateToDay(currentDate) }}</h5>
         </div>
         <div v-if="filteredDay.active && selectedOption === 'day'">
             <div class="time-section" >
-                <h2>Morning period ({{getFirstTimeSlot(filteredDay.hours.filter(h => h.period === 'morning'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => h.period === 'morning'))}})</h2>
+                <h2>Morning period ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}})</h2>
                 <div class="time-slots">
-                    <div v-for="hour in filteredDay.hours.filter(h => h.period === 'morning')" :key="hour.hour"
+                    <div v-for="hour in filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM')" :key="hour.hour"
                         :class="{ 'time-slot': true,
                             'selected': selectedTime === formatToISOString(hour.hour) ,
-                            'Unselectable':isUnselectable(formatToISOString(hour.hour)),
-                            'selectable':!isUnselectable(formatToISOString(hour.hour))
+                            'Unselectable':isUnselectable(formatToISOString(hour.hour))
                          }"
                         @click="selectTime(formatToISOString(hour.hour),!isUnselectable(formatToISOString(hour.hour)))"
                     >
@@ -41,14 +40,13 @@
                 </div>
             </div>
             <div class="time-section">
-                <h2>Evening period ({{getFirstTimeSlot(filteredDay.hours.filter(h => h.period === 'evening'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => h.period === 'evening'))}})</h2>
+                <h2>Evening period ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}})</h2>
                 <div class="time-slots">
                     <div class="time-slots">
-                    <div v-for="hour in filteredDay.hours.filter(h => h.period === 'evening')" :key="hour.hour"
+                    <div v-for="hour in filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM')" :key="hour.hour"
                         :class="{ 'time-slot': true,
                             'selected': selectedTime === formatToISOString(hour.hour) ,
                             'Unselectable':isUnselectable(formatToISOString(hour.hour)),
-                            'selectable':!isUnselectable(formatToISOString(hour.hour))
                          }"
                         @click="selectTime(formatToISOString(hour.hour),!isUnselectable(formatToISOString(hour.hour)))"
                     >
@@ -60,19 +58,20 @@
         </div>
         <div v-if="!filteredDay.active && selectedOption === 'day'">
             <div class="time-section" >
-                <h2>Morning period ({{getFirstTimeSlot(filteredDay.hours.filter(h => h.period === 'morning'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => h.period === 'morning'))}})</h2>
+                <h2>Morning period ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}})</h2>
                 <div class="time-slots">
-                    <div v-for="hour in filteredDay.hours.filter(h => h.period === 'morning')" :key="hour.hour"
+                    <div v-for="hour in filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM')" :key="hour.hour"
                         class="time-slot Unselectable"
+                        @click="inactiveDay"
                     >
                     {{ hour.hour }}
                     </div>
                 </div>
             </div>
             <div class="time-section">
-                <h2>Evening period ({{getFirstTimeSlot(filteredDay.hours.filter(h => h.period === 'evening'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => h.period === 'evening'))}})</h2>
+                <h2>Evening period ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}})</h2>
                 <div class="time-slots">
-                    <div v-for="hour in filteredDay.hours.filter(h => h.period === 'evening')" :key="hour.hour"
+                    <div v-for="hour in filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM')" :key="hour.hour"
                         class="time-slot Unselectable"
                     >
                     {{ hour.hour }}
@@ -91,7 +90,7 @@
                             v-for="hour in day.filtredDay.hours"
                             :key="hour.hour"
                             class="hour-btn Unselectable"
-                            style="cursor: not-allowed; border: 2px dashed #823434; "
+                            @click="inactiveDay"
 
                         >
                             {{ hour.hour }}
@@ -105,7 +104,6 @@
                             :class="{ 'hour-btn': true,
                              'selected': selectedTime === formatToISOStringParamter(hour.hour,day.dayweek),
                              'Unselectable':isUnselectable(formatToISOStringParamter(hour.hour,day.dayweek)),
-                             'selectable':!isUnselectable(formatToISOStringParamter(hour.hour,day.dayweek))
                              }"
                         >
                             {{ hour.hour }}
@@ -115,7 +113,7 @@
             </div>
         </div>
         <div class="add-to-cart-button">
-            <button class="add-to-cart-btn" @click="addToCart">Add to Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+            <button class="add-to-cart-btn" @click="addToCart">Make an appointement <i class="ml-1 fa-solid fa-calendar-check"></i></button>
         </div>
     </div>
   </template>
@@ -138,7 +136,6 @@
                 currentDate: new Date(),
                 selectedOption: 'day',
                 selectedTime: null,
-                DateToDisplay:null,
                 cart: [],
             };
         },
@@ -146,6 +143,8 @@
             selectTime(timeSlot,status) {
                 if (status) {
                     this.selectedTime = timeSlot;
+                }else{
+                    this.inactiveDay()
                 }
                 
             },
@@ -203,7 +202,10 @@
                 }
                 
             },
-
+            getAMorPM(time) {
+                const hours = Number(time.split(':')[0]);
+                return (hours >= 0 && hours <= 11) ? 'AM' : (hours >= 12 && hours <= 23) ? 'PM' : 'Invalid time';
+            },
             getFirstTimeSlot(timeSlots) {
                 if (timeSlots.length > 0) {
                     return timeSlots[0].hour;
@@ -236,33 +238,20 @@
                     }
                     this.cart.push(this.selectedTime);
                     this.saveCartToCookie();
-                    this.selectedTime=null
-                    Swal.fire('Meeting Added', 'Product has been added to your cart.', 'success');
+                    this.selectedTime=null;
+                    this.cart = [];
+                    window.location.href ='/appointment-details'
                 }
             },
-            removeFromCart(index) {
-                const item = this.cart[index];
-                if (item.quantity > 1) {
-                    item.quantity--;
-                } else {
-                    this.cart.splice(index, 1);
-                }
-                this.saveCartToCookie();
+            inactiveDay(){
+                Swal.fire('reserved Meeting', 'sorry this meeting already reserved .', 'warning');
+                    this.selectedTime=null
+                    return;
             },
             saveCartToCookie() {
                 const expirationDate = new Date();
-                expirationDate.setTime(expirationDate.getTime() + 5 * 60 * 1000); // Expires in 1 day
+                expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000); // Expires in 1 day
                 document.cookie = `cart=${JSON.stringify(this.cart)};expires=${expirationDate.toUTCString()}`;
-            },
-            getCookie(name) {
-                const cookies = document.cookie.split('; ');
-                for (const cookie of cookies) {
-                    const [cookieName, cookieValue] = cookie.split('=');
-                    if (cookieName === name) {
-                    return decodeURIComponent(cookieValue);
-                    }
-                }
-                return null;
             },
 
         },
@@ -288,12 +277,7 @@
                 return weekdays
             },
         },
-        created() {
-            const cartData = this.getCookie('cart');
-            if (cartData) {
-                this.cart = JSON.parse(cartData);
-            }
-        },
+
   };
   </script>
   
@@ -349,6 +333,7 @@ h2 {
     box-shadow: 1px 1px 2px 0px #ddd;
     background: linear-gradient(180deg, #ffffff, #f9f9f9);
     color: #444;
+    cursor: pointer;
 }
 
 .time-slot:hover {
@@ -412,35 +397,31 @@ h2 {
 .Unselectable{
     border: 2px dashed #823434;
     background: linear-gradient(180deg, #ff65658a, #ff7e7e91);
-    cursor: not-allowed;
+    /* cursor: not-allowed; */
     -webkit-text-decoration-line: line-through;
     text-decoration-line: line-through; 
     text-decoration-color: rgb(91, 91, 91);
 }
-.selectable{
-   cursor: pointer;
-}
 
-
-  .calendar-week {
+.calendar-week {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     margin: 20px auto;
     max-width: 800px;
-  }
+}
 
-  .day {
+.day {
     flex: 1;
     min-width: 200px;
     background-color: #e2edff;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+}
 
-  .weekday {
+.weekday {
     text-align: center;
     font-size: 1.2rem;
     font-weight: bold;
@@ -448,31 +429,31 @@ h2 {
     background-color: #f1f1f1;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-  }
-  .fullweekday {
+}
+.fullweekday {
     text-align: center;
     font-size: .7rem;
     padding: 0px 0px 5px 0px;
     background-color: #f1f1f1;
-  }
+}
 
-  .hours {
+.hours {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
     padding: 10px;
-  }
+}
 
-  .hour-btn {
+.hour-btn {
     background-color: #ffffff;
     /* border: 1px solid #d1d1d1; */
     border-radius: 5px;
     padding: 8px 12px;
     font-size: 0.9rem;
-    /* cursor: pointer; */
+    cursor: pointer;
     transition: background-color 0.3s ease;
-  }
+}
 
   .hour-btn:hover {
     background-color: #f3f3f3;
@@ -492,7 +473,7 @@ h2 {
     text-align: center;
     text-decoration: none;
     border: none;
-    border-radius: 4px;
+    border-radius: 7px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     background-color: #ffffff;
