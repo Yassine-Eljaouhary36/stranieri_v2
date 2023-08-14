@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\LangsController;
 use App\Http\Controllers\MeetingController;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
@@ -21,9 +22,10 @@ use TCG\Voyager\Facades\Voyager;
 
 Route::prefix('customer')->group(function () {
 
+    Route::get('/meetings-panel', [MeetingController::class, 'index'])->name('index');
+    Route::get('/appointment-details', [MeetingController::class, 'showDetails'])->middleware('meeting_requirements')->name('show-Details');
+
     Route::middleware(['client.auth','is_verify_email'])->group(function () {
-        Route::get('/meetings-panel', [MeetingController::class, 'index'])->name('index');
-        Route::get('/appointment-details', [MeetingController::class, 'showDetails'])->middleware('meeting_requirements')->name('show-Details');
         Route::post('/appointment-details', [MeetingController::class, 'payMeeting'])->name('pay-meeting');
     });
 
@@ -42,16 +44,17 @@ Route::prefix('customer')->group(function () {
     Route::post('/password/reset', [LoginController::class, 'resePassword'])->name('resePassword');
 
 });
+Route::post('/lang' ,[LangsController::class, 'langs_handler'])->name('langs'); 
 
 Route::get('/email/verify/{token}', [RegisterController::class, 'verifyClient'])->name('client.verify'); 
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
-})->middleware('client.auth')->name('verification.notice');
+})->middleware('client_has_session')->name('verification.notice');
 
 
 Route::post('/email/verification-notification',[RegisterController::class, 'verificationSend'])
-    ->middleware(['client.auth', 'throttle:6,1'])->name('verification.send');
+    ->middleware(['client_has_session', 'throttle:6,1'])->name('verification.send');
 
 
 Route::group(['prefix' => 'admin'], function () {

@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\LanguagesConverter::class,
         ],
 
         'api' => [
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'client.guest' => \App\Http\Middleware\RedirectClientIfAuthenticated::class,
         'client.auth' => \App\Http\Middleware\AuthenticateClient::class,
         'is_verify_email' => \App\Http\Middleware\IsVerifyEmail::class,
+        'client_has_session' => \App\Http\Middleware\ClientHasSession::class,
     ];
 }

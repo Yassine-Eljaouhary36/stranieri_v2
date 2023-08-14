@@ -39,8 +39,8 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'status' => 'active',
         ]);
-        
-        Auth::guard('client')->login($client);
+        $expirationTime = now()->addMinutes(15);
+        $request->session()->put('client_id', $client->id , $expirationTime);
         $token = Str::random(64);
         ClientVerify::create([
             'client_id' => $client->id, 
@@ -69,9 +69,13 @@ class RegisterController extends Controller
     public function verifyClient($token){
         $verifyClient = ClientVerify::where('token', $token)->first();
   
-        $message = 'Sorry your email cannot be identified.';
-  
-        if(!is_null($verifyClient) ){
+        $message = "The link you are trying to access has expired. Please request a new link.";
+        $type='worning';
+        $title='Sorry expired link';
+        $updatedTime = Carbon::parse($verifyClient->updated_at);
+        $currentTime = Carbon::now();
+
+        if(!is_null($verifyClient) && $currentTime->diffInMinutes($updatedTime) < 10 ){
             $client = $verifyClient->client;
               
             if(!$client->is_email_verified) {
@@ -79,19 +83,26 @@ class RegisterController extends Controller
                 $verifyClient->client->is_email_verified = 1;
                 $verifyClient->client->save();
                 $message = "Your e-mail is verified. You can now login.";
+                $type='success';
+                $title='e-mail verification';
                 $verifyClient->delete();
             } else {
                 $message = "Your e-mail is already verified. You can now login.";
+                $type='Info';
+                $title='e-mail verification';
             }
         }
   
-      return redirect()->route('showLoginForm')->with('custom_alert', ['type' => 'success', 'title' => 'e-mail verification', 'message' => $message]);
+      return redirect()->route('showLoginForm')->with('custom_alert', ['type' => $type, 'title' => $title, 'message' => $message]);
     }
 
     public function verificationSend()  {
-        $client=Auth::guard('client')->user();
+        $client_id = session('client_id');
+        $client = Client::findOrFail($client_id);
         $clientVerify = ClientVerify::where('client_id', $client->id)->first();
-        $token = $clientVerify->token;
+        $token = Str::random(64);
+        $clientVerify->token = $token ;
+        $clientVerify->save();
         try {
             Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($client) {
                 $message->from('contact@elitechit.com', env('MAIL_FROM_NAME'));

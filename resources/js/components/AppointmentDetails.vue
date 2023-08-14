@@ -1,45 +1,35 @@
 <template>
 
-        <div class="cart-header">
-            <h1>My meeting appointment details</h1>
+    <div class="cart-items">
+        <!-- Sample Cart Item -->
+        <div 
+            :class="{'cart-item':true ,'rlt':local=='ar' }"  
+            v-for="item in cart" :key="item">
+
+            <div class="item-details" >
+                <div class="item-description"> {{transilation()}} </div>
+            </div>
+            <div class="item-date-time">
+                <div class="item-date">
+                    <div v-if="local!='ar'" class="item-day">{{formatDateToGetDay(item)}}</div>
+                    <div>{{formatDateToCustomFormat(item)}}</div>
+                    <div v-if="local=='ar'" class="item-day">{{formatDateToGetDay(item)}}</div>
+                </div>
+            </div>
+            <div class="item-date-time">
+                <div class="item-time">{{ formatTimeToCustomFormat(item) }}</div>
+            </div>
+            <div class="item-price">{{ formatPrice(price) }}</div>
         </div>
-        <div class="cart-items">
-            <!-- Sample Cart Item -->
-            <div class="cart-item"  v-for="item in cart" :key="item">
-                <div class="item-details" >
-                    <div class="item-description"> Book a meeting </div>
-                </div>
-                <div class="item-date-time">
-                    <div class="item-date">{{formatDateToCustomFormat(item)}}</div>
-                </div>
-                <div class="item-date-time">
-                    <div class="item-time">{{ formatTimeToCustomFormat(item) }}</div>
-                </div>
-                <div class="item-price">{{ formatPrice(price) }}</div>
-            </div>
-        </div>
-        <div class="cart-total">
-            <div class="subtotal">
-              <div class="subtotal-title">Subtotal</div>
-              <div class="subtotal-value"> {{formatPrice(subtotal)}}</div>
-            </div>
-            <div class="discount">
-              <div class="discount-title">Discount</div>
-              <div class="discount-value"> -{{ formatPrice(discounted) }}</div>
-            </div>
-            <div class="total">
-              <div class="total-title">Total</div>
-              <div class="total-value"> {{formatPrice(total)}}</div>
-            </div>
-       </div>
+    </div>
   
 </template>
   
 <script>
  export default {  
     props: {
-        discount:Number,
         price:Number,
+        local:String,
     },
     data() {
         return {
@@ -57,15 +47,25 @@
             }
             return null;
         },
-        clearCartToCookie() {
-            const expirationDate = new Date();
-            expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000); // Expires in 10 min
-            document.cookie = `cart=${JSON.stringify([])};expires=${expirationDate.toUTCString()}`;
-        },
         formatDateToCustomFormat(isoString) {
             const date = new Date(isoString);
-            const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            return date.toLocaleDateString('en-US', options);
+            const options = {  month: 'long' };
+            switch (this.local) {
+                    case 'al':
+                        var months = ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"];
+                        return months[date.getMonth()]+ " " + date.getFullYear();
+                    case 'ar':
+                        return date.toLocaleDateString('ar-EG', { month: 'long'})+ " " + date.getFullYear();
+                    case 'it':
+                        return date.toLocaleDateString('it-IT', options)+ " " + date.getFullYear();
+                    default:
+                        return date.toLocaleDateString('en-US', options)+ " " + date.getFullYear();
+                }
+        },
+        formatDateToGetDay(isoString) {
+            const date = new Date(isoString);
+            
+            return date.getDate();
         },
         formatTimeToCustomFormat(isoString) {
             const date = new Date(isoString);
@@ -74,6 +74,18 @@
         },
         formatPrice(price){
             return '$'+price.toFixed(2)
+        },
+        transilation(){
+            switch (this.local) {
+                case 'al':
+                    return 'Rezervoni një takim'
+                case 'ar':
+                    return 'حجز اجتماع'  
+                case 'it':
+                    return 'Prenota un incontro'
+                default:
+                    return 'Book a meeting '  
+                }
         }
         
     },       
@@ -81,7 +93,6 @@
         const cartData = this.getCookie('cart');
         if (cartData) {
             this.cart = JSON.parse(cartData);
-            this.clearCartToCookie()
         }
     },
     computed:{
@@ -109,15 +120,6 @@
     box-sizing: border-box;
 }
 
-h1{
-    color: #91bee1;
-    font-size: 25px;
-}
-.cart-header {
-    text-align: center;
-    margin: 8px 0px;
-    
-}
 
 /* Cart Items */
 .cart-items{
@@ -130,6 +132,11 @@ h1{
     padding: 15px 2px;  
     border-bottom: 2px solid #e5e5e5;
 }
+
+.rlt{
+    flex-direction: row-reverse; 
+}
+
 
 .item-details {
     /* flex: 1; */
@@ -144,7 +151,12 @@ h1{
 .item-date-time {
     color: #777;
 }
-
+.item-date {
+    display: flex;
+}
+.item-day{
+    padding: 0px 5px;
+}
 .item-price {
     font-weight: bold;
     color: #76c6ff; 
@@ -153,76 +165,12 @@ h1{
     border-radius: 10px;
 }
 
-.more-infos{
-    display: flex;
-    margin-top:10px;
-  justify-content: space-between;
-    padding:20px 0px 0px 0px;
-}
-
-
-/* Cart Total */
-.cart-total {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-
-}
-.subtotal,
-.discount,
-.total {
-    flex-basis: 100%; /* Full width by default */
-    margin-bottom: 10px;
-    /* border: 2px solid #dfdfdf; */
-    border-radius: 10px; 
-    padding: 20px 30px;
-    margin: 10px 0px;
-    display: flex;
-    color:#777;
-    justify-content: center;
-    align-items: center;
-   flex-direction: column;
-}
-
-.subtotal {
-    border: 2px solid #6fb7ff;
-    /* color: #76c6ff; */
-}
-.discount {
-    border: 2px solid #ff9494;
-    /* color: #ff9494; */
-}
-.total {
-    border: 2px solid #96c879;
-    /* color:#96c879; */
-}
-.subtotal-value,
-.discount-value,
-.total-value {
-   font-weight: bold;
-}
 
 
 
-@media screen and (min-width: 576px) {
-    .subtotal,
-    .discount,
-    .total {
-        flex-basis: calc(50% - 10px); /* Divide into 2 equal columns with spacing */
-        margin-bottom: 0;
-    }
-}
 
 @media screen and (max-width: 650px) {
-     .more-infos {
-        flex-direction: column;
-        margin-top:0px;
-    }
-     .cart-total {
-        text-align: left;
-        margin-top: 20px;
-    }
+
     .cart-item {
         flex-direction: column;
     }
@@ -234,17 +182,7 @@ h1{
     }
 
 }
-@media screen and (min-width: 768px) {
-    .subtotal,
-    .discount,
-    .total {
-        flex-basis: calc(33.33% - 10px); /* Divide into 3 equal columns with spacing */
-        margin-bottom: 0;
-    }
-    .h1 {
-        font-size: 16px;
-    }
-}
+
 
 </style>
   

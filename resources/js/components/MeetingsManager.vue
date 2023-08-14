@@ -8,11 +8,11 @@
                 <div>
                     <label :class="{ 'radio-label': true, 'selectedOption': selectedOption === 'day' }" >
                         <input type="radio" v-model="selectedOption" value="day">
-                        Day
+                        {{transilation('day')}}
                     </label>
                     <label  :class="{ 'radio-label': true, 'selectedOption': selectedOption === 'week' }" >
                         <input type="radio" v-model="selectedOption" value="week">
-                        Week
+                        {{transilation('week')}}
                     </label>
                 </div>
                 <button class="nav-btn" @click="goToNextDay">   
@@ -26,7 +26,7 @@
         </div>
         <div v-if="filteredDay.active && selectedOption === 'day'">
             <div class="time-section" >
-                <h2>Morning period ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}})</h2>
+                <h2>{{transilation('am')}} ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}})</h2>
                 <div class="time-slots">
                     <div v-for="hour in filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM')" :key="hour.hour"
                         :class="{ 'time-slot': true,
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="time-section">
-                <h2>Evening period ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}})</h2>
+                <h2>{{transilation('pm')}} ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}})</h2>
                 <div class="time-slots">
                     <div class="time-slots">
                     <div v-for="hour in filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM')" :key="hour.hour"
@@ -58,7 +58,7 @@
         </div>
         <div v-if="!filteredDay.active && selectedOption === 'day'">
             <div class="time-section" >
-                <h2>Morning period ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}})</h2>
+                <h2>{{transilation('am')}} ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM'))}})</h2>
                 <div class="time-slots">
                     <div v-for="hour in filteredDay.hours.filter(h => getAMorPM(h.hour) === 'AM')" :key="hour.hour"
                         class="time-slot Unselectable"
@@ -69,10 +69,11 @@
                 </div>
             </div>
             <div class="time-section">
-                <h2>Evening period ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}})</h2>
+                <h2>{{transilation('pm')}} ({{getFirstTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}} - {{getLastTimeSlot(filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM'))}})</h2>
                 <div class="time-slots">
                     <div v-for="hour in filteredDay.hours.filter(h => getAMorPM(h.hour) === 'PM')" :key="hour.hour"
                         class="time-slot Unselectable"
+                        @click="inactiveDay"
                     >
                     {{ hour.hour }}
                     </div>
@@ -113,7 +114,7 @@
             </div>
         </div>
         <div class="add-to-cart-button">
-            <button class="add-to-cart-btn" @click="addToCart">Make an appointement <i class="ml-1 fa-solid fa-calendar-check"></i></button>
+            <button class="add-to-cart-btn" @click="addToCart">{{transilation('btn')}} <i class="ml-1 fa-solid fa-calendar-check"></i></button>
         </div>
     </div>
   </template>
@@ -130,6 +131,11 @@
                 type: Array,
                 required: true,
             },
+            local: {
+                type: String,
+                required: true,
+            },
+
         },
         data() {
             return {
@@ -162,11 +168,32 @@
             },
             formatDateToWeekDay(date) {
                 const options = {   weekday: 'long'  };
-                return date.toLocaleDateString('en-US', options);
+                switch (this.local) {
+                    case 'al':
+                        var days = ["E Diel", "E Hënë", "E Martë", "E Mërkurë", "E Enjte", "E Premte", "E Shtunë"];
+                        return days[date.getDay()];
+                    case 'ar':
+                        return date.toLocaleDateString('ar-EG', options);
+                    case 'it':
+                        return date.toLocaleDateString('it-IT', options);
+                    default:
+                        return date.toLocaleDateString('en-US', options);
+                }
             },
             formatDateToDay(date) {
-                const options = {  month: 'long',day: 'numeric',year: 'numeric'  };
-                return date.toLocaleDateString('en-US', options);
+                const options = {  month: 'long' };
+
+                switch (this.local) {
+                    case 'al':
+                        var months = ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"];
+                        return date.getDate()+" "+months[date.getMonth()]+ " " + date.getFullYear();
+                    case 'ar':
+                        return date.toLocaleDateString('ar-EG', {  year: 'numeric', month: 'long', day: 'numeric' });
+                    case 'it':
+                        return date.getDate()+" "+date.toLocaleDateString('it-IT', options)+ " " + date.getFullYear();
+                    default:
+                        return date.getDate()+" "+date.toLocaleDateString('en-US', options)+ " " + date.getFullYear();
+                }
             },
             goToNextDay() {
                 const nextDate = new Date(this.currentDate);
@@ -253,6 +280,62 @@
                 expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000); // Expires in 1 day
                 document.cookie = `cart=${JSON.stringify(this.cart)};expires=${expirationDate.toUTCString()}`;
             },
+            transilation(parameter){
+                switch (this.local) {
+                    case 'al':
+                        switch (parameter) {
+                            case 'btn':
+                                return 'Lini një takim'
+                            case 'am' :
+                                return 'Periudha e mëngjesit'
+                            case 'pm' :
+                                return 'Koha e mbrëmjes'
+                            case 'day' :
+                                return 'ditë'
+                            case 'week' :
+                                return 'javë'
+                            }
+                    case 'ar':
+                        switch (parameter) {
+                            case 'btn':
+                                return 'إحجز موعد'
+                            case 'am' :
+                                return 'فترة الصباح'
+                            case 'pm' :
+                                return 'فترة المساء'
+                            case 'day' :
+                                return 'اليوم'
+                            case 'week' :
+                                return 'أسبوع'
+                        }
+                    case 'it':
+                        switch (parameter) {
+                            case 'btn':
+                                return 'fissare un appuntamento'
+                            case 'am' :
+                                return 'periodo mattutino'
+                            case 'pm' :
+                                return 'periodo serale'
+                            case 'day' :
+                                return 'giorno'
+                            case 'week' :
+                                return 'settimana'
+                        }
+                    default:
+                        switch (parameter) {
+                            case 'btn':
+                                return 'Make an appointement'
+                            case 'am' :
+                                return 'Morning period'
+                            case 'pm' :
+                                return 'Evening period'
+                            case 'day' :
+                                return 'day'
+                            case 'week' :
+                                return 'week'
+                        }
+                }
+            }
 
         },
         mounted() {

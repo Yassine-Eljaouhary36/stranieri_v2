@@ -95,6 +95,17 @@
 #card-holder-name::placeholder {
   color: #aab7c4;
 }
+
+.appointment-details-header {
+    text-align: center;
+    margin: 8px 0px;
+    
+}
+.appointment-details-header h1{
+    color: #91bee1;
+    font-size: 25px;
+}
+
 @media screen and (max-width: 480px) {
     .cart-container {
         padding: 10px;

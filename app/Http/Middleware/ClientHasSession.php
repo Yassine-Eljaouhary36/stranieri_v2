@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class IsVerifyEmail
+class ClientHasSession
 {
     /**
      * Handle an incoming request.
@@ -17,12 +16,9 @@ class IsVerifyEmail
      */
     public function handle(Request $request, Closure $next)
     {
-        $client=Auth::guard('client')->user();
-        if (!$client->is_email_verified) {
-            Auth::guard('client')->logout();
-            return redirect()->route('verification.notice')->
-                with('custom_alert', ['type' => 'warning', 'title' => 'You need to confirm your account.', 'message' => ' We have sent you an activation link, please check your email.']);
-          }
+        if (empty(session('client_id'))) {
+            return redirect()->route('showLoginForm')->with('custom_alert', ['type' => 'worning', 'title' => 'The life cycle is dead!', 'message' => 'sorry your session is expired.']);
+        }
         return $next($request);
     }
 }

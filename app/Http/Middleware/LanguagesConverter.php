@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class IsVerifyEmail
+class LanguagesConverter
 {
     /**
      * Handle an incoming request.
@@ -17,12 +16,12 @@ class IsVerifyEmail
      */
     public function handle(Request $request, Closure $next)
     {
-        $client=Auth::guard('client')->user();
-        if (!$client->is_email_verified) {
-            Auth::guard('client')->logout();
-            return redirect()->route('verification.notice')->
-                with('custom_alert', ['type' => 'warning', 'title' => 'You need to confirm your account.', 'message' => ' We have sent you an activation link, please check your email.']);
-          }
+        $locale = $request->cookie('locale');
+
+        if ($locale && in_array($locale, ['it', 'ar', 'en', 'al'])) {
+            app()->setLocale($locale);
+        }
+        
         return $next($request);
     }
 }

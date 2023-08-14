@@ -19589,8 +19589,8 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    discount: Number,
-    price: Number
+    price: Number,
+    local: String
   },
   data: function data() {
     return {
@@ -19620,19 +19620,28 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       return null;
     },
-    clearCartToCookie: function clearCartToCookie() {
-      var expirationDate = new Date();
-      expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000); // Expires in 10 min
-      document.cookie = "cart=".concat(JSON.stringify([]), ";expires=").concat(expirationDate.toUTCString());
-    },
     formatDateToCustomFormat: function formatDateToCustomFormat(isoString) {
       var date = new Date(isoString);
       var options = {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
+        month: 'long'
       };
-      return date.toLocaleDateString('en-US', options);
+      switch (this.local) {
+        case 'al':
+          var months = ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"];
+          return months[date.getMonth()] + " " + date.getFullYear();
+        case 'ar':
+          return date.toLocaleDateString('ar-EG', {
+            month: 'long'
+          }) + " " + date.getFullYear();
+        case 'it':
+          return date.toLocaleDateString('it-IT', options) + " " + date.getFullYear();
+        default:
+          return date.toLocaleDateString('en-US', options) + " " + date.getFullYear();
+      }
+    },
+    formatDateToGetDay: function formatDateToGetDay(isoString) {
+      var date = new Date(isoString);
+      return date.getDate();
     },
     formatTimeToCustomFormat: function formatTimeToCustomFormat(isoString) {
       var date = new Date(isoString);
@@ -19645,13 +19654,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     formatPrice: function formatPrice(price) {
       return '$' + price.toFixed(2);
+    },
+    transilation: function transilation() {
+      switch (this.local) {
+        case 'al':
+          return 'Rezervoni një takim';
+        case 'ar':
+          return 'حجز اجتماع';
+        case 'it':
+          return 'Prenota un incontro';
+        default:
+          return 'Book a meeting ';
+      }
     }
   },
   created: function created() {
     var cartData = this.getCookie('cart');
     if (cartData) {
       this.cart = JSON.parse(cartData);
-      this.clearCartToCookie();
     }
   },
   computed: {
@@ -19704,6 +19724,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     meetings: {
       type: Array,
       required: true
+    },
+    local: {
+      type: String,
+      required: true
     }
   },
   data: function data() {
@@ -19744,15 +19768,37 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       var options = {
         weekday: 'long'
       };
-      return date.toLocaleDateString('en-US', options);
+      switch (this.local) {
+        case 'al':
+          var days = ["E Diel", "E Hënë", "E Martë", "E Mërkurë", "E Enjte", "E Premte", "E Shtunë"];
+          return days[date.getDay()];
+        case 'ar':
+          return date.toLocaleDateString('ar-EG', options);
+        case 'it':
+          return date.toLocaleDateString('it-IT', options);
+        default:
+          return date.toLocaleDateString('en-US', options);
+      }
     },
     formatDateToDay: function formatDateToDay(date) {
       var options = {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric'
+        month: 'long'
       };
-      return date.toLocaleDateString('en-US', options);
+      switch (this.local) {
+        case 'al':
+          var months = ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"];
+          return date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+        case 'ar':
+          return date.toLocaleDateString('ar-EG', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+        case 'it':
+          return date.getDate() + " " + date.toLocaleDateString('it-IT', options) + " " + date.getFullYear();
+        default:
+          return date.getDate() + " " + date.toLocaleDateString('en-US', options) + " " + date.getFullYear();
+      }
     },
     goToNextDay: function goToNextDay() {
       var nextDate = new Date(this.currentDate);
@@ -19835,6 +19881,62 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       var expirationDate = new Date();
       expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000); // Expires in 1 day
       document.cookie = "cart=".concat(JSON.stringify(this.cart), ";expires=").concat(expirationDate.toUTCString());
+    },
+    transilation: function transilation(parameter) {
+      switch (this.local) {
+        case 'al':
+          switch (parameter) {
+            case 'btn':
+              return 'Lini një takim';
+            case 'am':
+              return 'Periudha e mëngjesit';
+            case 'pm':
+              return 'Koha e mbrëmjes';
+            case 'day':
+              return 'ditë';
+            case 'week':
+              return 'javë';
+          }
+        case 'ar':
+          switch (parameter) {
+            case 'btn':
+              return 'إحجز موعد';
+            case 'am':
+              return 'فترة الصباح';
+            case 'pm':
+              return 'فترة المساء';
+            case 'day':
+              return 'اليوم';
+            case 'week':
+              return 'أسبوع';
+          }
+        case 'it':
+          switch (parameter) {
+            case 'btn':
+              return 'fissare un appuntamento';
+            case 'am':
+              return 'periodo mattutino';
+            case 'pm':
+              return 'periodo serale';
+            case 'day':
+              return 'giorno';
+            case 'week':
+              return 'settimana';
+          }
+        default:
+          switch (parameter) {
+            case 'btn':
+              return 'Make an appointement';
+            case 'am':
+              return 'Morning period';
+            case 'pm':
+              return 'Evening period';
+            case 'day':
+              return 'day';
+            case 'week':
+              return 'week';
+          }
+      }
     }
   },
   mounted: function mounted() {
@@ -19892,21 +19994,15 @@ __webpack_require__.r(__webpack_exports__);
 var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-4f490dce"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
-var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "cart-header"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "My meeting appointment details")], -1 /* HOISTED */);
-});
-var _hoisted_2 = {
+var _hoisted_1 = {
   "class": "cart-items"
 };
-var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "item-details"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "item-description"
-  }, " Book a meeting ")], -1 /* HOISTED */);
-});
+var _hoisted_2 = {
+  "class": "item-details"
+};
+var _hoisted_3 = {
+  "class": "item-description"
+};
 var _hoisted_4 = {
   "class": "item-date-time"
 };
@@ -19914,57 +20010,32 @@ var _hoisted_5 = {
   "class": "item-date"
 };
 var _hoisted_6 = {
-  "class": "item-date-time"
+  key: 0,
+  "class": "item-day"
 };
 var _hoisted_7 = {
-  "class": "item-time"
+  key: 1,
+  "class": "item-day"
 };
 var _hoisted_8 = {
-  "class": "item-price"
+  "class": "item-date-time"
 };
 var _hoisted_9 = {
-  "class": "cart-total"
+  "class": "item-time"
 };
 var _hoisted_10 = {
-  "class": "subtotal"
-};
-var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "subtotal-title"
-  }, "Subtotal", -1 /* HOISTED */);
-});
-var _hoisted_12 = {
-  "class": "subtotal-value"
-};
-var _hoisted_13 = {
-  "class": "discount"
-};
-var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "discount-title"
-  }, "Discount", -1 /* HOISTED */);
-});
-var _hoisted_15 = {
-  "class": "discount-value"
-};
-var _hoisted_16 = {
-  "class": "total"
-};
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "total-title"
-  }, "Total", -1 /* HOISTED */);
-});
-var _hoisted_18 = {
-  "class": "total-value"
+  "class": "item-price"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sample Cart Item "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.cart, function (item) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sample Cart Item "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.cart, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      "class": "cart-item",
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+        'cart-item': true,
+        'rlt': $props.local == 'ar'
+      }),
       key: item
-    }, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToCustomFormat(item)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTimeToCustomFormat(item)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($props.price)), 1 /* TEXT */)]);
-  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($options.subtotal)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, " -" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($options.discounted)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($options.total)), 1 /* TEXT */)])])], 64 /* STABLE_FRAGMENT */);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation()), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [$props.local != 'ar' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToGetDay(item)), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToCustomFormat(item)), 1 /* TEXT */), $props.local == 'ar' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToGetDay(item)), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTimeToCustomFormat(item)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($props.price)), 1 /* TEXT */)], 2 /* CLASS */);
+  }), 128 /* KEYED_FRAGMENT */))]);
 }
 
 /***/ }),
@@ -19995,13 +20066,11 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "fa-solid fa-angle-left"
 }, null, -1 /* HOISTED */);
 var _hoisted_5 = [_hoisted_4];
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Day ");
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Week ");
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "fa-solid fa-angle-right"
 }, null, -1 /* HOISTED */);
-var _hoisted_9 = [_hoisted_8];
-var _hoisted_10 = {
+var _hoisted_7 = [_hoisted_6];
+var _hoisted_8 = {
   key: 0,
   style: {
     "display": "flex",
@@ -20011,38 +20080,44 @@ var _hoisted_10 = {
   },
   "class": "mb-3"
 };
+var _hoisted_9 = {
+  style: {
+    "margin": "0px"
+  }
+};
+var _hoisted_10 = {
+  style: {
+    "margin": "0px"
+  }
+};
 var _hoisted_11 = {
-  style: {
-    "margin": "0px"
-  }
-};
-var _hoisted_12 = {
-  style: {
-    "margin": "0px"
-  }
-};
-var _hoisted_13 = {
   key: 1
 };
-var _hoisted_14 = {
+var _hoisted_12 = {
   "class": "time-section"
 };
+var _hoisted_13 = {
+  "class": "time-slots"
+};
+var _hoisted_14 = ["onClick"];
 var _hoisted_15 = {
-  "class": "time-slots"
-};
-var _hoisted_16 = ["onClick"];
-var _hoisted_17 = {
   "class": "time-section"
 };
-var _hoisted_18 = {
+var _hoisted_16 = {
   "class": "time-slots"
 };
+var _hoisted_17 = {
+  "class": "time-slots"
+};
+var _hoisted_18 = ["onClick"];
 var _hoisted_19 = {
-  "class": "time-slots"
-};
-var _hoisted_20 = ["onClick"];
-var _hoisted_21 = {
   key: 2
+};
+var _hoisted_20 = {
+  "class": "time-section"
+};
+var _hoisted_21 = {
+  "class": "time-slots"
 };
 var _hoisted_22 = {
   "class": "time-section"
@@ -20051,40 +20126,33 @@ var _hoisted_23 = {
   "class": "time-slots"
 };
 var _hoisted_24 = {
-  "class": "time-section"
-};
-var _hoisted_25 = {
-  "class": "time-slots"
-};
-var _hoisted_26 = {
   key: 3
 };
-var _hoisted_27 = {
+var _hoisted_25 = {
   "class": "calendar-week"
 };
-var _hoisted_28 = {
+var _hoisted_26 = {
   "class": "weekday"
 };
-var _hoisted_29 = {
+var _hoisted_27 = {
   "class": "fullweekday"
 };
-var _hoisted_30 = {
+var _hoisted_28 = {
   key: 0,
   "class": "hours"
 };
-var _hoisted_31 = {
+var _hoisted_29 = {
   key: 1,
   "class": "hours"
 };
-var _hoisted_32 = ["onClick"];
-var _hoisted_33 = {
+var _hoisted_30 = ["onClick"];
+var _hoisted_31 = {
   "class": "add-to-cart-button"
 };
-var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Make an appointement ");
-var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "ml-1 fa-solid fa-calendar-check"
 }, null, -1 /* HOISTED */);
-var _hoisted_36 = [_hoisted_34, _hoisted_35];
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "nav-btn",
@@ -20102,7 +20170,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.selectedOption = $event;
     }),
     value: "day"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.selectedOption]]), _hoisted_6], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.selectedOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation('day')), 1 /* TEXT */)], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       'radio-label': true,
       'selectedOption': $data.selectedOption === 'week'
@@ -20113,16 +20181,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.selectedOption = $event;
     }),
     value: "week"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.selectedOption]]), _hoisted_7], 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.selectedOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation('week')), 1 /* TEXT */)], 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "nav-btn",
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.goToNextDay && $options.goToNextDay.apply($options, arguments);
     })
-  }, _hoisted_9)])]), $data.selectedOption === 'day' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToWeekDay($data.currentDate)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToDay($data.currentDate)), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.filteredDay.active && $data.selectedOption === 'day' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Morning period (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
+  }, _hoisted_7)])]), $data.selectedOption === 'day' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToWeekDay($data.currentDate)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToDay($data.currentDate)), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.filteredDay.active && $data.selectedOption === 'day' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation('am')) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'AM';
   }))) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getLastTimeSlot($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'AM';
-  }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
+  }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'AM';
   }), function (hour) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
@@ -20135,12 +20203,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $options.selectTime($options.formatToISOString(hour.hour), !$options.isUnselectable($options.formatToISOString(hour.hour)));
       }
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 11 /* TEXT, CLASS, PROPS */, _hoisted_16);
-  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Evening period (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 11 /* TEXT, CLASS, PROPS */, _hoisted_14);
+  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation('pm')) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'PM';
   }))) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getLastTimeSlot($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'PM';
-  }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
+  }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'PM';
   }), function (hour) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
@@ -20153,12 +20221,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $options.selectTime($options.formatToISOString(hour.hour), !$options.isUnselectable($options.formatToISOString(hour.hour)));
       }
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 11 /* TEXT, CLASS, PROPS */, _hoisted_20);
-  }), 128 /* KEYED_FRAGMENT */))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$options.filteredDay.active && $data.selectedOption === 'day' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Morning period (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 11 /* TEXT, CLASS, PROPS */, _hoisted_18);
+  }), 128 /* KEYED_FRAGMENT */))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$options.filteredDay.active && $data.selectedOption === 'day' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation('am')) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'AM';
   }))) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getLastTimeSlot($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'AM';
-  }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
+  }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'AM';
   }), function (hour) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
@@ -20168,30 +20236,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $options.inactiveDay && $options.inactiveDay.apply($options, arguments);
       })
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 1 /* TEXT */);
-  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Evening period (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
+  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation('pm')) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getFirstTimeSlot($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'PM';
   }))) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getLastTimeSlot($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'PM';
-  }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
+  }))) + ")", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredDay.hours.filter(function (h) {
     return $options.getAMorPM(h.hour) === 'PM';
   }), function (hour) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: hour.hour,
-      "class": "time-slot Unselectable"
+      "class": "time-slot Unselectable",
+      onClick: _cache[5] || (_cache[5] = function () {
+        return $options.inactiveDay && $options.inactiveDay.apply($options, arguments);
+      })
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 1 /* TEXT */);
-  }), 128 /* KEYED_FRAGMENT */))])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.days && $data.selectedOption === 'week' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.generateWeek, function (day) {
+  }), 128 /* KEYED_FRAGMENT */))])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.days && $data.selectedOption === 'week' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.generateWeek, function (day) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: day.id,
       "class": "day"
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToWeekDay(day.dayweek)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToDay(day.dayweek)), 1 /* TEXT */), !day.filtredDay.active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_30, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(day.filtredDay.hours, function (hour) {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToWeekDay(day.dayweek)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToDay(day.dayweek)), 1 /* TEXT */), !day.filtredDay.active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_28, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(day.filtredDay.hours, function (hour) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
         key: hour.hour,
         "class": "hour-btn Unselectable",
-        onClick: _cache[5] || (_cache[5] = function () {
+        onClick: _cache[6] || (_cache[6] = function () {
           return $options.inactiveDay && $options.inactiveDay.apply($options, arguments);
         })
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 1 /* TEXT */);
-    }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), day.filtredDay.active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_31, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(day.filtredDay.hours, function (hour) {
+    }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), day.filtredDay.active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_29, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(day.filtredDay.hours, function (hour) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
         key: hour.hour,
         onClick: function onClick($event) {
@@ -20202,14 +20273,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           'selected': $data.selectedTime === $options.formatToISOStringParamter(hour.hour, day.dayweek),
           'Unselectable': $options.isUnselectable($options.formatToISOStringParamter(hour.hour, day.dayweek))
         })
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 11 /* TEXT, CLASS, PROPS */, _hoisted_32);
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(hour.hour), 11 /* TEXT, CLASS, PROPS */, _hoisted_30);
     }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
-  }), 128 /* KEYED_FRAGMENT */))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }), 128 /* KEYED_FRAGMENT */))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "add-to-cart-btn",
-    onClick: _cache[6] || (_cache[6] = function () {
+    onClick: _cache[7] || (_cache[7] = function () {
       return $options.addToCart && $options.addToCart.apply($options, arguments);
     })
-  }, _hoisted_36)])]);
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation('btn')) + " ", 1 /* TEXT */), _hoisted_32])])]);
 }
 
 /***/ }),
@@ -20293,7 +20364,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n /* Reset some default browser styles */\n*[data-v-4f490dce] {\r\n    margin: 0;\r\n    padding: 0;\r\n    box-sizing: border-box;\n}\nh1[data-v-4f490dce]{\r\n    color: #91bee1;\r\n    font-size: 25px;\n}\n.cart-header[data-v-4f490dce] {\r\n    text-align: center;\r\n    margin: 8px 0px;\n}\r\n\r\n/* Cart Items */\n.cart-items[data-v-4f490dce]{\r\n    padding: 10px 20px 25px 20px;\n}\n.cart-item[data-v-4f490dce] {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 15px 2px;  \r\n    border-bottom: 2px solid #e5e5e5;\n}\n.item-details[data-v-4f490dce] {\r\n    /* flex: 1; */\r\n    padding-right: 20px;\n}\n.item-description[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #838383;\n}\n.item-date-time[data-v-4f490dce] {\r\n    color: #777;\n}\n.item-price[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #76c6ff; \r\n    padding: 5px 10px;\r\n    border: 2px solid #76c6ff;\r\n    border-radius: 10px;\n}\n.more-infos[data-v-4f490dce]{\r\n    display: flex;\r\n    margin-top:10px;\r\n  justify-content: space-between;\r\n    padding:20px 0px 0px 0px;\n}\r\n\r\n\r\n/* Cart Total */\n.cart-total[data-v-4f490dce] {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    justify-content: space-between;\r\n    align-items: center;\n}\n.subtotal[data-v-4f490dce],\r\n.discount[data-v-4f490dce],\r\n.total[data-v-4f490dce] {\r\n    flex-basis: 100%; /* Full width by default */\r\n    margin-bottom: 10px;\r\n    /* border: 2px solid #dfdfdf; */\r\n    border-radius: 10px; \r\n    padding: 20px 30px;\r\n    margin: 10px 0px;\r\n    display: flex;\r\n    color:#777;\r\n    justify-content: center;\r\n    align-items: center;\r\n   flex-direction: column;\n}\n.subtotal[data-v-4f490dce] {\r\n    border: 2px solid #6fb7ff;\r\n    /* color: #76c6ff; */\n}\n.discount[data-v-4f490dce] {\r\n    border: 2px solid #ff9494;\r\n    /* color: #ff9494; */\n}\n.total[data-v-4f490dce] {\r\n    border: 2px solid #96c879;\r\n    /* color:#96c879; */\n}\n.subtotal-value[data-v-4f490dce],\r\n.discount-value[data-v-4f490dce],\r\n.total-value[data-v-4f490dce] {\r\n   font-weight: bold;\n}\n@media screen and (min-width: 576px) {\n.subtotal[data-v-4f490dce],\r\n    .discount[data-v-4f490dce],\r\n    .total[data-v-4f490dce] {\r\n        flex-basis: calc(50% - 10px); /* Divide into 2 equal columns with spacing */\r\n        margin-bottom: 0;\n}\n}\n@media screen and (max-width: 650px) {\n.more-infos[data-v-4f490dce] {\r\n        flex-direction: column;\r\n        margin-top:0px;\n}\n.cart-total[data-v-4f490dce] {\r\n        text-align: left;\r\n        margin-top: 20px;\n}\n.cart-item[data-v-4f490dce] {\r\n        flex-direction: column;\n}\n.item-details[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n.item-date-time[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n}\n@media screen and (min-width: 768px) {\n.subtotal[data-v-4f490dce],\r\n    .discount[data-v-4f490dce],\r\n    .total[data-v-4f490dce] {\r\n        flex-basis: calc(33.33% - 10px); /* Divide into 3 equal columns with spacing */\r\n        margin-bottom: 0;\n}\n.h1[data-v-4f490dce] {\r\n        font-size: 16px;\n}\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n /* Reset some default browser styles */\n*[data-v-4f490dce] {\r\n    margin: 0;\r\n    padding: 0;\r\n    box-sizing: border-box;\n}\r\n\r\n\r\n/* Cart Items */\n.cart-items[data-v-4f490dce]{\r\n    padding: 10px 20px 25px 20px;\n}\n.cart-item[data-v-4f490dce] {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 15px 2px;  \r\n    border-bottom: 2px solid #e5e5e5;\n}\n.rlt[data-v-4f490dce]{\r\n    flex-direction: row-reverse;\n}\n.item-details[data-v-4f490dce] {\r\n    /* flex: 1; */\r\n    padding-right: 20px;\n}\n.item-description[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #838383;\n}\n.item-date-time[data-v-4f490dce] {\r\n    color: #777;\n}\n.item-date[data-v-4f490dce] {\r\n    display: flex;\n}\n.item-day[data-v-4f490dce]{\r\n    padding: 0px 5px;\n}\n.item-price[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #76c6ff; \r\n    padding: 5px 10px;\r\n    border: 2px solid #76c6ff;\r\n    border-radius: 10px;\n}\n@media screen and (max-width: 650px) {\n.cart-item[data-v-4f490dce] {\r\n        flex-direction: column;\n}\n.item-details[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n.item-date-time[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n}\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

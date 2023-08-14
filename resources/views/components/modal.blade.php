@@ -9,10 +9,10 @@
                 {{ $slot }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-custom btn-custom-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn-custom btn-custom-secondary" data-bs-dismiss="modal"> {{ __('Close') }}</button>
 
                 <button id="card-button" class="btn-custom btn-custom-success " type="submit">
-                    Pay 
+                     {{ __('Pay') }}
                     <i class="ml-1 fa-solid fa-money-bill-wave"></i>
                 </button>
             </div>

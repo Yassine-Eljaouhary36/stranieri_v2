@@ -25,7 +25,7 @@
     </head>
     <body class="antialiased">
         <div id="app">
-            {{-- @include('layouts.navbar') --}}
+            @include('layouts.navbar')
             @yield('content')
         </div>
 

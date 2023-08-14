@@ -29,10 +29,6 @@
                                 </button>
                             </div>
                         </form>
-            
-                        <a href="{{route('logout')}}" class="btn btn-warning">
-                            {{ __('Log out') }}
-                        </a>
                     </div>
             </div>
           </div>
