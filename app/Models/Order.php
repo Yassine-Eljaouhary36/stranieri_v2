@@ -10,11 +10,15 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'total',
+        'ref',
+        'paid_amount',
+        'discount',
+        'price',
+        'tax',
         'status',
         'client_id',
     ];
-
+    
     public function client()
     {
         return $this->belongsTo(Client::class);
@@ -22,6 +26,15 @@ class Order extends Model
 
     public function meeting()
     {
-        return $this->belongsTo(Meeting::class);
+        return $this->hasOne(Meeting::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($order) {
+            $order->ref = implode('', array_map(fn () => random_int(0, 9), range(1, 10)));
+        });
     }
 }

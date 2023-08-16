@@ -5,5 +5,7 @@
     "Payment details":" dettagli di pagamento ",
     "Close":" chiudere ",
     "Pay":" paga ",
-    "login":" per accedere "
+    "login":" per accedere ",
+    "billing address":"Indirizzo di fatturazione",
+    "submit":"invia"
 }

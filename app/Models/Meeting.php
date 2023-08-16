@@ -14,6 +14,8 @@ class Meeting extends Model
         'ref',
         'DateMeeting',
         'status',
+        'client_id',
+        'order_id',
     ];
 
     public function client()

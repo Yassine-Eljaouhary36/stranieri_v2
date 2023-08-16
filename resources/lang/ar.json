@@ -5,5 +5,7 @@
     "Payment details":"بيانات الدفع",
     "Close":"أغلق",
     "Pay":" الدفع",
-    "login":"تسجيل الدخول"
+    "login":"تسجيل الدخول",
+    "billing address":"عنوان الفاتورة",
+    "submit":"إرسال"
 }

@@ -39,4 +39,9 @@ class Client extends Model implements Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function billingAddress()
+    {
+        return $this->hasOne(BillingAddress::class);
+    }
 }

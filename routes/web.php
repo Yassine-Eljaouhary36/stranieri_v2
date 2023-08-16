@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BillingAddressController;
 use App\Http\Controllers\LangsController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
 
@@ -27,6 +29,10 @@ Route::prefix('customer')->group(function () {
 
     Route::middleware(['client.auth','is_verify_email'])->group(function () {
         Route::post('/appointment-details', [MeetingController::class, 'payMeeting'])->name('pay-meeting');
+        Route::post('/billing-adress', [BillingAddressController::class, 'store'])->name('billing-adress');
+
+        Route::get('/orders', [OrderController::class, 'orders'])->name('orders');
+        Route::get('/order/{order}', [OrderController::class, 'order'])->name('order')->where('order', '[0-9]{1,3}');
     });
 
     Route::middleware('client.guest')->group(function () {

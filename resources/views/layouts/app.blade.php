@@ -21,6 +21,7 @@
         </style>
         <link rel="stylesheet" href="{{ asset('css/custom-style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        @stack('styles')
         <script src="https://kit.fontawesome.com/ab2018bbfb.js" crossorigin="anonymous"></script>
     </head>
     <body class="antialiased">

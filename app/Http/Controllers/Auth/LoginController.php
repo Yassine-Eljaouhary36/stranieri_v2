@@ -38,6 +38,9 @@ class LoginController extends Controller
         // dd(Auth::guard('client')->attempt($credentials));
         if (Auth::guard('client')->attempt($credentials)) {
             // Authentication passed...
+            if (!empty(json_decode(request()->cookie('cart'))[0]) ) {
+                return redirect()->route('show-Details')->with('custom_alert', ['type' => 'success', 'title' => 'Logged in!', 'message' => 'You have been successfully logged in!']);
+            }
             return redirect()->route('index')->with('custom_alert', ['type' => 'success', 'title' => 'Logged in!', 'message' => 'You have been successfully logged in!']);
 
         }

@@ -5,5 +5,7 @@
     "Payment details":" Detajet e pagesës ",
     "Close":" Afër ",
     "Pay":" Paguaj ",
-    "login": " hyrja "
+    "login": " hyrja ",
+    "billing address":"Adresa e faturimit",
+    "submit":"dorëzojë"
 }
