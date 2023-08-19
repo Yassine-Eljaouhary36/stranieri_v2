@@ -14,7 +14,7 @@
         <div class="text-justify col-md-5 col-lg-4 text-secondary bg-light-subtle custom-infos-space p-3 mb-3">
 
             @if (intVal($data['totalDiscount']) > 0)
-                <div class=" py-1"><span class="text-secondary">You save: ${{ $data['totalDiscount'] }}</span></div>
+                <div class=" py-1"><span class="text-secondary">You saved: ${{ $data['totalDiscount'] }}</span></div>
             @endif
             <div class=" py-1"><span>Estimated tax: </span><span class="text-secondary">${{ $data['estimatedTax'] }}</span></div>
             <div class=" py-1"><span>Tax rate: </span><span class="text-secondary">{{ $data['taxRate'] }}%</span></div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\OrderInProcess;
 use App\Models\Day;
 use App\Models\Meeting;
 use App\Models\Order;
@@ -118,8 +119,8 @@ class MeetingController extends Controller
                 'order_id'=> $order->id,
                 'client_id' => $client->id
             ]);
- 
-            return redirect()->route('index')->with('custom_alert', ['type' => 'success', 'title' => 'Thank you for your order!', 'message' => 'the order has been successfully placed.']);
+            dispatch(new OrderInProcess($order));
+            return redirect()->route('order',$order)->with('custom_alert', ['type' => 'success', 'title' => 'Thank you for your order!', 'message' => 'the order has been successfully placed.']);
         }
         return back()->with('custom_alert', ['type' => 'warning', 'title' => ' The meeting has been taken!', 'message' => 'Sorry , the meeting was taken by another client! please choose other one again .']);;
     }

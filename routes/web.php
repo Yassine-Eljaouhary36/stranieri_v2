@@ -6,8 +6,10 @@ use App\Http\Controllers\BillingAddressController;
 use App\Http\Controllers\LangsController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\OrderController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +60,7 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('client_has_session')->name('verification.notice');
 
+Route::get('/download-invoice/{order}' ,[OrderController::class, 'downloadInvoiceOrder'])->name('download-invoice')->where('order', '[0-9]{1,3}');; 
 
 Route::post('/email/verification-notification',[RegisterController::class, 'verificationSend'])
     ->middleware(['client_has_session', 'throttle:6,1'])->name('verification.send');

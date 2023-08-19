@@ -65,7 +65,9 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://blog-fr.orson.io/wp-content/uploads/2020/07/logostarbuck.png" alt="Logo">
+            @if (file_exists('storage/' . setting('site.logo')) && setting('site.logo') != null)
+                    <img src="{{asset('storage/'.(setting('site.logo')))}}" alt="Logo" width="100">
+            @endif
         </div>
         
         <h1>Password Reset</h1>

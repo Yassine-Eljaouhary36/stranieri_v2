@@ -107,9 +107,11 @@
         <a href="{{route('orders')}}" class="btn btn-md btn-outline-warning">
             <i class="mr-1 fa-solid fa-arrow-left"></i> Back
         </a>
-        <a href="{{route('orders')}}" class="btn btn-md btn-outline-primary">
-            <i class="fa-solid fa-print"></i> print
-        </a>
+        @if ($order->meeting->status=='paid')
+            <a href="{{route('download-invoice',$order)}}" class="btn btn-md btn-outline-primary">
+                <i class="fa-solid fa-print"></i> print
+            </a>
+        @endif
     </div>
 
     <div class="table-container">
