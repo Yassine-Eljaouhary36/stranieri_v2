@@ -18,9 +18,9 @@ class StripeEventListener
     {
         if ($event->payload['type'] === 'invoice.payment_succeeded') {
      
-            $payload = $event->payload;
+            $payload_type = $event->payload['type'];
 
-            Log::info('Stripe Event Received', ['payload' => $payload]);
+            Log::info('Stripe Event Received', ['payload' => $payload_type]);
         }
     }
 
