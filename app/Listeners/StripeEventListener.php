@@ -21,24 +21,24 @@ class StripeEventListener
     }
 
     /**
-     * Handle the event.
+     * Handle received Stripe webhooks.
      *
-     * @param  object  $event
+     * @param  \Laravel\Cashier\Events\WebhookReceived  $event
      * @return void
      */
     public function handle(WebhookReceived $event)
     {
-        if ($event->payload['type'] === 'invoice.payment_succeeded') {
+        // if ($event->payload['type'] === 'invoice.payment_succeeded') {
      
-            $payload = $event->payload;
+            // $payload = $event->payload;
 
-            // Convert the payload to JSON format
-            $payloadJson = json_encode($payload);
+            // // Convert the payload to JSON format
+            // $payloadJson = json_encode($payload);
     
-            // Store the payload in a text file
-            Storage::disk('local')->put('file.txt', $payloadJson);
+            // // Store the payload in a text file
+            // Storage::disk('local')->put('file.txt', $payloadJson);
     
-            Log::info('Stripe Event Received and Payload Saved to file.txt');
-        }
+            Log::info('Stripe Event Received and Payload Saved to file.txt'.$event->payload['type']);
+        // }
     }
 }
