@@ -25,8 +25,8 @@
             @if ($client->billingAddress)
                 <div class="col text-secondary custom-infos-space p-3 bg-light-subtle  mx-md-3 mb-3">
                     <h2>{{ __('Billing Address') }}</h2>
-                    <div class=" py-1"><span class="fw-bold text-dark">Address 1: </span><span class="text-secondary">{{ $client->billingAddress->address_one ?? '' }}</span></div>
-                    <div class=" py-1"><span class="fw-bold text-dark">Address 2: </span><span class="text-secondary">{{ $client->billingAddress->address_two ?? '' }}</span></div>
+                    <div class=" py-1"><span class="fw-bold text-dark">{{ __('Address')}} 1: </span><span class="text-secondary">{{ $client->billingAddress->address_one ?? '' }}</span></div>
+                    <div class=" py-1"><span class="fw-bold text-dark">{{ __('Address')}} 2: </span><span class="text-secondary">{{ $client->billingAddress->address_two ?? '' }}</span></div>
                     <div class=" py-1"><span class="fw-bold text-dark">Country: </span><span class="text-secondary" id="address-country"></span></div>
                     <div class=" py-1"><span class="fw-bold text-dark">City: </span><span class="text-secondary">{{ $client->billingAddress->city ?? '' }}</span></div>
                     <div class=" py-1"><span class="fw-bold text-dark">Zip: </span><span class="text-secondary">{{ $client->billingAddress->zip ?? ''  }}</span></div>
