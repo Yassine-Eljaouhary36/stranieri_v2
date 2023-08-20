@@ -6,6 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Laravel\Cashier\Events\WebhookReceived;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class StripeEventListener
 {
@@ -16,12 +17,18 @@ class StripeEventListener
      */
     public function __construct(WebhookReceived $event)
     {
-        if ($event->payload['type'] === 'invoice.payment_succeeded') {
+        // if ($event->payload['type'] === 'invoice.payment_succeeded') {
      
-            $payload_type = $event->payload['type'];
+            $payload = $event->payload;
 
-            Log::info('Stripe Event Received', ['payload' => $payload_type]);
-        }
+            // Convert the payload to JSON format
+            $payloadJson = json_encode($payload);
+    
+            // Store the payload in a text file
+            Storage::disk('local')->put('file.txt', $payloadJson);
+    
+            Log::info('Stripe Event Received and Payload Saved to file.txt');
+        // }
     }
 
     /**
