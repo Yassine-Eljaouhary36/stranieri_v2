@@ -50,7 +50,7 @@ class StripeEventListener
             
         }
 
-        if ($event->payload['type'] === 'payment_intent.canceled') {
+        if ($event->payload['type'] === 'payment_intent.payment_failed') {
             $metadata = $event->payload['data']['object']['charges']['data'][0]['metadata']['order_id'];
             try {
                 $order = Order::findOrFail($metadata);
