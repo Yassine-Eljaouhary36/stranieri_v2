@@ -22,7 +22,7 @@ class OrderInProcess implements ShouldQueue
      */
     public function __construct($order)
     {
-        $this->order=$order;
+        $this->order = $order;
     }
 
     /**
@@ -32,13 +32,13 @@ class OrderInProcess implements ShouldQueue
      */
     public function handle()
     {
-        $client=$this->order->client;
+        $client = $this->order->client;
         try {
             Mail::send('email.emailOrderInProcess', ['client' => $client,'order' => $this->order], function ($message) use ($client) {
-                $message->from('contact@elitechit.com', env('MAIL_FROM_NAME'));
-                $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+                $message->sender(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->to($client->email);
-                $message->replyTo('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->replyTo(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->subject('Your Order In Process');
                 $message->priority(1);
             });

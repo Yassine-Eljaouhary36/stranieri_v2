@@ -81,10 +81,10 @@ class LoginController extends Controller
         
         try {
             Mail::send('email.emailForgotPassword', ['token' => $token], function ($message) use ($request) {
-                $message->from('contact@elitechit.com', env('MAIL_FROM_NAME'));
-                $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+                $message->sender(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->to($request->email);
-                $message->replyTo('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->replyTo(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->subject('Email Verification Mail');
                 $message->priority(1);
                 //$message->attach('pathToFile');

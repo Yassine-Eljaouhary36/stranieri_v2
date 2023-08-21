@@ -48,10 +48,10 @@ class RegisterController extends Controller
         ]);
         try {
             Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
-                $message->from('contact@elitechit.com', env('MAIL_FROM_NAME'));
-                $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+                $message->sender(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->to($request->email);
-                $message->replyTo('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->replyTo(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->subject('Email Verification Mail');
                 $message->priority(1);
                 //$message->attach('pathToFile');
@@ -105,10 +105,10 @@ class RegisterController extends Controller
         $clientVerify->save();
         try {
             Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($client) {
-                $message->from('contact@elitechit.com', env('MAIL_FROM_NAME'));
-                $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+                $message->sender(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->to($client->email);
-                $message->replyTo('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->replyTo(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->subject('Email Verification Mail');
                 $message->priority(1);
                 //$message->attach('pathToFile');

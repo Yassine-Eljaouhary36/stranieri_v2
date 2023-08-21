@@ -248,7 +248,21 @@
 
             isUnselectable(dateParamter) {
                 const matchingDate = this.meetings.find(date => date.DateMeeting === dateParamter);
-                return matchingDate ? true : false;
+
+                // Get the current date and time
+                const currentDate = new Date();
+
+                // Set the target date and time you want to compare
+                const targetDate = new Date(dateParamter); // Example date and time
+
+                // Compare the target date with the current date
+                if (targetDate > currentDate) {
+                    return matchingDate ? true : false;;
+                } else {
+                    return true;
+                }
+
+                
             },
 
             addToCart() {

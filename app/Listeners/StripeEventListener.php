@@ -2,6 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Jobs\OrderCanceled;
+use App\Jobs\OrderPaid;
+use App\Models\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Laravel\Cashier\Events\WebhookReceived;
@@ -28,17 +31,41 @@ class StripeEventListener
      */
     public function handle(WebhookReceived $event)
     {
-        // if ($event->payload['type'] === 'invoice.payment_succeeded') {
+        if ($event->payload['type'] === 'payment_intent.succeeded') {
      
-            // $payload = $event->payload;
+            $metadata = $event->payload['data']['object']['charges']['data'][0]['metadata']['order_id'];
+            try {
+                $order = Order::findOrFail($metadata);
+                $order->update(["status" => 'paid']);
+            
+                if ($order->meeting) {
+                    $order->meeting->update(["status" => 'paid']);
+                }
 
-            // // Convert the payload to JSON format
-            // $payloadJson = json_encode($payload);
-    
-            // // Store the payload in a text file
-            // Storage::disk('local')->put('file.txt', $payloadJson);
-    
-            Log::info('Stripe Event Received and Payload Saved to file.txt'.$event->payload['type']);
-        // }
+                dispatch(new OrderPaid($order));
+            } catch (\Exception $e) {
+                // Handle exceptions (e.g., order not found)
+                Log::info($e->getMessage());
+            }
+            
+        }
+
+        if ($event->payload['type'] === 'payment_intent.canceled') {
+            $metadata = $event->payload['data']['object']['charges']['data'][0]['metadata']['order_id'];
+            try {
+                $order = Order::findOrFail($metadata);
+                $order->update(["status" => 'canceled']);
+            
+                if ($order->meeting) {
+                    $order->meeting->update(["status" => 'canceled']);
+                }
+
+                dispatch(new OrderCanceled($order));
+            } catch (\Exception $e) {
+                // Handle exceptions (e.g., order not found)
+                Log::info($e->getMessage());
+            }
+        }
+
     }
 }

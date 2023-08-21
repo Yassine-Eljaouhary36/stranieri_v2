@@ -91,19 +91,6 @@ class MeetingController extends Controller
             $orderTotal = $discountedPrice + ($taxRate * $originalPrice);
             $estimatedTax = $taxRate * $originalPrice;
 
-            try {
-                $client->createOrGetStripeCustomer();
-                $client->updateDefaultPaymentMethod($paymentMethod);
-                $client->charge($orderTotal * 100, $paymentMethod, [
-                    'metadata' => [
-                        'client_id' => $client->id,
-                    ],
-                ]);
-                
-            } catch (\Exception $exception) {
-                return back()->with('custom_alert', ['type' => 'warning', 'title' => 'Sorry Error!', 'message' => 'there is an error! please try again .']);
-            }
-
             $order = Order::create([
                 'paid_amount' => $orderTotal,
                 'discount'=>$amountSaved,
@@ -119,6 +106,20 @@ class MeetingController extends Controller
                 'order_id'=> $order->id,
                 'client_id' => $client->id
             ]);
+            try {
+                $client->createOrGetStripeCustomer();
+                $client->updateDefaultPaymentMethod($paymentMethod);
+                $client->charge($orderTotal * 100, $paymentMethod, [
+                    'metadata' => [
+                        'order_id'=> $order->id,
+                    ],
+                ]);
+                
+            } catch (\Exception $exception) {
+                return back()->with('custom_alert', ['type' => 'warning', 'title' => 'Sorry Error!', 'message' => 'there is an error! please try again .']);
+            }
+
+
             dispatch(new OrderInProcess($order));
             return redirect()->route('order',$order)->with('custom_alert', ['type' => 'success', 'title' => 'Thank you for your order!', 'message' => 'the order has been successfully placed.']);
         }
