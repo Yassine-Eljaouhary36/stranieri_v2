@@ -19728,6 +19728,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     local: {
       type: String,
       required: true
+    },
+    currentdateserver: {
+      type: String,
+      required: true
     }
   },
   data: function data() {
@@ -19851,7 +19855,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
 
       // Get the current date and time
-      var currentDate = new Date();
+      var currentDate = new Date(this.currentdateserver);
 
       // Set the target date and time you want to compare
       var targetDate = new Date(dateParamter); // Example date and time
@@ -19953,7 +19957,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   },
   mounted: function mounted() {
-    // console.log(this.meetings)
+    // console.log(this.currentdateserver)
   },
   computed: {
     filteredDay: function filteredDay() {

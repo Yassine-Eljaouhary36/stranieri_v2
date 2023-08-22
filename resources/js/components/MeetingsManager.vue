@@ -135,6 +135,10 @@
                 type: String,
                 required: true,
             },
+            currentdateserver: {
+                type: String,
+                required: true,
+            },
 
         },
         data() {
@@ -250,7 +254,7 @@
                 const matchingDate = this.meetings.find(date => date.DateMeeting === dateParamter);
 
                 // Get the current date and time
-                const currentDate = new Date();
+                const currentDate = new Date(this.currentdateserver);
 
                 // Set the target date and time you want to compare
                 const targetDate = new Date(dateParamter); // Example date and time
@@ -353,7 +357,7 @@
 
         },
         mounted() {
-            // console.log(this.meetings)
+            // console.log(this.currentdateserver)
         },
         computed: {
             filteredDay() {

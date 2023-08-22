@@ -8,6 +8,7 @@ use App\Models\Meeting;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MeetingController extends Controller
 {
@@ -22,8 +23,12 @@ class MeetingController extends Controller
             ->select("DateMeeting")
             ->get();
         $local = str_replace('_', '-', app()->getLocale());
-     
-        return view('welcome', ['daysWithHours' => $daysWithHours ,'meetings' =>$meetings,'local'=>$local]);
+        // Create a Carbon instance
+        $dateServer = Carbon::now();
+
+        // Get the date and time in ISO 8601 format
+        $currentDateisoString = $dateServer->toIso8601String();
+        return view('welcome', ['daysWithHours' => $daysWithHours ,'meetings' =>$meetings,'local'=>$local,'currentDateServer'=>$currentDateisoString]);
     }
 
     public function showDetails()  {
