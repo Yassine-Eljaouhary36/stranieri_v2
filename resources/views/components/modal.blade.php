@@ -71,11 +71,6 @@
 
                 cardButton.addEventListener('click', async (e) => {
                     e.preventDefault();
-                    // Set the 'disabled' attribute to true for the card button
-                    cardButton.setAttribute('disabled', true);
-                   
-                    textPay.classList.add('d-none');
-                    textLoading.classList.remove('d-none');
 
                     const messageError = document.getElementById('error-message');
                     if (cardHolderName.value.trim() === '') {
@@ -117,6 +112,11 @@
                         paymentMethodElement.value = paymentMethod.id;
 
                         cardForm.submit();
+                        // Set the 'disabled' attribute to true for the card button
+                        cardButton.setAttribute('disabled', true);
+                    
+                        textPay.classList.add('d-none');
+                        textLoading.classList.remove('d-none');
                     }
                 });
             </script>
