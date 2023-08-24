@@ -13,8 +13,14 @@
                 @auth('client')
                     @if ($client->billingAddress)
                         <button id="card-button" class="btn-custom btn-custom-success " type="submit">
-                            {{ __('Pay') }}
-                            <i class="ml-1 fa-solid fa-money-bill-wave"></i>
+                            <span id="text-pay" >
+                                {{ __('Pay') }}
+                                <i class="ml-1 fa-solid fa-money-bill-wave"></i>
+                            </span>
+                            <span id="text-loading" class="d-none">
+                                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                <span class="ml-1" role="status">Loading...</span>
+                            </span>
                         </button>
                     @else
                     <button id="address-button" class="btn-custom btn-custom-success " type="submit">
@@ -59,9 +65,18 @@
                 const cardHolderName = document.getElementById('card-holder-name');
                 const cardButton = document.getElementById('card-button');
                 
+                    
+                var textPay = document.getElementById('text-pay');
+                var textLoading = document.getElementById('text-loading');
+
                 cardButton.addEventListener('click', async (e) => {
                     e.preventDefault();
-                    
+                    // Set the 'disabled' attribute to true for the card button
+                    cardButton.setAttribute('disabled', true);
+                   
+                    textPay.classList.add('d-none');
+                    textLoading.classList.remove('d-none');
+
                     const messageError = document.getElementById('error-message');
                     if (cardHolderName.value.trim() === '') {
                         cardHolderName.classList.add('is-invalid');
@@ -80,12 +95,18 @@
         
 
                     if (error) {
-                        // Swal.fire({
-                        //     title: "Error",
-                        //     text: "there is something wrong",
-                        //     icon: 'wrong',
-                        //     confirmButtonText: 'try again'
-                        // });
+                        Swal.fire({
+                            title: "Error",
+                            text: "there is something wrong",
+                            icon: 'wrong',
+                            confirmButtonText: 'try again'
+                        });
+                        // Remove the 'disabled' attribute from the card button
+                        cardButton.removeAttribute('disabled');
+            
+                        textLoading.classList.add('d-none');
+                        textPay.classList.remove('d-none');
+
                         // console.log(error)
                     } else {
 
