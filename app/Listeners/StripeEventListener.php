@@ -54,10 +54,10 @@ class StripeEventListener
             $metadata = $event->payload['data']['object']['charges']['data'][0]['metadata']['order_id'];
             try {
                 $order = Order::findOrFail($metadata);
-                $order->update(["status" => 'canceled']);
+                $order->update(["status" => 'failed']);
             
                 if ($order->meeting) {
-                    $order->meeting->update(["status" => 'canceled']);
+                    $order->meeting->update(["status" => 'failed']);
                 }
 
                 dispatch(new OrderCanceled($order));

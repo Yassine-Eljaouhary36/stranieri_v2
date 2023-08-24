@@ -85,7 +85,7 @@ class LoginController extends Controller
                 $message->sender(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->to($request->email);
                 $message->replyTo(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-                $message->subject('Email Verification Mail');
+                $message->subject('Email For The Password Reset');
                 $message->priority(1);
                 //$message->attach('pathToFile');
             });

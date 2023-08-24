@@ -35,12 +35,15 @@
 @switch($order->status)
     @case('paid')
         <div class="item-status paid"> <i class="fas fa-check"></i></div>
+        {{$order->status}}
     @break
 
-    @case('canceled')
-        <div class="item-status canceled"><i class="fa-solid fa-xmark"></i></div>
+    @case('in process')
+        <div class="item-status inprogress"><i class="fa-solid fa-spinner"></i></div>
+        {{$order->status}}
     @break
 
     @default
-        <div class="item-status inprogress"><i class="fa-solid fa-spinner"></i></div>
+        <div class="item-status canceled"><i class="fa-solid fa-xmark"></i></div>
+        {{$order->status}}
 @endswitch
