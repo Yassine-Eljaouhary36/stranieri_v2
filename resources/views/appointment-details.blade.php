@@ -4,7 +4,7 @@
 
     
     <div class="appointment-details-header">
-        <h1> {{ __('My meeting appointment details') }}</h1>
+        <h1> {{ __('Appointment details') }}</h1>
     </div>
 
     <appointment-details :local='@json($local)' :price="{{$price}}" ></appointment-details>
@@ -69,6 +69,7 @@
                     <div class="mb-4">
                         <input type="hidden" name="payment_method" class="payment-method">
                         <input type="hidden" id="date-meeting" name="dateMeeting" value="{{$dateMeeting}}">
+                        <input type="hidden" id="token_payment" name="token_payment" value="{{$token_payment}}">
                         <input type="text" class="form-control" id="card-holder-name" placeholder="Card holder name" required>
                         <p class="custom-text-danger" id="error-message"></p>
                     </div> 
@@ -77,7 +78,6 @@
                 </form>
             </x-modal>     
 
-            
             @push('scripts')
                 <script>
                     const countriesData = [

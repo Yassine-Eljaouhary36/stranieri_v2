@@ -9,6 +9,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class MeetingController extends Controller
 {
@@ -48,9 +49,18 @@ class MeetingController extends Controller
         
         $orderTotal = $discountedPrice + ($taxRate * $originalPrice);
         $estimatedTax = $taxRate * $originalPrice;
+        // Generate a random token for payment
+        $token = Str::random(32); // Generate a 32-character random token
+
+        // Store the token in the session
+        session(['token' => $token]);
         
+        // Retrieve the token from the session
+        $token_payment = session('token');
+       
         return view('appointment-details', [
             'dateMeeting'=>$dateMeeting,
+            'token_payment'=>$token_payment,
             'price'=>$originalPrice,
             'local'=>str_replace('_', '-', app()->getLocale()),
             'client'=>$client,
@@ -71,8 +81,14 @@ class MeetingController extends Controller
         $request->validate([
             'payment_method' => ['required', 'string', 'max:255'],
             'dateMeeting' => ['required', 'string', 'max:255'],
+            'token_payment' => ['required', 'string', 'max:255'],
         ]);
-
+        // Retrieve the token from the session
+        $token_payment = session('token');
+        if ($request->token_payment !== $token_payment) {
+            return back()->with('custom_alert', ['type' => 'warning', 'title' => 'Sorry Error!', 'message' => 'there is an error! please try again .']);
+        }
+        
         $meetings = Meeting::where(function ($query) {
             $query->where('status', 'paid')
                   ->orWhere('status', 'in process');
@@ -123,8 +139,8 @@ class MeetingController extends Controller
             } catch (\Exception $exception) {
                 return back()->with('custom_alert', ['type' => 'warning', 'title' => 'Sorry Error!', 'message' => 'there is an error! please try again .']);
             }
-
-
+            // Clear the 'token' value from the session
+            session()->forget('token');
             dispatch(new OrderInProcess($order));
             return redirect()->route('order',$order)->with('custom_alert', ['type' => 'success', 'title' => 'Thank you for your order!', 'message' => 'the order has been successfully placed.']);
         }
