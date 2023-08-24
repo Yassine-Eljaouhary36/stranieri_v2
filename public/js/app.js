@@ -19859,9 +19859,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       // Set the target date and time you want to compare
       var targetDate = new Date(dateParamter); // Example date and time
+      // Subtract 30 minutes from targetDate
+      var adjustedTargetDate = new Date(targetDate.getTime() - 30 * 60 * 1000);
 
       // Compare the target date with the current date
-      if (targetDate > currentDate) {
+      if (adjustedTargetDate > currentDate) {
         return matchingDate ? true : false;
         ;
       } else {

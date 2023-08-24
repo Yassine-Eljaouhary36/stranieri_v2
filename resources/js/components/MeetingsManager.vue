@@ -258,9 +258,11 @@
 
                 // Set the target date and time you want to compare
                 const targetDate = new Date(dateParamter); // Example date and time
+                // Subtract 30 minutes from targetDate
+                const adjustedTargetDate = new Date(targetDate.getTime() - 30 * 60 * 1000);
 
                 // Compare the target date with the current date
-                if (targetDate > currentDate) {
+                if (adjustedTargetDate > currentDate) {
                     return matchingDate ? true : false;;
                 } else {
                     return true;
