@@ -1,5 +1,29 @@
 @extends('layouts.app')
 @section('content')
+@push('styles')
+<style>
+    .billing-address-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+    }
+
+    .billing-address-table th, .billing-address-table td {
+        padding: 5px 15px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .billing-address-table tr td:first-child {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+</style>
+@endpush
 <div class="cart-container">
 
     
@@ -11,7 +35,7 @@
 
 
     <div class="row mt-3 mx-2">
-        <div class="text-justify col-md-5 col-lg-4 text-secondary bg-light-subtle custom-infos-space p-3 mb-3">
+        <div style="margin-right: 15px" class="text-justify col-md-5 col-lg-4 text-secondary bg-light-subtle custom-infos-space p-3 mr-3 mb-3">
 
             @if (intVal($data['totalDiscount']) > 0)
                 <div class=" py-1"><span class="text-secondary">You saved: ${{ $data['totalDiscount'] }}</span></div>
@@ -23,14 +47,36 @@
         </div>
         @auth('client')
             @if ($client->billingAddress)
-                <div class="col text-secondary custom-infos-space p-3 bg-light-subtle  mx-md-3 mb-3">
-                    <h2>{{ __('Billing Address') }}</h2>
-                    <div class=" py-1"><span class="fw-bold text-dark">{{ __('Address')}} 1: </span><span class="text-secondary">{{ $client->billingAddress->address_one ?? '' }}</span></div>
-                    <div class=" py-1"><span class="fw-bold text-dark">{{ __('Address')}} 2: </span><span class="text-secondary">{{ $client->billingAddress->address_two ?? '' }}</span></div>
-                    <div class=" py-1"><span class="fw-bold text-dark">Country: </span><span class="text-secondary" id="address-country"></span></div>
-                    <div class=" py-1"><span class="fw-bold text-dark">City: </span><span class="text-secondary">{{ $client->billingAddress->city ?? '' }}</span></div>
-                    <div class=" py-1"><span class="fw-bold text-dark">Zip: </span><span class="text-secondary">{{ $client->billingAddress->zip ?? ''  }}</span></div>
-                    <div class=" py-1"><span class="fw-bold text-dark">Email: </span><span class="text-secondary">{{ $client->email ?? '' }}</span></div>
+                <div class="col text-secondary custom-infos-space p-3 bg-light-subtle  mx-sm-0 mb-3">
+                    <h2 class="pb-1 border-bottom border-secondary">{{ __('Billing Address') }}</h2>
+                    <table class="billing-address-table mt-3"  >
+                        <tbody>
+                            <tr>
+                                <td>{{ __('Address')}} 1: </td>
+                                <td><span class="text-secondary">{{ $client->billingAddress->address_one ?? '' }}</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('Address')}} 2: </td>
+                                <td><span class="text-secondary">{{ $client->billingAddress->address_two ?? '' }}</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('Country')}} : </td>
+                                <td><span class="text-secondary" id="address-country"></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('City')}} : </td>
+                                <td><span class="text-secondary">{{ $client->billingAddress->city ?? '' }}</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('Zip')}} : </td>
+                                <td><span class="text-secondary">{{ $client->billingAddress->zip ?? ''  }}</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('Email')}} : </td>
+                                <td><span class="text-secondary">{{ $client->email ?? '' }}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             @endif
         @endauth  

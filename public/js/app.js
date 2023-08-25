@@ -20014,47 +20014,52 @@ var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-4f490dce"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
 var _hoisted_1 = {
-  "class": "cart-items"
+  "class": "cart-item"
 };
 var _hoisted_2 = {
-  "class": "item-details"
+  "class": "styled-table"
 };
-var _hoisted_3 = {
-  "class": "item-description"
-};
+var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center"
+  }, "Time "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center"
+  }, "Date "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center"
+  }, "Price")])], -1 /* HOISTED */);
+});
 var _hoisted_4 = {
-  "class": "item-date-time"
+  "class": "text-center"
 };
 var _hoisted_5 = {
-  "class": "item-date"
+  style: {
+    "padding": "0px 5px"
+  }
 };
-var _hoisted_6 = {
-  key: 0,
-  "class": "item-day"
-};
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 var _hoisted_7 = {
-  key: 1,
-  "class": "item-day"
+  "class": "text-center"
 };
 var _hoisted_8 = {
-  "class": "item-date-time"
+  "class": "item-time"
 };
 var _hoisted_9 = {
-  "class": "item-time"
+  "class": "text-center"
 };
 var _hoisted_10 = {
   "class": "item-price"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sample Cart Item "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.cart, function (item) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-        'cart-item': true,
-        'rlt': $props.local == 'ar'
-      }),
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.cart, function (item) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: item
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation()), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [$props.local != 'ar' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToGetDay(item)), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToCustomFormat(item)), 1 /* TEXT */), $props.local == 'ar' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToGetDay(item)), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTimeToCustomFormat(item)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($props.price)), 1 /* TEXT */)], 2 /* CLASS */);
-  }), 128 /* KEYED_FRAGMENT */))]);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+        'item-day': true,
+        'rlt': $props.local == 'ar'
+      })
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToGetDay(item)), 1 /* TEXT */), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDateToCustomFormat(item)), 1 /* TEXT */)], 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTimeToCustomFormat(item)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatPrice($props.price)), 1 /* TEXT */)])]);
+  }), 128 /* KEYED_FRAGMENT */))])])]);
 }
 
 /***/ }),
@@ -20383,7 +20388,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n /* Reset some default browser styles */\n*[data-v-4f490dce] {\r\n    margin: 0;\r\n    padding: 0;\r\n    box-sizing: border-box;\n}\r\n\r\n\r\n/* Cart Items */\n.cart-items[data-v-4f490dce]{\r\n    padding: 10px 20px 25px 20px;\n}\n.cart-item[data-v-4f490dce] {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 15px 2px;  \r\n    border-bottom: 2px solid #dad9d9;\n}\n.rlt[data-v-4f490dce]{\r\n    flex-direction: row-reverse;\n}\n.item-details[data-v-4f490dce] {\r\n    /* flex: 1; */\r\n    padding-right: 20px;\n}\n.item-description[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #838383;\n}\n.item-date-time[data-v-4f490dce] {\r\n    color: #777;\n}\n.item-date[data-v-4f490dce] {\r\n    display: flex;\n}\n.item-day[data-v-4f490dce]{\r\n    padding: 0px 5px;\n}\n.item-price[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #76c6ff; \r\n    padding: 5px 10px;\r\n    border: 2px solid #76c6ff;\r\n    border-radius: 10px;\n}\n@media screen and (max-width: 650px) {\n.cart-item[data-v-4f490dce] {\r\n        flex-direction: column;\n}\n.item-details[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n.item-date-time[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n /* Reset some default browser styles */\n*[data-v-4f490dce] {\r\n    margin: 0;\r\n    padding: 0;\r\n    box-sizing: border-box;\n}\n.styled-table[data-v-4f490dce] {\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    border-spacing: 0;\r\n    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\r\n    border-radius: 8px;\r\n    overflow: hidden;\n}\n.styled-table th[data-v-4f490dce], .styled-table td[data-v-4f490dce] {\r\n    padding: 12px 15px;\r\n    text-align: left;\r\n    border-bottom: 1px solid #e0e0e0;\n}\n.styled-table th[data-v-4f490dce] {\r\n    background-color: #f0f0f0;\r\n    font-weight: bold;\n}\n.styled-table tbody tr[data-v-4f490dce]:hover {\r\n    background-color: #e0e0e0;\n}\n.cart-item[data-v-4f490dce] {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 20px 15px;  \r\n    border-radius: 10px;\r\n    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;\r\n    background-color: #fcfcfd;\r\n    border: 1px solid #ccc;\r\n    border-radius: 10px;\r\n    margin: 0px 10px;\n}\n.rlt[data-v-4f490dce]{\r\n    flex-direction: row-reverse;\n}\n.item-details[data-v-4f490dce] {\r\n    /* flex: 1; */\r\n    padding-right: 20px;\n}\n.item-description[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #838383;\n}\n.item-date-time[data-v-4f490dce] {\r\n    color: #777;\n}\n.item-date[data-v-4f490dce] {\r\n    display: flex;\n}\n.item-day[data-v-4f490dce]{\r\n    padding: 0px 5px;\r\n    display: flex;\r\n    justify-content: center;\n}\n.item-price[data-v-4f490dce] {\r\n    font-weight: bold;\r\n    color: #76c6ff; \r\n    padding: 5px;\r\n    border: 2px solid #76c6ff;\r\n    border-radius: 10px;\n}\n@media screen and (max-width: 650px) {\n.cart-item[data-v-4f490dce] {\r\n        flex-direction: column;\n}\n.item-details[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n.item-date-time[data-v-4f490dce] {\r\n        margin-bottom: 10px;\n}\n}\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

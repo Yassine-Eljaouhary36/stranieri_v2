@@ -1,26 +1,32 @@
 <template>
 
-    <div class="cart-items">
-        <!-- Sample Cart Item -->
-        <div 
-            :class="{'cart-item':true ,'rlt':local=='ar' }"  
-            v-for="item in cart" :key="item">
-
-            <div class="item-details" >
-                <div class="item-description"> {{transilation()}} </div>
-            </div>
-            <div class="item-date-time">
-                <div class="item-date">
-                    <div v-if="local!='ar'" class="item-day">{{formatDateToGetDay(item)}}</div>
-                    <div>{{formatDateToCustomFormat(item)}}</div>
-                    <div v-if="local=='ar'" class="item-day">{{formatDateToGetDay(item)}}</div>
-                </div>
-            </div>
-            <div class="item-date-time">
-                <div class="item-time">{{ formatTimeToCustomFormat(item) }}</div>
-            </div>
-            <div class="item-price">{{ formatPrice(price) }}</div>
-        </div>
+    <div class="cart-item"  >
+        
+        <table class="styled-table" >
+            <thead>
+                <tr>
+                    <th class="text-center">Time </th>
+                    <th class="text-center">Date </th>
+                    <th class="text-center">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in cart" :key="item">       
+                    <td  class="text-center">
+                        <div  
+                            :class="{'item-day':true ,'rlt':local=='ar' }"  
+                            > <span style="padding: 0px 5px;">{{formatDateToGetDay(item) }} </span> <span>{{ formatDateToCustomFormat(item) }}</span> 
+                        </div>
+                    </td>  
+                    <td class="text-center">
+                        <div class="item-time">{{ formatTimeToCustomFormat(item) }}</div>
+                    </td>
+                    <td class="text-center">
+                        <span class="item-price">{{ formatPrice(price) }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
   
 </template>
@@ -121,16 +127,40 @@
 }
 
 
-/* Cart Items */
-.cart-items{
-    padding: 10px 20px 25px 20px;
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
+.styled-table th, .styled-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.styled-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+.styled-table tbody tr:hover {
+    background-color: #e0e0e0;
+}
+
 .cart-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 2px;  
-    border-bottom: 2px solid #dad9d9;
+    padding: 20px 15px;  
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    background-color: #fcfcfd;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 0px 10px;
+
 }
 
 .rlt{
@@ -156,11 +186,13 @@
 }
 .item-day{
     padding: 0px 5px;
+    display: flex;
+    justify-content: center;
 }
 .item-price {
     font-weight: bold;
     color: #76c6ff; 
-    padding: 5px 10px;
+    padding: 5px;
     border: 2px solid #76c6ff;
     border-radius: 10px;
 }
