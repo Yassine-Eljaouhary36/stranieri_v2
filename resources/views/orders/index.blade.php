@@ -45,6 +45,7 @@
             color: #62016ab5;
             padding: 5px 10px;
             border-radius: 5px;
+            background-color: transparent;
         }
 
         .show-btn:hover {
@@ -88,38 +89,24 @@
             <table class="styled-table"  id="data-table">
                 <thead>
                     <tr>
-                        <th>Ref</th>
-                        <th>Order date</th>
-                        <th>Paid amount</th>
-                        <th>Discount</th>
-                        <th>Price</th>
-                        <th>Tax</th>
-                        <th>Order status</th>
-                        <th>date meeting</th>
-                        <th>Action</th>
+                        <th class="text-center">Ref</th>
+                        <th class="text-center">Meeting at</th>
+                        <th class="text-center">Paid at</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($orders as $key => $order)
                         <tr  class="order" data-status="{{ $order->status }}">
                             <td>{{ $order->ref ?? '' }}</td>
-                            <td class="text-center text-secondary">{{ $order->created_at->format('d-m-Y') ?? '' }}</td>
-                            <td class="text-center text-primary fw-bold "> 
-                                <span class="paid-amount">${{ number_format($order->paid_amount, 2) ?? '' }}</span>
-                            </td>
-                            <td class="text-center text-success fw-bold"> -${{ number_format($order->discount, 2) ?? '' }}</td>
-                            <td class="text-center text-secondary fw-bold"> ${{ number_format($order->price, 2) ?? '' }}</td>
-                            <td class="text-center text-danger fw-bold"> +${{ number_format($order->tax, 2) ?? '' }}</td>
+                            <td class="text-center text-secondary">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A d-m-Y') ?? '' }}</td>
+                            <td class="text-center text-secondary">{{ $order->created_at->format('h:i A d-m-Y') ?? '' }}</td>
                             <td  class="text-center"> 
                                 @include('orders.order-status', ['order' => $order])
                             </td>
-                            <td  class="text-center">
-                                <x-showclockmeeting :ref="$order->ref" :meeting="$order->meeting" :id="$key"></x-showclockmeeting>
-                            </td>
                             <td class="text-center" >
-                                <a href="{{ route('order', $order->id) }}" class="show-btn">
-                                    <i class="fa-solid fa-eye"></i>
-                                </a>
+                                <x-showclockmeeting :ref="$order->ref" :meeting="$order->meeting" :id="$key"></x-showclockmeeting>
                             </td>
                         </tr>
                         @empty
