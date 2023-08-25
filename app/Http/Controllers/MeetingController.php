@@ -47,8 +47,8 @@ class MeetingController extends Controller
         $amountSaved = $originalPrice - $discountedPrice;
 
         
-        $orderTotal = $discountedPrice + ($taxRate * $originalPrice);
-        $estimatedTax = $taxRate * $originalPrice;
+        $orderTotal = $discountedPrice + ($taxRate * $discountedPrice);
+        $estimatedTax = $taxRate * $discountedPrice;
         // Generate a random token for payment
         $token = Str::random(32); // Generate a 32-character random token
 
@@ -118,8 +118,8 @@ class MeetingController extends Controller
             $amountSaved = $originalPrice - $discountedPrice;
 
             
-            $orderTotal = $discountedPrice + ($taxRate * $originalPrice);
-            $estimatedTax = $taxRate * $originalPrice;
+            $orderTotal = $discountedPrice + ($taxRate * $discountedPrice);
+            $estimatedTax = $taxRate * $discountedPrice;
 
             $order = Order::create([
                 'paid_amount' => $orderTotal,
