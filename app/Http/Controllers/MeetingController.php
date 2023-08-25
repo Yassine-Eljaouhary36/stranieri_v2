@@ -88,7 +88,16 @@ class MeetingController extends Controller
         if ($request->token_payment !== $token_payment) {
             return back()->with('custom_alert', ['type' => 'warning', 'title' => 'Sorry Error!', 'message' => 'there is an error! please try again .']);
         }
+        $currentDate = Carbon::now(); // Get the current date and time
+
+        // Set the target date and time you want to compare
+        $targetDate = Carbon::parse($request->dateMeeting); 
+        $adjustedTargetDate = $targetDate->subMinutes(30); // Subtract 30 minutes from targetDate
         
+        // Compare the target date with the current date
+        if (!$adjustedTargetDate->greaterThan($currentDate)) {
+            return back()->with('custom_alert', ['type' => 'warning', 'title' => 'Sorry Error!', 'message' => 'there is an error! please try again .']);
+        }
         $meetings = Meeting::where(function ($query) {
             $query->where('status', 'paid')
                   ->orWhere('status', 'in process');
