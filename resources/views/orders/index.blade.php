@@ -75,12 +75,17 @@
                 </span>
             </div>
             <div>
-                <select id="statusFilter" class="form-control">
-                    <option value="">All</option>
-                    @foreach($orderStatuses as $status)
-                        <option value="{{ $status }}">{{ $status }}</option>
-                    @endforeach
-                </select>
+                <div class="btn-group dropstart">
+                    <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-filter"></i> status
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><button class="statusFilter dropdown-item" type="button" data-status="" >All</button></li>
+                        @foreach($orderStatuses as $status)
+                            <li><button class="statusFilter dropdown-item" type="button" data-status="{{ $status }}">{{ $status }}</button></li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
             
         </div>
@@ -131,20 +136,24 @@
 
     @push('scripts')
     <script>
-        const statusFilter = document.getElementById('statusFilter');
         const orders = document.querySelectorAll('.order');
     
-        statusFilter.addEventListener('change', () => {
-            const selectedStatus = statusFilter.value.toLowerCase();
-    
+        // Select all the buttons with the class statusFilter
+        var buttons = document.querySelectorAll(".statusFilter");
+
+        // Loop through the buttons and add a click event listener to each one
+        for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function() { 
+            const selectedStatus = this.dataset.status;
             orders.forEach(order => {
-                if (selectedStatus === '' || order.dataset.status === selectedStatus.toLowerCase()) {
+                if (selectedStatus === '' || order.dataset.status.toLowerCase() === selectedStatus.toLowerCase()) {
                     order.style.display = 'table-row'; 
                 } else {
                     order.style.display = 'none';
                 }
             });
         });
+        }
     </script>
         
     @endpush

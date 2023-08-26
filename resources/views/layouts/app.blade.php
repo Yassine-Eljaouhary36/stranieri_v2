@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="{{ asset('css/custom-style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         @stack('styles')
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
         <script src="https://kit.fontawesome.com/ab2018bbfb.js" crossorigin="anonymous"></script>
     </head>
     <body class="antialiased">
