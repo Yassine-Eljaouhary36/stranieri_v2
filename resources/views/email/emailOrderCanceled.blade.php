@@ -27,35 +27,36 @@
         .invoice-info {
             flex: 1;
         }
+        .order-info {
+            margin: 25px auto;
+            max-width: 450px;
+        }
         .invoice-logo {
             /* width: 150px; */
             text-align: center;
         }
-        .invoice-items {
-            margin-top: 20px;
-        }
-        .item-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .item-name {
-            flex: 2;
-        }
-        .item-price {
-            flex: 1;
-            text-align: right;
-        }
-        .total {
-            margin-top: 20px;
-            text-align: right;
-        }
-        .additional-info {
-            margin-top: 20px;
-        }
         .client-info {
             margin-top: 20px;
+        }
+        .order-infos-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .order-infos-table th, .order-infos-table td {
+            padding: 5px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .order-infos-table tr td:first-child {
+            background-color: #e2f4ff;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -68,55 +69,51 @@
                     <img src="{{asset('storage/'.(setting('site.logo')))}}" alt="Logo" width="100">
                 @endif
             </div>
-            <h1>Invoice</h1>
         </div>
         <div class="invoice-details">
-            <div class="invoice-info">
-                <p>Dear {{$client->first_name}} {{$client->last_name}} ,</p>
-            </div>
+            <p style="margin: 0px 10px">Dear {{$client->first_name}} {{$client->last_name}} ,</p>
         </div>
-        <div style="margin: 0px 0px 5px 0px">
+        <div style="margin: 0px 10px 5px 10px">
             <p>
-                We hope this email finds you well. We wanted to inform you that your recent order with us is currently canceled.
+                We regret to inform you that your order has been cancelled due to a payment failure.
             </p>
         </div>
         
-        <div class="invoice-info">
-            <p style="font-size: 18px; color: #949494; font-weight: 600"><span>Order reference:</span>{{$order->ref}}</p>
+        <div class="order-info">
+            <table class="order-infos-table mt-3"  >
+                <tbody>
+                    <tr>
+                        <td class="text-center">{{ __('Order reference')}} </td>
+                        <td class="text-center"><span class="text-secondary">{{ $order->ref }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">{{ __('Date meeting')}} </td>
+                        <td class="text-center"><span class="text-secondary">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('H:i d/m/Y') }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">{{ __('Paid amount')}} </td>
+                        <td class="text-center"><span class="text-primary">${{ number_format($order->paid_amount, 2) ?? '' }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">{{ __('Tax')}} </td>
+                        <td class="text-center"><span class="text-danger">${{ number_format($order->tax, 2) ?? '' }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">{{ __('Order Date')}} </td>
+                        <td class="text-center"><span class="text-danger">{{ \Carbon\Carbon::parse($order->created_at)->format('H:i d-m-Y') ?? '' }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        
-        <div class="invoice-items">
-            <div class="item-row">
-                <div class="item-name">Book a meeting</div>
-                <div class="item-name" style=" font-weight: 600; color: #949494">
-                   <span style="margin-right: 5px ; color: #1694ef">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('H:i') }} </span>
-                    <span style="margin-right: 5px ; color: #949494">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('d/m/Y') }}</span>
-                </div>
-                <div class="item-price">${{ number_format($order->price, 2) ?? '' }}</div>
-            </div>
-        </div>
-        <div class="total">
-            <p>Discount: ${{ number_format($order->discount, 2) ?? '' }}</p>
-            <p>Tax: ${{ number_format($order->tax, 2) ?? '' }}</p>
-            <p>Total: ${{ number_format($order->paid_amount, 2) ?? '' }}</p>
-        </div>
-        <div style="margin: 5px 0px">
+    
+        <div style="margin: 10px;color:#848383">
             <p>
-                We understand how important your order is to you, and we assure you that we are dedicated to providing you with the best service. 
-                If you have any questions or need further assistance regarding your order, 
-                please don't hesitate to reach out to our customer support team 
+                Please note: we would like to remind you of our refund policy, which states that you can only request for a refund if you cancel your meeting at least 72 hours before the scheduled start time.
             </p>
             <p>
-                Thank you for choosing us for your Service needs. We truly appreciate your business and look forward to serving you.
+                If you have any questions or concerns, please contact us at {{env('MAIL_FROM_ADDRESS')}}.
             </p>
         </div>
-        <div class="additional-info">
-            <p>Order Date: {{ \Carbon\Carbon::parse($order->created_at)->format('H:i d-m-Y') ?? '' }}</p>
-        </div>
-        <div class="client-info">
-            <p>Email: {{$client->email}} </p>
-            <p>Billing Address: {{$client->billingAddress->address_one}} ,{{$client->billingAddress->address_two}} , {{$client->billingAddress->city}} , {{$client->billingAddress->country}} </p>
-        </div> 
     </div>
 </body>
 </html>
