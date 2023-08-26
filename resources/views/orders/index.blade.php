@@ -125,13 +125,13 @@
             </table>
         </div>
 
-        @if (count($orders) >= 10)
+        {{-- @if (count($orders) >= 10) --}}
             <div class="d-flex border-top">
                 <div class="px-5 m-auto py-3">
                     {{ $orders->links() }}
                 </div>
             </div>
-        @endif
+        {{-- @endif --}}
     </div>
 
     @push('scripts')
