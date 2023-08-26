@@ -9,7 +9,7 @@ class LangsController extends Controller
 {
     public function langs_handler(Request $request){
         $this->validate($request, [ 
-            'lang' => 'required|alpha|min:2|max:2', 
+            'lang' => 'required|alpha|size:2', 
         ]);
         
         $locale = $request->lang;

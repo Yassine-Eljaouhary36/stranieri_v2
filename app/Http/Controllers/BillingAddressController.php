@@ -11,7 +11,7 @@ class BillingAddressController extends Controller
         $this->validate($request, [ 
             'address_one' => 'required|string|min:5|max:255', 
             'address_two' => 'nullable|string|max:255',
-            'country' => 'required|alpha|min:2|max:2', 
+            'country' => 'required|alpha|size:2', 
             'city' => 'required|string|min:2|max:100', 
             'zip' => 'required|string|min:3|max:100', 
         ]);

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use DateTime;
 
 class MeetingController extends Controller
 {
@@ -79,9 +80,16 @@ class MeetingController extends Controller
     public function payMeeting(Request $request)
     {
         $request->validate([
-            'payment_method' => ['required', 'string', 'max:255'],
-            'dateMeeting' => ['required', 'string', 'max:255'],
-            'token_payment' => ['required', 'string', 'max:255'],
+            "payment_method" => [ 'required', 'string','regex:/^pm_[a-zA-Z0-9]{24}$/' ],
+            'dateMeeting' => ['required', 'string',
+            function ($attribute, $value, $fail) {
+                try {
+                    new DateTime($value);
+                } catch (\Exception $e) {
+                    $fail('Invalid date format.');
+                }
+            },],
+            'token_payment' => ['required', 'string' , 'regex:/^[a-zA-Z0-9]{32}$/'],
         ]);
         // Retrieve the token from the session
         $token_payment = session('token');
