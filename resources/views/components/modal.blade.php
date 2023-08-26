@@ -90,12 +90,12 @@
         
 
                     if (error) {
-                        Swal.fire({
-                            title: "Error",
-                            text: "there is something wrong",
-                            icon: 'wrong',
-                            confirmButtonText: 'try again'
-                        });
+                        // Swal.fire({
+                        //     title: "Error",
+                        //     text: "there is something wrong",
+                        //     icon: 'wrong',
+                        //     confirmButtonText: 'try again'
+                        // });
                         // Remove the 'disabled' attribute from the card button
                         cardButton.removeAttribute('disabled');
             

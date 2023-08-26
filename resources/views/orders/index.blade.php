@@ -89,10 +89,10 @@
             <table class="styled-table"  id="data-table">
                 <thead>
                     <tr>
-                        <th class="text-center">Ref</th>
-                        <th class="text-center">Meeting at</th>
-                        <th class="text-center">Paid at</th>
-                        <th class="text-center">Status</th>
+                        <th >Ref</th>
+                        <th >Meeting at</th>
+                        <th >Paid at</th>
+                        <th >Status</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -100,9 +100,9 @@
                     @forelse ($orders as $key => $order)
                         <tr  class="order" data-status="{{ $order->status }}">
                             <td>{{ $order->ref ?? '' }}</td>
-                            <td class="text-center text-secondary">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A d-m-Y') ?? '' }}</td>
-                            <td class="text-center text-secondary">{{ $order->created_at->format('h:i A d-m-Y') ?? '' }}</td>
-                            <td  class="text-center"> 
+                            <td style="min-width: 186px" class="text-secondary">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A d-m-Y') ?? '' }}</td>
+                            <td style="min-width: 186px" class="text-secondary">{{ $order->created_at->format('h:i A d-m-Y') ?? '' }}</td>
+                            <td style="min-width: 186px"> 
                                 @include('orders.order-status', ['order' => $order])
                             </td>
                             <td class="text-center" >

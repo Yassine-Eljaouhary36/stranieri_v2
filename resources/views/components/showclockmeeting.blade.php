@@ -106,14 +106,6 @@
                                 <td class="text-center"><span class="text-danger">${{ number_format($meeting->order->tax, 2) ?? '' }}</span></td>
                             </tr>
                             <tr>
-                                <td class="text-center">{{ __('Discount')}} </td>
-                                <td class="text-center"><span class="text-success">${{ number_format($meeting->order->discount, 2) ?? '' }}</span></td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">{{ __('Price')}} </td>
-                                <td class="text-center"><span class="text-secondary">${{ number_format($meeting->order->price, 2) ?? '' }}</span></td>
-                            </tr>
-                            <tr>
                                 <td class="text-center">{{ __('Status')}} </td>
                                 <td class="text-center">
                                     @switch($meeting->order->status)

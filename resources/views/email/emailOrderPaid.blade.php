@@ -77,7 +77,7 @@
         </div>
         <div style="margin: 0px 0px 5px 0px">
             <p>
-                We hope this email finds you well. We wanted to inform you that your recent order with us is currently paid.
+                Your recent order has been successfully processed and paid.
             </p>
         </div>
         
