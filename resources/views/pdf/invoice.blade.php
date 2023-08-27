@@ -57,13 +57,33 @@
         .client-info {
             margin-top: 20px;
         }
+        .order-infos-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .order-infos-table th, .order-infos-table td {
+            padding: 5px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .order-infos-table tr td:first-child {
+            background-color: #e2f4ff;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="invoice">
         <div class="header">
             <div class="invoice-logo">
-                @if (file_exists('storage/' . setting('site.logo')) && setting('site.logo') != null)
+                @if (setting('site.logo') != null)
                     <img src="{{asset('storage/'.str_replace('\\', '/',setting('site.logo')))}}" alt="Logo" width="100">
                 @endif 
             </div>
@@ -76,29 +96,31 @@
             </div>
 
         </div>
-        
-        <div class="invoice-info">
-            <p style="font-size: 18px; color: #949494; font-weight: 600"><span>Order reference: </span>{{$data['ref']}}</p>
-        </div>
-        
-        <div class="invoice-items">
-            <div class="item-row">
-                <div class="item-name">Book a meeting</div>
-                <div class="item-name" style=" font-weight: 600; color: #949494">
-                   <span style="margin-right: 5px ; color: #1694ef">{{ \Carbon\Carbon::parse($data['meeting']['DateMeeting'])->format('H:i') }} </span>
-                    <span style="margin-right: 5px ; color: #949494">{{ \Carbon\Carbon::parse($data['meeting']['DateMeeting'])->format('d/m/Y') }}</span>
-                </div>
-                <div class="item-price">${{ number_format($data['price'], 2) ?? '' }}</div>
-            </div>
-        </div>
-        <div class="total">
-            <p>Discount: ${{ number_format($data['discount'], 2) ?? '' }}</p>
-            <p>Tax: ${{ number_format($data['tax'], 2) ?? '' }}</p>
-            <p>Total: ${{ number_format($data['paid_amount'], 2) ?? '' }}</p>
-        </div>
-        <div class="additional-info">
-            <p>Order Date: {{ \Carbon\Carbon::parse($data['created_at'])->format('H:i d-m-Y') ?? '' }}</p>
-        </div>
+
+        <table class="order-infos-table mt-3"  >
+            <tbody>
+                <tr>
+                    <td class="text-center">{{ __('Order reference')}} </td>
+                    <td class="text-center"><span class="text-secondary">{{ $data['ref'] }}</span></td>
+                </tr>
+                <tr>
+                    <td class="text-center">{{ __('Date meeting')}} </td>
+                    <td class="text-center"><span class="text-secondary">{{ \Carbon\Carbon::parse($data['meeting']['DateMeeting'])->format('H:i d/m/Y') }}</span></td>
+                </tr>
+                <tr>
+                    <td class="text-center">{{ __('Paid amount')}} </td>
+                    <td class="text-center"><span class="text-primary">${{ number_format($data['paid_amount'], 2) ?? '' }}</span></td>
+                </tr>
+                <tr>
+                    <td class="text-center">{{ __('Tax')}} </td>
+                    <td class="text-center"><span class="text-danger">${{ number_format($data['tax'], 2) ?? '' }}</span></td>
+                </tr>
+                <tr>
+                    <td class="text-center">{{ __('Order Date')}} </td>
+                    <td class="text-center"><span class="text-danger">{{ \Carbon\Carbon::parse($data['created_at'])->format('H:i d-m-Y') ?? '' }}</span></td>
+                </tr>
+            </tbody>
+        </table>
         <div class="client-info">
             <p>Email: {{$data['client']['email']}} </p>
             <p>Billing Address: {{$data['client']['address_one']}} ,{{$data['client']['address_two']}} , {{$data['client']['city']}} , {{$data['client']['country']}} </p>
