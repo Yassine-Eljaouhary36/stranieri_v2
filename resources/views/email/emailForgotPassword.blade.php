@@ -65,7 +65,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            @if (file_exists('storage/' . setting('site.logo')) && setting('site.logo') != null)
+            @if (setting('site.logo') != null)
                     <img src="{{asset('storage/'.(setting('site.logo')))}}" alt="Logo" width="100">
             @endif
         </div>
