@@ -22,8 +22,6 @@ use TCG\Voyager\Facades\Voyager;
 |
 */
 
-
-
 Route::prefix('customer')->group(function () {
 
     Route::get('/meetings-panel', [MeetingController::class, 'index'])->name('index');
@@ -65,6 +63,9 @@ Route::get('/download-invoice/{order}' ,[OrderController::class, 'downloadInvoic
 Route::post('/email/verification-notification',[RegisterController::class, 'verificationSend'])
     ->middleware(['client_has_session', 'throttle:6,1'])->name('verification.send');
 
+Route::get('/privacy-policy', function () {
+    return view('privacy_policy');
+})->name('privacy.policy');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

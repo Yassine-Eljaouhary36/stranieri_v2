@@ -82,20 +82,28 @@
 
                 <div class="row">
                     <div class="col mb-1">
-    
-                        <div class="d-flex">
-                            <span style="padding-right: 5px">Already have an account ?</span> 
-                            <a style="text-decoration: underline;" class="text-primary" href="{{ route('showLoginForm') }}"> Login</a>
-                        </div>
-
+                      <div class="form-check text-start my-1">
+                        <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="agree" required>
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Please confirm that you agree to our <a href="{{ route('privacy.policy') }}" target="_blank">terms & conditions</a>.
+                        </label>
+                      </div>
                     </div>
                 </div>
 
             
-                <div  class="d-grid gap-2 col-6 mx-auto my-2">
+                <div  class="d-grid gap-2 col-6 mx-auto my-1">
                   <button type="submit" class="btn btn-primary btn-lg">register</button>
                 </div>
   
+                <div class="row">
+                  <div class="col my-1">
+                    <div class="d-flex justify-content-center">
+                        <span style="padding-right: 5px">Already have an account ?</span> 
+                        <a style="text-decoration: underline;" class="text-primary" href="{{ route('showLoginForm') }}"> Login</a>
+                    </div>
+                  </div>
+              </div>
               </form>
             </div>
           </div>

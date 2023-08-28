@@ -29,8 +29,9 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Client::class],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'agree' => ['required','accepted']
         ]);
-        
+        dd($request);
         $client = Client::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
