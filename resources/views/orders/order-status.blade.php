@@ -44,27 +44,27 @@
 
     @case('paid')
         <div class="item-status paid"> <i class="fas fa-check"></i></div>
-        {{ $order->status }}
+        {{ __('meeting_order.Statuses.Paid') }}
     @break
 
     @case('in process')
         <div class="item-status in_process"><i class="fa-solid fa-spinner"></i></div>
-        {{ $order->status }}
+        {{ __('meeting_order.Statuses.In_Process') }}
     @break
 
     @case('failed')
         <div class="item-status failed"><i class="fa-solid fa-xmark"></i></div>
-        {{ $order->status }}
+        {{ __('meeting_order.Statuses.Failed') }}
     @break
 
     @case('refunded')
         <div class="item-status refunded"><i class="fas fa-redo-alt"></i></div>
-        {{ $order->status }}
+        {{ __('meeting_order.Statuses.Refunded') }}
     @break
 
     @case('canceled')
         <div class="item-status canceled"><i class="fa-solid fa-xmark"></i></div>
-        {{ $order->status }}
+        {{ __('meeting_order.Statuses.Canceled') }}
     @break
 
     @default

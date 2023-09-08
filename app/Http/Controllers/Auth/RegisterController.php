@@ -25,13 +25,13 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Client::class],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'first_name' => ['required', 'string', 'max:50'],
+            'last_name' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email','min:6', 'max:100', 'unique:'.Client::class],
+            'password' => ['required', 'string', 'min:8', 'max:20', 'confirmed'],
             'agree' => ['required','accepted']
         ]);
-        dd($request);
+       
         $client = Client::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -59,7 +59,7 @@ class RegisterController extends Controller
             });
         } catch (\Exception $e) {
             if ($e->getMessage()) {
-                return back()->with('custom_alert', ['type' => 'worning', 'title' => 'Something went wrong.', 'message' => 'Please try again later.']);
+                return back()->with('custom_alert', ['type' => 'worning', 'title' => __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Please_Try_Again_Later')]);
             }
         }
 
@@ -69,28 +69,31 @@ class RegisterController extends Controller
 
     public function verifyClient($token){
         $verifyClient = ClientVerify::where('token', $token)->first();
-  
-        $message = "The link you are trying to access has expired. Please request a new link.";
-        $type='worning';
-        $title='Sorry expired link';
+        
+        $message = __('register_login.Message_Expired_Link');
+        $type = 'worning';
+        $title = __('register_login.Title_Expired_Link');
+        if(is_null($verifyClient)){
+            return redirect()->route('showLoginForm')->with('custom_alert', ['type' => $type, 'title' => $title, 'message' => $message]);
+        }
         $updatedTime = Carbon::parse($verifyClient->updated_at);
         $currentTime = Carbon::now();
 
-        if(!is_null($verifyClient) && $currentTime->diffInMinutes($updatedTime) < 10 ){
+        if($verifyClient && $currentTime->diffInMinutes($updatedTime) < 10 ){
             $client = $verifyClient->client;
               
             if(!$client->is_email_verified) {
                 $verifyClient->client->email_verified_at = Carbon::now();
                 $verifyClient->client->is_email_verified = 1;
                 $verifyClient->client->save();
-                $message = "Your e-mail is verified. You can now login.";
-                $type='success';
-                $title='e-mail verification';
+                $message = __('register_login.Message_Email_Verified');
+                $type = 'success';
+                $title = __('register_login.Title_Email_Verified');
                 $verifyClient->delete();
             } else {
-                $message = "Your e-mail is already verified. You can now login.";
+                $message = __('register_login.Message_Already_Email_Verified');
                 $type='Info';
-                $title='e-mail verification';
+                $title = __('register_login.Title_Email_Verified');
             }
         }
   
@@ -116,11 +119,11 @@ class RegisterController extends Controller
             });
         } catch (\Exception $e) {
             if ($e->getMessage()) {
-                return back()->with('custom_alert', ['type' => 'worning', 'title' => 'Something went wrong.', 'message' => 'Please try again later.']);
+                return back()->with('custom_alert', ['type' => 'worning', 'title' => __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Please_Try_Again_Later')]);
             }
         }
 
-        return back()->with('custom_alert', ['type' => 'success', 'title' => 'Verification link sent!', 'message' => 'A new verification link has been sent to the email address you provided during registration.']); 
+        return back()->with('custom_alert', ['type' => 'success', 'title' => __('register_login.Title_Verification_Link_Sent'), 'message' => __('register_login.Message_Verification_Link_Sent')]); 
     }
 
 

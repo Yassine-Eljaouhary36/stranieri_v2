@@ -20,9 +20,10 @@
         align-items: center;
         font-size: 14px;
         padding: 2px 10px;
+        border-radius: 10px;
     }
 
-    .status-paid {
+    /* .status-paid {
         color: #8ec044;
         border: 2px dashed #8ec044;
         border-radius: 10px;
@@ -38,6 +39,31 @@
         color: #dc3545;
         border: 2px dashed  #dc3545;
         border-radius: 10px;
+    } */
+
+    .status-paid {
+        color: #89d200;
+        border: 2px dashed #8bc34a;
+    }
+
+    .status-in_process {
+        color: #007bff;
+        border: 2px dashed #007bff;
+    }
+
+    .status-refunded {
+        color: #e87436;
+        border: 2px dashed #ffc107;
+    }
+
+    .status-canceled {
+        color: #dc3545;
+        border: 2px dashed #dc3545;
+    }
+
+    .status-failed {
+        color: #dc3545;
+        border: 2px dashed #dc3545;
     }
 
     .order-infos-table {
@@ -73,52 +99,59 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
-                    <span class="fw-bold">Order reference : </span>
+                    <span class="fw-bold">{{ __('meeting_order.Order_Reference')}}</span>
                     <span class="text-secondary fw-bold">#{{$ref}}</span>
                 </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
             </div>
             <div class="modal-body">
                 <div class="clock-container">
                     <div>
                         @if ($meeting->order->status=='paid')
                             <a href="{{route('download-invoice',$meeting->order)}}" class="btn btn-md btn-outline-primary">
-                                <i class="fa-solid fa-print"></i> print
+                                <i class="fa-solid fa-print"></i> {{ __('meeting_order.Print')}}
                             </a>
                         @endif
                     </div>
                     <table class="order-infos-table mt-3"  >
                         <tbody>
                             <tr>
-                                <td class="text-center">{{ __('Time meeting')}} </td>
+                                <td class="text-center">{{ __('meeting_order.Time_Meeting')}} </td>
                                 <td class="text-center"><span class="text-secondary">{{ \Carbon\Carbon::parse($meeting->DateMeeting)->format('h:i A') }}</span></td>
                             </tr>
                             <tr>
-                                <td class="text-center">{{ __('Date meeting')}} </td>
+                                <td class="text-center">{{ __('meeting_order.Date_Meeting')}} </td>
                                 <td class="text-center"><span class="text-secondary">{{ \Carbon\Carbon::parse($meeting->DateMeeting)->format('d/m/Y') }}</span></td>
                             </tr>
                             <tr>
-                                <td class="text-center">{{ __('Paid amount')}} </td>
+                                <td class="text-center">{{ __('meeting_order.Paid_Amount')}} </td>
                                 <td class="text-center"><span class="text-primary">${{ number_format($meeting->order->paid_amount, 2) ?? '' }}</span></td>
                             </tr>
                             <tr>
-                                <td class="text-center">{{ __('Tax')}} </td>
+                                <td class="text-center">{{ __('meeting_order.Tax')}} </td>
                                 <td class="text-center"><span class="text-danger">${{ number_format($meeting->order->tax, 2) ?? '' }}</span></td>
                             </tr>
                             <tr>
-                                <td class="text-center">{{ __('Status')}} </td>
+                                <td class="text-center">{{ __('meeting_order.Status')}} </td>
                                 <td class="text-center">
                                     @switch($meeting->order->status)
                                         @case('paid')
-                                            <div class="meeting-status status-paid">{{$meeting->order->status}}</div>
+                                            <div class="meeting-status status-paid">{{ __('meeting_order.Statuses.Paid') }}</div>
                                         @break
-            
+                                        @case('in process')
+                                            <div class="meeting-status status-in_process"> {{ __('meeting_order.Statuses.In_Process') }}</div>
+                                        @break
+                                        @case('failed')
+                                            <div class="meeting-status status-failed">{{ __('meeting_order.Statuses.Failed') }}</div>
+                                        @break
+                                        @case('refunded')
+                                            <div class="meeting-status status-refunded"> {{ __('meeting_order.Statuses.Refunded') }}</i></div>
+                                        @break
                                         @case('canceled')
-                                            <div class="meeting-status status-canceled">{{$meeting->order->status}}</i></div>
+                                            <div class="meeting-status status-canceled"> {{ __('meeting_order.Statuses.Canceled') }}</i></div>
                                         @break
-            
                                         @default
-                                            <div class="meeting-status status-inprogress">{{$meeting->order->status}}</div>
+                                            <div class="meeting-status default">{{$meeting->order->status}}</div>
                                     @endswitch
                                 </td>
                             </tr>
@@ -127,7 +160,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('meeting_order.Close')}}</button>
             </div>
         </div>
     </div>

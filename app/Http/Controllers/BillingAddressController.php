@@ -27,6 +27,6 @@ class BillingAddressController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('custom_alert', ['type' => 'success', 'title' => 'Thank you your billing address!', 'message' => 'the billing address has been successfully added.']);
+        return redirect()->back()->with('custom_alert', ['type' => 'success', 'title' => __('register_login.Title_Thanks_Billing_Address'), 'message' => __('register_login.Message_Thanks_Billing_Address')]);
     }
 }

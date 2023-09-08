@@ -67,17 +67,17 @@
         }
         </style>
     @endpush
-    <div class="orders-container">
+    <div class="orders-container" style="{{ app()->getLocale() == 'ar' ? "direction: rtl;" : "" }}">
         <div class="text-center pt-2 pb-4 d-flex justify-content-between">
-            <div class="pt-2"> <b>You have: </b>
+            <div class="pt-2"> <b>{{__('meeting_order.You_Have')}} </b>
                 <span class="text-secondary">
-                    {{ $orders->count() }} Orders
+                    {{ $orders->count() }} {{__('meeting_order.Orders')}}
                 </span>
             </div>
             <div>
                 <div class="btn-group dropstart">
                     <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-filter"></i> status
+                        <i class="fa-solid fa-filter"></i> {{__('meeting_order.Status')}}
                     </button>
                     <ul class="dropdown-menu">
                         <li><button class="statusFilter dropdown-item" type="button" data-status="" >All</button></li>
@@ -94,20 +94,20 @@
             <table class="styled-table"  id="data-table">
                 <thead>
                     <tr>
-                        <th >Ref</th>
-                        <th >Meeting at</th>
-                        <th >Paid at</th>
-                        <th >Status</th>
-                        <th class="text-center">Action</th>
+                        <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('meeting_order.Ref')}}</th>
+                        <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('meeting_order.Meeting_At')}}</th>
+                        <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('meeting_order.Paid_At')}}</th>
+                        <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('meeting_order.Status')}}</th>
+                        <th class="text-center">{{__('meeting_order.Action')}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($orders as $key => $order)
                         <tr  class="order" data-status="{{ $order->status }}">
-                            <td>{{ $order->ref ?? '' }}</td>
-                            <td style="min-width: 186px" class="text-secondary">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A d-m-Y') ?? '' }}</td>
-                            <td style="min-width: 186px" class="text-secondary">{{ $order->created_at->format('h:i A d-m-Y') ?? '' }}</td>
-                            <td style="min-width: 186px"> 
+                            <td class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ $order->ref ?? '' }}</td>
+                            <td style="min-width: 186px" class="text-secondary {{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A d-m-Y') ?? '' }}</td>
+                            <td style="min-width: 186px" class="text-secondary {{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ $order->created_at->format('h:i A d-m-Y') ?? '' }}</td>
+                            <td style="min-width: 186px" class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}"> 
                                 @include('orders.order-status', ['order' => $order])
                             </td>
                             <td class="text-center" >

@@ -4,19 +4,19 @@
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
         <div class="col-12 col-lg-9 col-xl-7">
-          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;{{ app()->getLocale() == 'ar' ? "direction: rtl;" : "" }}">
             <div class="card-body p-4 p-md-5">
-              <h3 class="mb-3 pb-2 pb-md-0 mb-md-4">Forgot password</h3>
+              <h3 class="mb-3 pb-2 pb-md-0 mb-md-4">{{__('register_login.Forgot_Password')}}</h3>
                 <form  method="POST" action="{{route('sendResetLink')}}" id="Form">
                     @csrf
                     <div class="col">
                         <p class="text-primary">
-                            Enter your email address and we will send you a link to reset your password
+                            {{__('register_login.Message_Send_Link_Reset_Password')}}
                         </p>
                     </div>
                     <!-- Email input -->
                     <div class="form-outline mb-4">
-                        <label class="form-label" for="email">Email Address</label>
+                        <label class="form-label" for="email">{{__('register_login.Email_Address')}}</label>
                         <input value="{{ old('email') }}"  type="email" name="email"  id="email" class="@error('email') is-invalid @enderror form-control form-control-lg" />
                         <div class="invalid-feedback"> {{ $errors->first('email') ?? '' }}</div>
                     </div>
@@ -25,13 +25,13 @@
                   
                     <!-- Submit button -->
                     <div  class="d-grid gap-2 col-6 mx-auto mb-4">
-                        <button type="submit" class="btn btn-primary btn-lg"> Send Reset Password Link</button>
+                        <button type="submit" class="btn btn-primary"> {{__('register_login.Send_Reset_Link')}}</button>
                     </div>
                     
                   
                     <!-- Register buttons -->
                     <div class="text-center">
-                      <p>Already have an account? <a href="{{ route('showLoginForm') }}">Login</a></p>
+                      <p>{{__('register_login.Already_Account')}} <a href="{{ route('showLoginForm') }}">{{__('register_login.Login')}}</a></p>
                     </div>
                   </form>
             </div>
@@ -57,7 +57,7 @@
     
             function validateForm() {
                 const fields = [
-                    { id: "email", message: "Email is required" },
+                    { id: "email", message: "{{__('validation.required', ['attribute' => __('register_login.Email_Address')])}}" },
                 ];
     
                 clearErrorMessages();

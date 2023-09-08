@@ -11,7 +11,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -29,8 +28,8 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => ['required'],
-            'password' => ['required'],
+            'email' => ['required', 'email', 'string', 'max:100'],
+            'password' => ['required', 'string', 'min:8', 'max:20'],
         ]);
 
         $credentials = $request->only('email', 'password');
@@ -39,15 +38,15 @@ class LoginController extends Controller
         if (Auth::guard('client')->attempt($credentials)) {
             // Authentication passed...
             if (!empty(json_decode(request()->cookie('cart'))[0]) ) {
-                return redirect()->route('show-Details')->with('custom_alert', ['type' => 'success', 'title' => 'Logged in!', 'message' => 'You have been successfully logged in!']);
+                return redirect()->route('show-Details')->with('custom_alert', ['type' => 'success', 'title' => __('register_login.Title_Logged_In'), 'message' => __('register_login.Message_Successfully_Logged_In')]);
             }
-            return redirect()->route('index')->with('custom_alert', ['type' => 'success', 'title' => 'Logged in!', 'message' => 'You have been successfully logged in!']);
+            return redirect()->route('index')->with('custom_alert', ['type' => 'success', 'title' => __('register_login.Title_Logged_In'), 'message' => __('register_login.Message_Successfully_Logged_In')]);
 
         }
 
         // Authentication failed...
         return redirect()->back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => trans('auth.failed'),
         ]);
     }
 
@@ -64,12 +63,28 @@ class LoginController extends Controller
 
     public function sendResetLink(Request $request){
         $request->validate([
-            'email' => ['required','email','exists:clients,email'],
+            'email' => ['required','email','min:6', 'max:100','string','exists:clients,email'],
         ]);
+      
+        if (
+            Client::where('email', $request->email)->first()->is_email_verified == 0
+            ||
+            Client::where('email', $request->email)->first()->status != 'active'
+        ) {
+            return back()->with('custom_alert', ['type' => 'worning', 'title' => __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Please_Try_Again_Later')]);
+        }
 
-        DB::table('password_resets')->where([
+        $passReset = DB::table('password_resets')->where([
             'email' => $request->email,
-        ])->delete();
+        ])->first();
+
+        if ($passReset && Carbon::parse($passReset->created_at)->addMinutes(15)->isPast()) {
+            DB::table('password_resets')->where([
+                'email' => $request->email,
+            ])->delete();
+        } else if ($passReset) {
+            return back()->with('custom_alert', ['type' => 'worning', 'title' => __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Message_Already_Mailed_Password_Reset_Link')]);
+        }
         
         $token = Str::random(64);
 
@@ -89,25 +104,30 @@ class LoginController extends Controller
                 $message->priority(1);
                 //$message->attach('pathToFile');
             });
-            return back()->with('custom_alert', ['type' => 'success', 'title' => 'password reset link', 'message' => 'we have e-mailed your password reset link.']);
+            return back()->with('custom_alert', ['type' => 'success', 'title' => __('register_login.Title_Mailed_Password_Reset_Link'), 'message' => __('register_login.Message_Mailed_Password_Reset_Link')]);
         } catch (\Exception $e) {
             if ($e->getMessage()) {
-                return back()->with('custom_alert', ['type' => 'worning', 'title' => 'Something went wrong.', 'message' => 'Please try again later.']);
+                return back()->with('custom_alert', ['type' => 'worning', 'title' => __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Please_Try_Again_Later')]);
             }
         }
     }
 
     public function showResetForm($token)
     {
+        $validToken = DB::table('password_resets')
+            ->where('token', $token)
+            ->first();
+        if (!$validToken || Carbon::parse($validToken->created_at)->addMinutes(15)->isPast()) {
+            return back()->with('custom_alert', ['type' => 'worning', 'title' => __('register_login.Title_Invalid_Token'), 'message' => __('register_login.Please_Try_Again_Later')]);
+        }
         return view('auth.resetPassword',compact('token'));
     }
 
     public function resePassword(Request $request)
     {
         $request->validate([
-            'token'=>['required'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'password_confirmation' => 'required|min:8',
+            'token' => ['required', 'string', 'max:100'],
+            'password' => ['required', 'string', 'min:8', 'max:20', 'confirmed'],
         ]);
 
         $email = DB::table('password_resets')
@@ -115,7 +135,7 @@ class LoginController extends Controller
         ->select('email')
         ->value('email');
         if(!$email){
-            return back()->with('custom_alert', ['type' => 'worning', 'title' => 'Invalid Token', 'message' => 'Please try again later.']);
+            return back()->with('custom_alert', ['type' => 'worning', 'title' => __('register_login.Title_Invalid_Token'), 'message' => __('register_login.Please_Try_Again_Later')]);
         }else{
 
             Client::where('email',$email)->update([
@@ -126,7 +146,7 @@ class LoginController extends Controller
                 'email' => $email,
             ])->delete();
 
-            return redirect()->route('showLoginForm')->with('custom_alert', ['type' => 'success', 'title' => 'Your Password has been changed!', 'message' => 'You can login with new password']);
+            return redirect()->route('showLoginForm')->with('custom_alert', ['type' => 'success', 'title' => __('register_login.Title_Password_Changed'), 'message' => __('register_login.Message_Password_Changed')]);
         }
     }
 

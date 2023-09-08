@@ -25,24 +25,32 @@
             align-items: center;
             font-size: 14px;
             padding: 5px 10px;
+            border-radius: 10px;
         }
 
         .status-paid {
-            color: #8ec044;
-            border: 2px dashed #8ec044;
-            border-radius: 10px;
+            color: #89d200;
+            border: 2px dashed #8bc34a;
         }
 
-        .status-inprogress {
+        .status-in_process {
             color: #007bff;
             border: 2px dashed #007bff;
-            border-radius: 10px;
+        }
+
+        .status-refunded {
+            color: #e87436;
+            border: 2px dashed #ffc107;
         }
 
         .status-canceled {
             color: #dc3545;
-            border: 2px dashed  #dc3545;
-            border-radius: 10px;
+            border: 2px dashed #dc3545;
+        }
+
+        .status-failed {
+            color: #dc3545;
+            border: 2px dashed #dc3545;
         }
         .table-container {
             overflow-x: auto;
@@ -102,29 +110,29 @@
     </style>
 @endpush
 
-<div class="cart-container">
+<div class="cart-container" >
     <div class="order-header mt-2 mb-3">
         <a href="{{route('orders')}}" class="btn btn-md btn-outline-warning">
-            <i class="mr-1 fa-solid fa-arrow-left"></i> Back
+            <i class="mr-1 fa-solid fa-arrow-left"></i> {{ __('meeting_order.Back')}}
         </a>
         @if ($order->meeting->status=='paid')
             <a href="{{route('download-invoice',$order)}}" class="btn btn-md btn-outline-primary">
-                <i class="fa-solid fa-print"></i> print
+                <i class="fa-solid fa-print"></i> {{ __('meeting_order.Print')}}
             </a>
         @endif
     </div>
 
-    <div class="table-container">
+    <div class="table-container" style="{{ app()->getLocale() == 'ar' ? "direction: rtl;" : "" }}">
         <table class="styled-table">
             <thead>
                 <tr>
-                    <th>Ref</th>
-                    <th>Order date</th>
-                    <th>Paid amount</th>
-                    <th>Discount</th>
-                    <th>Price</th>
-                    <th>Tax</th>
-                    <th>Order status</th>
+                    <th>{{ __('meeting_order.Ref')}}</th>
+                    <th>{{ __('meeting_order.Order_Date')}}</th>
+                    <th>{{ __('meeting_order.Paid_Amount')}}</th>
+                    <th>{{ __('meeting_order.Discount')}}</th>
+                    <th>{{ __('meeting_order.Price')}}</th>
+                    <th>{{ __('meeting_order.Tax')}}</th>
+                    <th>{{ __('meeting_order.Order_Status')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -144,22 +152,29 @@
     </div>
     <div class="clock-container mt-2">
         <div class="fw-bold text-secondary fs-3">
-            Meeting Details
+            {{ __('meeting_order.Meeting_Details')}}
         </div>
         <div class="time fw-bold" id="timeDisplay">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A') }}</div>
         <div class="date text-secondary" id="dateDisplay">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('d/m/Y') }}</div>
         <div class="mt-2">
             @switch($order->meeting->status)
                 @case('paid')
-                    <div class="meeting-status status-paid">{{$order->meeting->status}}</div>
+                    <div class="meeting-status status-paid">{{ __('meeting_order.Statuses.Paid') }}</div>
                 @break
-
+                @case('in process')
+                    <div class="meeting-status status-in_process"> {{ __('meeting_order.Statuses.In_Process') }}</div>
+                @break
+                @case('failed')
+                    <div class="meeting-status status-failed">{{ __('meeting_order.Statuses.Failed') }}</div>
+                @break
+                @case('refunded')
+                    <div class="meeting-status status-refunded"> {{ __('meeting_order.Statuses.Refunded') }}</i></div>
+                @break
                 @case('canceled')
-                    <div class="meeting-status status-canceled">{{$order->meeting->status}}</i></div>
+                    <div class="meeting-status status-canceled"> {{ __('meeting_order.Statuses.Canceled') }}</i></div>
                 @break
-
                 @default
-                    <div class="meeting-status status-inprogress">{{$order->meeting->status}}</div>
+                    <div class="meeting-status default">{{$order->meeting->status}}</div>
             @endswitch
         </div>
     </div>

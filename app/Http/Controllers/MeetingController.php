@@ -94,7 +94,7 @@ class MeetingController extends Controller
         // Retrieve the token from the session
         $token_payment = session('token');
         if ($request->token_payment !== $token_payment) {
-            return back()->with('custom_alert', ['type' => 'warning', 'title' => 'Sorry Error!', 'message' => 'there is an error! please try again .']);
+            return back()->with('custom_alert', ['type' => 'warning', 'title' => __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Please_Try_Again_Later')]);
         }
         $currentDate = Carbon::now(); // Get the current date and time
 
@@ -104,7 +104,7 @@ class MeetingController extends Controller
         
         // Compare the target date with the current date
         if (!$adjustedTargetDate->greaterThan($currentDate)) {
-            return back()->with('custom_alert', ['type' => 'warning', 'title' => 'Sorry Error!', 'message' => 'there is an error! please try again .']);
+            return back()->with('custom_alert', ['type' => 'warning', 'title' =>  __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Please_Try_Again_Later')]);
         }
         $meetings = Meeting::where(function ($query) {
             $query->where('status', 'paid')
@@ -154,13 +154,13 @@ class MeetingController extends Controller
                 ]);
                 
             } catch (\Exception $exception) {
-                return back()->with('custom_alert', ['type' => 'warning', 'title' => 'Sorry Error!', 'message' => 'there is an error! please try again .']);
+                return back()->with('custom_alert', ['type' => 'warning', 'title' => __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Please_Try_Again_Later')]);
             }
             // Clear the 'token' value from the session
             session()->forget('token');
             dispatch(new OrderInProcess($order));
-            return redirect()->route('order',$order)->with('custom_alert', ['type' => 'success', 'title' => 'Thank you for your order!', 'message' => 'the order has been successfully placed.']);
+            return redirect()->route('order',$order)->with('custom_alert', ['type' => 'success', 'title' => __('meeting_order.Title_Thank_You_Order'), 'message' => __('meeting_order.Message_Thank_You_Order')]);
         }
-        return back()->with('custom_alert', ['type' => 'warning', 'title' => ' The meeting has been taken!', 'message' => 'Sorry , the meeting was taken by another client! please choose other one again .']);;
+        return back()->with('custom_alert', ['type' => 'warning', 'title' => __('meeting_order.Title_Meeting_Taken'), 'message' => __('meeting_order.Message_Meeting_Taken')]);;
     }
 }

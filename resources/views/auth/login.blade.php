@@ -4,21 +4,21 @@
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
         <div class="col-12 col-lg-9 col-xl-7">
-          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px; {{ app()->getLocale() == 'ar' ? "direction: rtl;" : "" }}">
             <div class="card-body p-4 p-md-5">
-              <h3 class="mb-3 pb-2 pb-md-0 mb-md-4">Login Form</h3>
+              <h3 class="mb-3 pb-2 pb-md-0 mb-md-4">{{__('register_login.Login')}}</h3>
                 <form  method="POST" action="{{route('login')}}" id="LoginForm">
                     @csrf
                     <!-- Email input -->
                     <div class="form-outline mb-2">
-                        <label class="form-label" for="email">Email Address</label>
+                        <label class="form-label" for="email">{{__('register_login.Email_Address')}}</label>
                         <input value="{{ old('email') }}"  type="email" name="email"  id="email" class="@error('email') is-invalid @enderror form-control form-control-lg" />
                         <div class="invalid-feedback"> {{ $errors->first('email') ?? '' }}</div>
                     </div>
-                  
+
                     <!-- Password input -->
                     <div class="form-outline mb-4">
-                        <label class="form-label" for="password">Password</label>
+                        <label class="form-label" for="password">{{__('register_login.Password')}}</label>
                         <input value="{{ old('password') }}"  type="password" name="password" id="password" class="@error('password') is-invalid @enderror form-control form-control-lg" />
                         <div class="invalid-feedback"> {{ $errors->first('password') ?? '' }}</div>
                     </div>
@@ -27,19 +27,19 @@
                     <div class="row mb-3">                  
                       <div class="col">
                         <!-- Simple link -->
-                        <a href="{{ route('showForgotForm') }}">Forgot password?</a>
+                        <a href="{{ route('showForgotForm') }}">{{__('register_login.Forgot_Password')}}</a>
                       </div>
                     </div>
                   
                     <!-- Submit button -->
                     <div  class="d-grid gap-2 col-6 mx-auto mb-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+                        <button type="submit" class="btn btn-primary btn-lg">{{__('register_login.Sign_In')}}</button>
                     </div>
                     
                   
                     <!-- Register buttons -->
                     <div class="text-center">
-                      <p>Not a member? <a href="{{ route('showRegistrationForm') }}">Register</a></p>
+                      <p>{{__('register_login.Not_Member')}} <a href="{{ route('showRegistrationForm') }}">{{__('register_login.register')}}</a></p>
                     </div>
                   </form>
             </div>
@@ -65,8 +65,8 @@
     
             function validateForm() {
                 const fields = [
-                    { id: "email", message: "Email is required" },
-                    { id: "password", message: "Password is required" },
+                    { id: "email", message: "{{__('validation.required', ['attribute' => __('register_login.Email_Address')])}}" },
+                    { id: "password", message: "{{__('validation.required', ['attribute' => __('register_login.Password')])}}" },
                 ];
     
                 clearErrorMessages();

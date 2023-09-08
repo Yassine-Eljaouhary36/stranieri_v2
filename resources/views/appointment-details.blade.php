@@ -28,51 +28,61 @@
 
     
     <div class="appointment-details-header">
-        <h1> {{ __('Appointment details') }}</h1>
+        <h1> {{ __('meeting_order.Appointment_Details') }}</h1>
     </div>
-
-    <appointment-details :local='@json($local)' :price="{{$price}}" ></appointment-details>
-
+    @php
+        // transilation
+        $titleprice=__('meeting_order.Meeting_Price_Title');
+        $titletime=__('meeting_order.Meeting_Time_Title');
+        $titledate=__('meeting_order.Meeting_Date_Title');
+    @endphp
+    <appointment-details 
+        :local='@json($local)' 
+        :price="{{$price}}"  
+        :titleprice='@json($titleprice)' 
+        :titletime='@json($titletime)' 
+        :titledate='@json($titledate)' 
+        ></appointment-details>
 
     <div class="row mt-3 mx-2">
-        <div style="margin-right: 15px" class="text-justify col-md-5 col-lg-4 text-secondary bg-light-subtle custom-infos-space p-3 mr-3 mb-3">
+        <div style="margin-right: 15px" class="{{ app()->getLocale() == 'ar' ? "text-end" : "text-justify" }} col-md-5 col-lg-4 text-secondary bg-light-subtle custom-infos-space p-3 mr-3 mb-3">
 
             @if (intVal($data['totalDiscount']) > 0)
-                <div class=" py-1"><span class="text-secondary">You saved: ${{ $data['totalDiscount'] }}</span></div>
+                <div class=" py-1"><span class="text-secondary">{{ __('meeting_order.You_Saved') }} ${{ $data['totalDiscount'] }}</span></div>
             @endif
-            <div class=" py-1"><span>Estimated tax: </span><span class="text-secondary">${{ $data['estimatedTax'] }}</span></div>
-            <div class=" py-1"><span>Tax rate: </span><span class="text-secondary">{{ $data['taxRate'] }}%</span></div>
-            <div class=" py-1"><span>Total before tax: </span><span class="text-secondary">${{ $data['totalBeforeTax'] }}</span></div>
-            <div class=" py-1 fw-bold"><span>Order total: </span><span class="text-success">${{ $data['orderTotal'] }}</span></div>
+            <div class=" py-1"><span> {{ __('meeting_order.Estimated_Tax') }} </span><span class="text-secondary">${{ $data['estimatedTax'] }}</span></div>
+            <div class=" py-1"><span> {{ __('meeting_order.Tax_Rate') }} </span><span class="text-secondary">{{ $data['taxRate'] }}%</span></div>
+            <div class=" py-1"><span> {{ __('meeting_order.Total_Before_Tax') }} </span><span class="text-secondary">${{ $data['totalBeforeTax'] }}</span></div>
+            <div class=" py-1 fw-bold"> {{ __('meeting_order.Order_Total') }} </span><span class="text-success">${{ $data['orderTotal'] }}</span></div>
         </div>
         @auth('client')
             @if ($client->billingAddress)
                 <div class="col text-secondary custom-infos-space p-3 bg-light-subtle  mx-sm-0 mb-3">
-                    <h2 class="pb-1 border-bottom border-secondary">{{ __('Billing Address') }}</h2>
+                    <h2 class="pb-1 border-bottom border-secondary">{{ __('meeting_order.Billing_Address') }}</h2>
                     <table class="billing-address-table mt-3"  >
                         <tbody>
                             <tr>
-                                <td>{{ __('Address')}} 1: </td>
+                                <td>{{ __('meeting_order.Address_One')}} </td>
                                 <td><span class="text-secondary">{{ $client->billingAddress->address_one ?? '' }}</span></td>
                             </tr>
                             <tr>
-                                <td>{{ __('Address')}} 2: </td>
+                                <td>{{ __('meeting_order.Address_Two')}}</td>
                                 <td><span class="text-secondary">{{ $client->billingAddress->address_two ?? '' }}</span></td>
                             </tr>
                             <tr>
-                                <td>{{ __('Country')}} : </td>
+                                <td>{{ __('meeting_order.Country')}}</td>
                                 <td><span class="text-secondary" id="address-country"></span></td>
                             </tr>
                             <tr>
-                                <td>{{ __('City')}} : </td>
+                                <td>{{ __('meeting_order.City')}}</td>
                                 <td><span class="text-secondary">{{ $client->billingAddress->city ?? '' }}</span></td>
                             </tr>
                             <tr>
-                                <td>{{ __('Zip')}} : </td>
+                                <td>{{ __('meeting_order.Zip_Code')}}</td>
                                 <td><span class="text-secondary">{{ $client->billingAddress->zip ?? ''  }}</span></td>
                             </tr>
                             <tr>
-                                <td>{{ __('Email')}} : </td>
+                                <td>{{ __('meeting_order.Email')}}</td>
                                 <td><span class="text-secondary">{{ $client->email ?? '' }}</span></td>
                             </tr>
                         </tbody>
@@ -86,30 +96,30 @@
         @auth('client')
             @if ($client->billingAddress)
                 <button class="btn-custom btn-custom-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    {{ __('checkout') }}
+                    {{ __('meeting_order.Checkout') }}
                     <i class="ml-1 fa-solid fa-credit-card"></i>
                 </button>
             @else
                 <button class="btn-custom btn-custom-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fa-solid fa-plus"></i>
-                    {{ __('billing address') }}
+                    {{ __('meeting_order.Billing_Address') }}
                 </button>
             @endif
         @else
             <a class="btn-custom btn-custom-success " href="{{route('showLoginForm')}}">
                 <i class="fa-solid fa-user"></i>
-               {{ __('login') }}
+               {{ __('register_login.Login') }}
             </a>
         @endauth
         
 
         <a href="{{route('index')}}" class="btn-custom btn-custom-warning me-md-2" >
-            <i class="mr-1 fa-solid fa-arrow-left"></i>  {{ __('back') }}
+            <i class="mr-1 fa-solid fa-arrow-left"></i>  {{ __('meeting_order.Back') }}
         </a>
     </div>
     @auth('client')
         @if ($client->billingAddress)
-            <x-modal :client="$client" title="{{ __('Payment details') }}">
+            <x-modal :client="$client" title="{{ __('meeting_order.Payment_Details') }}">
                 <form class="card-form" action="{{route('pay-meeting')}}" method="post">
                     @csrf
                     <div class="mb-4">

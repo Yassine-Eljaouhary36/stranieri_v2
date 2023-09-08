@@ -5,9 +5,9 @@
         <table class="styled-table" >
             <thead>
                 <tr>
-                    <th class="text-center">Time </th>
-                    <th class="text-center">Date </th>
-                    <th class="text-center">Price</th>
+                    <th class="text-center">{{titletime}} </th>
+                    <th class="text-center">{{titledate}} </th>
+                    <th class="text-center">{{titleprice}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +36,9 @@
     props: {
         price:Number,
         local:String,
+        titleprice:String,
+        titledate:String,
+        titletime:String
     },
     data() {
         return {
