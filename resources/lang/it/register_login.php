@@ -19,10 +19,15 @@ return [
     "Reset_Password" => "Reimposta Password",
     "Confirm_Agree" => "Conferma la tua accettazione dei ",
     "Terms_Conditions" => "Termini e Condizioni",
+    
     "Resend_Verification_Email" => "Reinvia Email di Verifica",
     "Message_Verification_Email" => "Puoi verificare il tuo indirizzo email cliccando sul link che ti abbiamo inviato via email.
     Se non hai ricevuto l'email, ti invieremo volentieri un'altra.",
     "Title_Verification_Email" => "Grazie per esserti registrato! Prima di iniziare,",
+    
+    "Message_Successfully_Logged_In" => "Hai effettuato l'accesso con successo!",
+    "Title_Logged_In" => "Accesso effettuato!",
+
     "Message_Mailed_Password_Reset_Link" => "Abbiamo inviato via e-mail il link per reimpostare la tua password.",
     "Title_Mailed_Password_Reset_Link" => "Link di reset della password",
     "Something_Went_Wrong" => "Qualcosa è andato storto",

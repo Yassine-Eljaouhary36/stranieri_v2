@@ -19,10 +19,14 @@ return [
     "Reset_Password" => "Reset Password",
     "Confirm_Agree" => "Please confirm that you agree to our",
     "Terms_Conditions" => "terms & conditions",
+
     "Resend_Verification_Email" => "Resend verification email",
     "Message_Verification_Email" => "could you verify your email address by clicking on the link we just emailed to you?
     If you didn't receive the email, we will gladly send you another.",
     "Title_Verification_Email" => "Thanks for signing up! Before getting started ,",
+    "Message_Successfully_Logged_In" => "You have successfully logged in!",
+    "Title_Logged_In" => "Logged In!",
+
     "Message_Mailed_Password_Reset_Link" => "we have e-mailed your password reset link.",
     "Title_Mailed_Password_Reset_Link" => "password reset link",
     "Something_Went_Wrong" => "Something went wrong",

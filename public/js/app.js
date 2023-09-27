@@ -19775,37 +19775,34 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       var options = {
         weekday: 'long'
       };
-      switch (this.local) {
-        case 'al':
-          var days = ["E Diel", "E Hënë", "E Martë", "E Mërkurë", "E Enjte", "E Premte", "E Shtunë"];
-          return days[date.getDay()];
-        case 'ar':
-          return date.toLocaleDateString('ar-EG', options);
-        case 'it':
-          return date.toLocaleDateString('it-IT', options);
-        default:
-          return date.toLocaleDateString('en-US', options);
+      // switch (this.local) {
+      //     case 'al':
+      //         var days = ["E Diel", "E Hënë", "E Martë", "E Mërkurë", "E Enjte", "E Premte", "E Shtunë"];
+      //         return days[date.getDay()];
+      //     case 'ar':
+      //         return date.toLocaleDateString('fr', options);
+      //     case 'it':
+      //         return date.toLocaleDateString('it-IT', options);
+      //     default:
+      //         return date.toLocaleDateString('en-US', options);
+      // }
+      if (this.local == 'al') {
+        var days = ["E Diel", "E Hënë", "E Martë", "E Mërkurë", "E Enjte", "E Premte", "E Shtunë"];
+        return days[date.getDay()];
+      } else {
+        return date.toLocaleDateString(this.local, options);
       }
     },
     formatDateToDay: function formatDateToDay(date) {
-      var options = {
-        month: 'long'
-      };
-      switch (this.local) {
-        case 'al':
-          var months = ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"];
-          return date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
-        case 'ar':
-          return date.toLocaleDateString('ar-EG', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          });
-        case 'it':
-          return date.getDate() + " " + date.toLocaleDateString('it-IT', options) + " " + date.getFullYear();
-        default:
-          return date.getDate() + " " + date.toLocaleDateString('en-US', options) + " " + date.getFullYear();
-      }
+      // const options = { month: 'long' };
+
+      // if (this.local == 'al') {
+      //     var months = ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"];
+      //         return date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+      // } else {
+      //     return date.getDate() + " " + date.toLocaleDateString(this.local, options) + " " + date.getFullYear();
+      // }
+      return date.toLocaleDateString('fr');
     },
     goToNextDay: function goToNextDay() {
       var nextDate = new Date(this.currentDate);
@@ -19876,14 +19873,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     addToCart: function addToCart() {
       var _this = this;
       if (!this.selectedTime) {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('No Meeting Selected', 'Please select a meeting time to add to the cart.', 'warning');
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire(this.transilation('No_Meeting_Selected_Title'), this.transilation('No_Meeting_Selected_Body'), 'warning');
         return;
       } else {
         var existingItem = this.cart.find(function (item) {
           return item === _this.selectedTime;
         });
         if (existingItem) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Existed Meeting', 'This meeting time is already in your cart.', 'info');
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire(this.transilation('Existed_Meeting_Title'), this.transilation('Existed_Meeting_Body'), 'info');
           this.selectedTime = null;
           return;
         }
@@ -19895,7 +19892,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }
     },
     inactiveDay: function inactiveDay() {
-      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('reserved Meeting', 'sorry this meeting already reserved .', 'warning');
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire(this.transilation('Reserved_Meeting_Title'), this.transilation('Reserved_Meeting_Body'), 'warning');
       this.selectedTime = null;
       return;
     },
@@ -19918,6 +19915,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               return 'ditë';
             case 'week':
               return 'javë';
+            case 'No_Meeting_Selected_Title':
+              return 'Asnjë takim nuk u zgjodh';
+            case 'No_Meeting_Selected_Body':
+              return 'Ju lutemi, zgjidhni një kohë takimi për ta shtuar në shportë.';
+            case 'Existed_Meeting_Title':
+              return 'Takimi ekzistues';
+            case 'Existed_Meeting_Body':
+              return 'Kjo kohë takimi është tashmë në shportën tuaj.';
+            case 'Reserved_Meeting_Title':
+              return 'Takimi i rezervuar';
+            case 'Reserved_Meeting_Body':
+              return 'Na vjen keq ky takim tashmë i rezervuar.';
           }
         case 'ar':
           switch (parameter) {
@@ -19931,6 +19940,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               return 'اليوم';
             case 'week':
               return 'أسبوع';
+            case 'No_Meeting_Selected_Title':
+              return 'لم يتم تحديد أي اجتماع';
+            case 'No_Meeting_Selected_Body':
+              return 'من فضلك، حدد وقت الاجتماع لإضافته إلى سلة التسوق.';
+            case 'Existed_Meeting_Title':
+              return 'الاجتماع موجود';
+            case 'Existed_Meeting_Body':
+              return 'وقت الاجتماع هذا موجود بالفعل في سلة التسوق الخاصة بك.';
+            case 'Reserved_Meeting_Title':
+              return 'اجتماع محجوز';
+            case 'Reserved_Meeting_Body':
+              return 'آسف هذا الاجتماع محجوز بالفعل.';
           }
         case 'it':
           switch (parameter) {
@@ -19944,6 +19965,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               return 'giorno';
             case 'week':
               return 'settimana';
+            case 'No_Meeting_Selected_Title':
+              return 'Nessuna riunione selezionata';
+            case 'No_Meeting_Selected_Body':
+              return 'Seleziona, un orario di incontro da aggiungere al carrello.';
+            case 'Existed_Meeting_Title':
+              return 'Riunione esistente';
+            case 'Existed_Meeting_Body':
+              return "L'orario della riunione è già nel tuo carrello.";
+            case 'Reserved_Meeting_Title':
+              return 'Incontro riservato';
+            case 'Reserved_Meeting_Body':
+              return 'mi dispiace, questo incontro è già prenotato.';
           }
         default:
           switch (parameter) {
@@ -19957,6 +19990,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               return 'day';
             case 'week':
               return 'week';
+            case 'No_Meeting_Selected_Title':
+              return 'No Meeting Selected';
+            case 'No_Meeting_Selected_Body':
+              return 'Please select a meeting time to add to the cart.';
+            case 'Existed_Meeting_Title':
+              return 'Existed Meeting';
+            case 'Existed_Meeting_Body':
+              return 'This meeting time is already in your cart.';
+            case 'Reserved_Meeting_Title':
+              return 'Reserved Meeting';
+            case 'Reserved_Meeting_Body':
+              return 'sorry this meeting already reserved .';
           }
       }
     }
@@ -20415,7 +20460,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nbody {\r\n  font-family: Arial, sans-serif;\r\n  margin: 0;\r\n  padding: 0;\r\n  background-color: #f5f5f5;\n}\n.meeting-panel {\r\n  max-width: 1000px;\r\n  margin: 50px auto;\r\n  padding: 20px;\r\n  background: #f2f5f7;\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\nh1 {\r\n  text-align: center;\r\n  margin-bottom: 20px;\r\n  color: #333;\n}\n.time-section {\r\n  margin-bottom: 30px;\n}\nh2 {\r\n  text-align: center;\r\n  font-size: 1.2rem;\r\n  margin-bottom: 10px;\r\n  color: #808080;\n}\n.time-slots {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\n}\n.time-slot {\r\n    width: 150px;\r\n    height: 50px;\r\n    line-height: 50px;\r\n    text-align: center;\r\n    border-radius: 7px;\r\n    margin: 5px;\r\n    transition: background-color 0.3s ease;\r\n    box-shadow: 1px 1px 2px 0px #ddd;\r\n    background: linear-gradient(180deg, #ffffff, #f9f9f9);\r\n    color: #444;\r\n    cursor: pointer;\n}\n.time-slot:hover {\r\n  background-color: #f2f2f2;\n}\n.calendar {\r\n  margin: 10px auto 0px auto;\r\n  padding: 0px 25px;\n}\n.calendar-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.nav-btn {\r\n  color: #949494;\r\n  background-color: transparent;\r\n  font-size: 2rem;\r\n  font-weight: 900;\r\n  padding: 10px 20px;\r\n  cursor: pointer;\n}\n.nav-btn:hover {\r\n    color: #5cde8e;\n}\n.date {\r\n  font-size: 1.5rem;\r\n  color: #333;\n}\n.radio-label {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  cursor: pointer;\r\n  font-size: 14px;\r\n  color: #7b7b7b;\r\n  margin: 0px 5px;\n}\n.radio-label input[type=\"radio\"] {\r\n  display: none;\n}\n.selectedOption {\r\n  color: #007BFF;\r\n  padding: 5px 10px;\r\n  border: 2px dashed #007BFF;\r\n  border-radius: 10px;\n}\n.selected {\r\n    border: 2px dashed #5d4190;\r\n    border-radius: 10px;\r\n    color: #5d4190;\n}\n.Unselectable{\r\n    border: 2px dashed #823434;\r\n    background: linear-gradient(180deg, #ff65658a, #ff7e7e91);\r\n    /* cursor: not-allowed; */\r\n    text-decoration-line: line-through; \r\n    text-decoration-color: rgb(91, 91, 91);\n}\n.calendar-week {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: 20px;\r\n    justify-content: center;\r\n    margin: 20px auto;\r\n    max-width: 800px;\n}\n.day {\r\n    flex: 1;\r\n    min-width: 200px;\r\n    background-color: #e2edff;\r\n    border: 1px solid #e0e0e0;\r\n    border-radius: 8px;\r\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n}\n.weekday {\r\n    text-align: center;\r\n    font-size: 1.2rem;\r\n    font-weight: bold;\r\n    padding: 10px 0px 5px 0px;\r\n    background-color: #f1f1f1;\r\n    border-top-left-radius: 8px;\r\n    border-top-right-radius: 8px;\n}\n.fullweekday {\r\n    text-align: center;\r\n    font-size: .7rem;\r\n    padding: 0px 0px 5px 0px;\r\n    background-color: #f1f1f1;\n}\n.hours {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: 10px;\r\n    justify-content: center;\r\n    padding: 10px;\n}\n.hour-btn {\r\n    background-color: #ffffff;\r\n    /* border: 1px solid #d1d1d1; */\r\n    border-radius: 5px;\r\n    padding: 8px 12px;\r\n    font-size: 0.9rem;\r\n    cursor: pointer;\r\n    transition: background-color 0.3s ease;\n}\n.hour-btn:hover {\r\n    background-color: #f3f3f3;\n}\r\n/* Styling for the Add to Cart button */\n.add-to-cart-button {\r\n    display: flex;\r\n    justify-content: center;\r\n    margin-top: 20px;\n}\n.add-to-cart-btn {\r\n    display: inline-block;\r\n    padding: 10px 20px;\r\n    font-size: 16px;\r\n    font-weight: 600;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    border: none;\r\n    border-radius: 7px;\r\n    cursor: pointer;\r\n    transition: background-color 0.3s ease, color 0.3s ease;\r\n    background-color: #ffffff;\r\n    color: #ffa206;\r\n    border: 2px solid #f0c36f;\n}\n.add-to-cart-btn:hover {\r\n    background-color: #ffa206;\r\n    color: #ffffff;\r\n    border: 2px solid #ffa206;\n}\r\n\r\n/* Responsive styles */\n@media screen and (max-width: 768px) {\n.calendar-week {\r\n        flex-direction: column;\r\n        align-items: center;\n}\n.add-to-cart-btn {\r\n        padding: 8px 16px;\r\n        font-size: 14px;\n}\n}\n@media screen and (max-width: 600px) {\n.day {\r\n      max-width: 100%;\n}\n}\r\n\r\n\r\n/* Responsive Styles */\n@media screen and (max-width: 768px) {\n.meeting-panel {\r\n    padding: 10px;\n}\r\n\r\n  /* .time-slots {\r\n    justify-content: flex-start;\r\n  } */\n.time-slot {\r\n    /* width: 80px; */\r\n    height: 40px;\r\n    line-height: 40px;\n}\n}\r\n\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nbody {\r\n    font-family: Arial, sans-serif;\r\n    margin: 0;\r\n    padding: 0;\r\n    background-color: #f5f5f5;\n}\n.meeting-panel {\r\n    max-width: 1000px;\r\n    margin: 50px auto;\r\n    padding: 20px;\r\n    background: #f2f5f7;\r\n    border: 1px solid #ccc;\r\n    border-radius: 10px;\r\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\nh1 {\r\n    text-align: center;\r\n    margin-bottom: 20px;\r\n    color: #333;\n}\n.time-section {\r\n    margin-bottom: 30px;\n}\nh2 {\r\n    text-align: center;\r\n    font-size: 1.2rem;\r\n    margin-bottom: 10px;\r\n    color: #808080;\n}\n.time-slots {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    justify-content: center;\n}\n.time-slot {\r\n    width: 150px;\r\n    height: 50px;\r\n    line-height: 50px;\r\n    text-align: center;\r\n    border-radius: 7px;\r\n    margin: 5px;\r\n    transition: background-color 0.3s ease;\r\n    box-shadow: 1px 1px 2px 0px #ddd;\r\n    background: linear-gradient(180deg, #ffffff, #f9f9f9);\r\n    color: #444;\r\n    cursor: pointer;\n}\n.time-slot:hover {\r\n    background-color: #f2f2f2;\n}\n.calendar {\r\n    margin: 10px auto 0px auto;\r\n    padding: 0px 25px;\n}\n.calendar-header {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\n}\n.nav-btn {\r\n    color: #949494;\r\n    background-color: transparent;\r\n    font-size: 2rem;\r\n    font-weight: 900;\r\n    padding: 10px 20px;\r\n    cursor: pointer;\n}\n.nav-btn:hover {\r\n    color: #5cde8e;\n}\n.date {\r\n    font-size: 1.5rem;\r\n    color: #333;\n}\n.radio-label {\r\n    display: inline-flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n    font-size: 14px;\r\n    color: #7b7b7b;\r\n    margin: 0px 5px;\n}\n.radio-label input[type=\"radio\"] {\r\n    display: none;\n}\n.selectedOption {\r\n    color: #007BFF;\r\n    padding: 5px 10px;\r\n    border: 2px dashed #007BFF;\r\n    border-radius: 10px;\n}\n.selected {\r\n    border: 2px dashed #5d4190;\r\n    border-radius: 10px;\r\n    color: #5d4190;\n}\n.Unselectable {\r\n    border: 2px dashed #823434;\r\n    background: linear-gradient(180deg, #ff65658a, #ff7e7e91);\r\n    /* cursor: not-allowed; */\r\n    text-decoration-line: line-through;\r\n    text-decoration-color: rgb(91, 91, 91);\n}\n.calendar-week {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: 20px;\r\n    justify-content: center;\r\n    margin: 20px auto;\r\n    max-width: 800px;\n}\n.day {\r\n    flex: 1;\r\n    min-width: 200px;\r\n    background-color: #e2edff;\r\n    border: 1px solid #e0e0e0;\r\n    border-radius: 8px;\r\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n}\n.weekday {\r\n    text-align: center;\r\n    font-size: 1.2rem;\r\n    font-weight: bold;\r\n    padding: 10px 0px 5px 0px;\r\n    background-color: #f1f1f1;\r\n    border-top-left-radius: 8px;\r\n    border-top-right-radius: 8px;\n}\n.fullweekday {\r\n    text-align: center;\r\n    font-size: .7rem;\r\n    padding: 0px 0px 5px 0px;\r\n    background-color: #f1f1f1;\n}\n.hours {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: 10px;\r\n    justify-content: center;\r\n    padding: 10px;\n}\n.hour-btn {\r\n    background-color: #ffffff;\r\n    /* border: 1px solid #d1d1d1; */\r\n    border-radius: 5px;\r\n    padding: 8px 12px;\r\n    font-size: 0.9rem;\r\n    cursor: pointer;\r\n    transition: background-color 0.3s ease;\n}\n.hour-btn:hover {\r\n    background-color: #f3f3f3;\n}\r\n\r\n/* Styling for the Add to Cart button */\n.add-to-cart-button {\r\n    display: flex;\r\n    justify-content: center;\r\n    margin-top: 20px;\n}\n.add-to-cart-btn {\r\n    display: inline-block;\r\n    padding: 10px 20px;\r\n    font-size: 16px;\r\n    font-weight: 600;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    border: none;\r\n    border-radius: 7px;\r\n    cursor: pointer;\r\n    transition: background-color 0.3s ease, color 0.3s ease;\r\n    background-color: #ffffff;\r\n    color: #ffa206;\r\n    border: 2px solid #f0c36f;\n}\n.add-to-cart-btn:hover {\r\n    background-color: #ffa206;\r\n    color: #ffffff;\r\n    border: 2px solid #ffa206;\n}\r\n\r\n/* Responsive styles */\n@media screen and (max-width: 768px) {\n.calendar-week {\r\n        flex-direction: column;\r\n        align-items: center;\n}\n.add-to-cart-btn {\r\n        padding: 8px 16px;\r\n        font-size: 14px;\n}\n}\n@media screen and (max-width: 600px) {\n.day {\r\n        max-width: 100%;\n}\n}\r\n\r\n\r\n/* Responsive Styles */\n@media screen and (max-width: 768px) {\n.meeting-panel {\r\n        padding: 10px;\n}\r\n\r\n    /* .time-slots {\r\n    justify-content: flex-start;\r\n  } */\n.time-slot {\r\n        /* width: 80px; */\r\n        height: 40px;\r\n        line-height: 40px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

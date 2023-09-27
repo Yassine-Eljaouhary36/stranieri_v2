@@ -6,6 +6,8 @@ use App\Http\Controllers\BillingAddressController;
 use App\Http\Controllers\LangsController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Voyager\DashboardController;
+use App\Http\Controllers\Voyager\OrdersController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
@@ -69,4 +71,9 @@ Route::get('/privacy-policy', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::middleware('admin.user')->group(function(){
+        Route::get("/", [DashboardController::class, 'statistics'])->name('voyager.dashboard');
+        Route::get("/orders-details", [OrdersController::class, 'index'])->name('orders.orders-details');
+        Route::get("/order/{order}", [OrdersController::class, 'orderDetails'])->name('order.show')->where('order', '[0-9]{1,10}');
+    });
 });
