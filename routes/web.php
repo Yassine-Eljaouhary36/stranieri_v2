@@ -3,9 +3,13 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BillingAddressController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LangsController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Voyager\DashboardController;
 use App\Http\Controllers\Voyager\OrdersController;
 use App\Models\Order;
@@ -23,6 +27,21 @@ use TCG\Voyager\Facades\Voyager;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/',function(){
+    return view('home');
+})->name('home');
+Route::get('/team',function(){
+    return view('team.index');
+})->name('team');
+Route::get('/faq',[PageController::class , 'faq'])->name('faq');
+Route::get('/about-us',[PageController::class , 'about'])->name('about-us');
+Route::get('/contact',[ContactController::class , 'index'])->name('show-contact');
+Route::post('/contact', [ContactController::class, 'contact'])->middleware('web')->name('contact');
+Route::get('/services',[ServiceController::class , 'index'])->name('services');
+Route::get('/service/{slug}', [ServiceController::class , 'show'])->name('service')->where('slug', '[a-zA-Z0-9\-]+');
+Route::get('/page/{slug}', [PageController::class , 'index'])->where('slug', '[a-zA-Z0-9\-]+')->name('page');
+
+Route::post('search', [SearchController::class, 'search'])->name('search');
 
 Route::prefix('customer')->group(function () {
 

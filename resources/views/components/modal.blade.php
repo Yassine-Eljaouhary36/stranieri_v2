@@ -15,7 +15,7 @@
                         <button id="card-button" class="btn-custom btn-custom-success " type="submit">
                             <span id="text-pay" >
                                 {{ __('Pay') }}
-                                <i class="ml-1 fa-solid fa-money-bill-wave"></i>
+                                <i class="ml-1 fas fa-money-bill-wave"></i>
                             </span>
                             <span id="text-loading" class="d-none">
                                 <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
@@ -25,7 +25,7 @@
                     @else
                     <button id="address-button" class="btn-custom btn-custom-success " type="submit">
                         {{ __('Submit') }}
-                        <i class="fa-solid fa-paper-plane"></i>
+                        <i class="fas fa-paper-plane"></i>
                     </button>
                     @endif
                 @endauth

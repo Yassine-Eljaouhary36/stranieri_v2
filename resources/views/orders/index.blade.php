@@ -77,7 +77,7 @@
             <div>
                 <div class="btn-group dropstart">
                     <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-filter"></i> {{__('meeting_order.Status')}}
+                        <i class="fas fa-filter"></i> {{__('meeting_order.Status')}}
                     </button>
                     <ul class="dropdown-menu">
                         <li><button class="statusFilter dropdown-item" type="button" data-status="" >All</button></li>

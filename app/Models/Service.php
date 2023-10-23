@@ -9,4 +9,9 @@ class Service extends Model
 {
     use Translatable;
     protected $translatable = ['title','excerpt','body'];
+
+    public function includedServices()
+    {
+        return $this->hasMany(IncludedService::class);
+    }
 }

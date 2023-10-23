@@ -48,12 +48,12 @@
     @break
 
     @case('in process')
-        <div class="item-status in_process"><i class="fa-solid fa-spinner"></i></div>
+        <div class="item-status in_process"><i class="fas fa-spinner"></i></div>
         {{ __('meeting_order.Statuses.In_Process') }}
     @break
 
     @case('failed')
-        <div class="item-status failed"><i class="fa-solid fa-xmark"></i></div>
+        <div class="item-status failed"><i class="fas fa-times"></i></div>
         {{ __('meeting_order.Statuses.Failed') }}
     @break
 
@@ -63,7 +63,7 @@
     @break
 
     @case('canceled')
-        <div class="item-status canceled"><i class="fa-solid fa-xmark"></i></div>
+        <div class="item-status canceled"><i class="fas fa-times"></i></div>
         {{ __('meeting_order.Statuses.Canceled') }}
     @break
 

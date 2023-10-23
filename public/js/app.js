@@ -20135,11 +20135,11 @@ var _hoisted_3 = {
   "class": "calendar-header"
 };
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "fa-solid fa-angle-left"
+  "class": "fas fa-angle-left"
 }, null, -1 /* HOISTED */);
 var _hoisted_5 = [_hoisted_4];
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "fa-solid fa-angle-right"
+  "class": "fas fa-angle-right"
 }, null, -1 /* HOISTED */);
 var _hoisted_7 = [_hoisted_6];
 var _hoisted_8 = {
@@ -20222,7 +20222,7 @@ var _hoisted_31 = {
   "class": "add-to-cart-button"
 };
 var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "ml-1 fa-solid fa-calendar-check"
+  "class": "ml-1 fas fa-calendar"
 }, null, -1 /* HOISTED */);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {

@@ -24,7 +24,7 @@
 
 </style>
 @endpush
-<div class="cart-container">
+<div id="app" class="cart-container">
 
     
     <div class="appointment-details-header">
@@ -97,24 +97,24 @@
             @if ($client->billingAddress)
                 <button class="btn-custom btn-custom-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     {{ __('meeting_order.Checkout') }}
-                    <i class="ml-1 fa-solid fa-credit-card"></i>
+                    <i class="ml-1 fas fa-credit-card"></i>
                 </button>
             @else
                 <button class="btn-custom btn-custom-primary " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fa-solid fa-plus"></i>
+                    <i class="fas fa-plus"></i>
                     {{ __('meeting_order.Billing_Address') }}
                 </button>
             @endif
         @else
             <a class="btn-custom btn-custom-success " href="{{route('showLoginForm')}}">
-                <i class="fa-solid fa-user"></i>
+                <i class="fas fa-user"></i>
                {{ __('register_login.Login') }}
             </a>
         @endauth
         
 
         <a href="{{route('index')}}" class="btn-custom btn-custom-warning me-md-2" >
-            <i class="mr-1 fa-solid fa-arrow-left"></i>  {{ __('meeting_order.Back') }}
+            <i class="mr-1 fas fa-arrow-left"></i>  {{ __('meeting_order.Back') }}
         </a>
     </div>
     @auth('client')

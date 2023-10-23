@@ -3,7 +3,7 @@
         <div class="calendar">
             <div class="calendar-header">
                 <button class="nav-btn" @click="goToPreviousDay">
-                    <i class="fa-solid fa-angle-left"></i>
+                    <i class="fas fa-angle-left"></i>
                 </button>
                 <div>
                     <label :class="{ 'radio-label': true, 'selectedOption': selectedOption === 'day' }">
@@ -16,7 +16,7 @@
                     </label>
                 </div>
                 <button class="nav-btn" @click="goToNextDay">
-                    <i class="fa-solid fa-angle-right"></i>
+                    <i class="fas fa-angle-right"></i>
                 </button>
             </div>
         </div>
@@ -107,8 +107,9 @@
             </div>
         </div>
         <div class="add-to-cart-button">
-            <button class="add-to-cart-btn" @click="addToCart">{{ transilation('btn') }} <i
-                    class="ml-1 fa-solid fa-calendar-check"></i></button>
+            <button class="add-to-cart-btn" @click="addToCart">{{ transilation('btn') }} 
+                <i class="ml-1 fas fa-calendar"></i>
+            </button>
         </div>
     </div>
 </template>

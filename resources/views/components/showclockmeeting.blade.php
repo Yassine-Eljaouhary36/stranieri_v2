@@ -90,7 +90,7 @@
 @endpush
 
 <button type="button" class="show-btn" data-bs-toggle="modal" data-bs-target="#exampleModal{{$id}}">
-    <i class="fa-solid fa-eye"></i>
+    <i class="fas fa-eye"></i>
 </button>
   
   
@@ -109,7 +109,7 @@
                     <div>
                         @if ($meeting->order->status=='paid')
                             <a href="{{route('download-invoice',$meeting->order)}}" class="btn btn-md btn-outline-primary">
-                                <i class="fa-solid fa-print"></i> {{ __('meeting_order.Print')}}
+                                <i class="fas fa-print"></i> {{ __('meeting_order.Print')}}
                             </a>
                         @endif
                     </div>
@@ -145,10 +145,10 @@
                                             <div class="meeting-status status-failed">{{ __('meeting_order.Statuses.Failed') }}</div>
                                         @break
                                         @case('refunded')
-                                            <div class="meeting-status status-refunded"> {{ __('meeting_order.Statuses.Refunded') }}</i></div>
+                                            <div class="meeting-status status-refunded"> {{ __('meeting_order.Statuses.Refunded') }}</div>
                                         @break
                                         @case('canceled')
-                                            <div class="meeting-status status-canceled"> {{ __('meeting_order.Statuses.Canceled') }}</i></div>
+                                            <div class="meeting-status status-canceled"> {{ __('meeting_order.Statuses.Canceled') }}</div>
                                         @break
                                         @default
                                             <div class="meeting-status default">{{$meeting->order->status}}</div>

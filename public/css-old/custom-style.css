@@ -1,0 +1,127 @@
+.cart-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f2f5f7;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+.custom-infos-space{
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    background-color: #f2f5f7;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.btn-custom {
+    display: inline-block;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-custom-warning {
+    background-color: #ffffff;
+    color: #ffb071;
+    border: 2px solid #ffb071;
+}
+.btn-custom-warning:hover {
+    background-color: #ffb071;
+    color: #ffffff;
+    border: 2px solid #ffb071;
+}
+
+.btn-custom-primary {
+    background-color: #ffffff;
+    color: #90a0ff;
+    border: 2px solid #90a0ff;
+}
+.btn-custom-primary:hover {
+    background-color: #90a0ff;
+    color: #ffffff;
+    border: 2px solid #90a0ff;
+}
+
+.btn-custom-success {
+    background-color: #ffffff;
+    color: #56b56fbd;
+    border: 2px solid #56b56fbd;
+}
+.btn-custom-success:hover {
+    background-color: #56b56fbd;
+    color: #ffffff;
+    border: 2px solid #56b56fbd;
+}
+
+.btn-custom-secondary {
+    background-color: #ffffff;
+    color: #6c757d;
+    border: 2px solid #6c757d;
+}
+.btn-custom-secondary:hover {
+    background-color: #6c757d;
+    color: #ffffff;
+    border: 2px solid #6c757d;
+}
+.custom-text-danger {
+    color: #ff9797;
+}
+.card-form{
+    margin: 15px 0px;
+    padding: 40px 23px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.my-input-card{
+    padding: 9px;
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#card-holder-name::-webkit-input-placeholder { /* Edge */
+    color: #aab7c4;
+}
+  
+#card-holder-name:-ms-input-placeholder { /* Internet Explorer */
+  color: #aab7c4;
+}
+
+#card-holder-name::placeholder {
+  color: #aab7c4;
+}
+
+.appointment-details-header {
+    text-align: center;
+    margin: 8px 0px;
+    
+}
+.appointment-details-header h1{
+    color: #91bee1;
+    font-size: 25px;
+}
+
+@media screen and (max-width: 480px) {
+    .cart-container {
+        padding: 10px;
+    }
+  
+}
+
+
+
+
+
+  

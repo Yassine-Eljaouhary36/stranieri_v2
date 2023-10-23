@@ -1,0 +1,11 @@
+@extends('layouts.app')
+@section('content')
+    @include('components.website.banner')
+    <x-about-us/>
+    <x-services/>
+    <x-choose-us/>
+    <x-partners/>
+    <x-team/>
+    <x-cta/>
+    <x-testimonails/>
+@endsection

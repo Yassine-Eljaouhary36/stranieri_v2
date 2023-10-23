@@ -177,6 +177,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //My Custom
+        App\Providers\CustomAppServiceProvider::class,
+
     ],
 
     /*
