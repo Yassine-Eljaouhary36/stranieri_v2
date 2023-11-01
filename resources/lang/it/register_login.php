@@ -11,6 +11,7 @@ return [
     "Create_Account" => "Crea Account",
     "Already_Account" => "Hai già un account?",
     "Login" => "Accedi",
+    "Logout" => "Esci",
     "Forgot_Password" => "Password dimenticata?",
     "Sign_In" => "Accedi",
     "Not_Member" => "Non sei ancora membro?",

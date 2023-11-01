@@ -56,5 +56,26 @@ return [
         'it' => 'Italian ',
     ],
     
+    'consulting_success' => 'Consulting Success',
+    'worldwide_clients' => 'Worldwide Clients',
+    'what_we_do' => 'What we do',
+    'what_we_do_excerpt' => 'Excellent service and support for you',
+    'partners' => 'Partners in world wide',
+    'team_members' => 'Team Members',
+    'meet_our_experts' => 'Meet our experts',
+    'looking_for_firstclass' => 'Looking for a First-Class',
+    'business_consultant?' => 'Business Consultant?',
     
+    'business_advices' => 'Business advices given over 30 years',
+    'business_excellence' => 'Business Excellence awards achieved',
+    'copyright' => 'Copyright 2024. All Rights Reserved by',
+    'quick_links' => 'Quick Links',
+    'opening_hours' => 'Opening Hours',
+    'team_members' => 'Team Members',
+    'home' => 'home',
+    'you_need_to_know' => 'You need to know before begin everything.',
+    'need_help' => 'Need Help?',
+    'frequently_asked_question' => 'Frequently Asked Question',
+    'our_location' => 'Our Location',
+    'service_details' => 'Service Details'
 ];

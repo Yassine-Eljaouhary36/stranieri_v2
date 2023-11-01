@@ -24,6 +24,14 @@
                 <div class="social">
                     <ul>
                         <li>
+                            <a href="{{ route('show-Details') }}" style="display: flex; align-items: center">
+                                <i class="fa fa-shopping-cart " style="margin-right:5px " aria-hidden="true"></i>
+                                Cart
+                                <span
+                                    class="badge bg-danger" style="margin-left:7px ">{{count((array) request()->cookie('cart'))}}</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{App()->communication->instagram ?? ''}}">
                                 <i class="fab fa-instagram"></i>
                             </a>

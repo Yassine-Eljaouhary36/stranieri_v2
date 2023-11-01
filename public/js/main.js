@@ -501,43 +501,97 @@
 		$("#amount").val("$" + $("#slider-range").slider("values", 0));
 
 
-		/* ==================================================
-		    Contact Form Validations
-		================================================== */
-		$('.contact-form').each(function() {
-			var formInstance = $(this);
-			formInstance.submit(function() {
+		 /* ==================================================
+            Contact Form Validations
+        ================================================== */
+        $('.contact-form').each(function () {
+            var formInstance = $(this);
+            formInstance.submit(function () {
+				var form = $(this);
+                var action = $(this).attr('action');
 
-				var action = $(this).attr('action');
+                $("#message").slideUp(750, function () {
+                    $('#message').hide();
+                    $('.contact-form img.loader').fadeOut('slow', function () {
+                        $(this).remove()
+                    });
+                    $('#name, #subject, #email, #phone, #comment').removeClass('is-invalid');
 
-				$("#message").slideUp(750, function() {
-					$('#message').hide();
+                    $('#submit')
+                        .after('<img src="/img/ajax-loader.gif" class="loader" />')
+                        .attr('disabled', 'disabled');
 
-					$('#submit')
-						.after('<img src="assets/img/ajax-loader.gif" class="loader" />')
-						.attr('disabled', 'disabled');
+                    $.post(action, {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        name: $('#name').val(),
+                        subject: $('#subject').val(),
+                        email: $('#email').val(),
+                        phone: $('#phone').val(),
+                        comment: $('#comment').val()
+                    },
+                        function (data) {
 
-					$.post(action, {
-							name: $('#name').val(),
-							email: $('#email').val(),
-							phone: $('#phone').val(),
-							comments: $('#comments').val()
-						},
-						function(data) {
-							document.getElementById('message').innerHTML = data;
-							$('#message').slideDown('slow');
-							$('.contact-form img.loader').fadeOut('slow', function() {
-								$(this).remove()
-							});
-							$('#submit').removeAttr('disabled');
-						}
-					);
-				});
-				return false;
-			});
-		});
+                            if (data.errors) {
+                                // Handle validation errors
+                                $.each(data.errors, function (key, value) {
+                                    $('#' + key).addClass('is-invalid');
+                                    $('#' + key + '-error').text(value[0]);
+                                });
 
-	}); // end document ready function
+                            } else {
+                                // Handle success case
+
+                                // Use Toastr to display the success message
+								toastr.options = {
+									"closeButton": true,
+									"debug": false,
+									"newestOnTop": false,
+									"progressBar": false,
+									"positionClass": "toast-bottom-right",
+									"preventDuplicates": false,
+									"onclick": null,
+									"showDuration": "300",
+									"hideDuration": "1000",
+									"timeOut": "5000",
+									"extendedTimeOut": "1000",
+									"showEasing": "swing",
+									"hideEasing": "linear",
+									"showMethod": "fadeIn",
+									"hideMethod": "fadeOut"
+								  }
+								  
+        						toastr.success(data.message);
+								$('.contact-form img.loader').fadeOut('slow', function () {
+									$(this).remove()
+								});
+								// Clear the form fields
+								form[0].reset(); 
+								$('#submit').removeAttr('disabled');
+                            }
+
+
+                            $('#submit').removeAttr('disabled');
+                        }).fail(function (xhr) {
+                            // Handle AJAX request failure
+                            if (xhr.responseJSON) {
+                                var errors = xhr.responseJSON.errors;
+                                $.each(errors, function (key, value) {
+                                    $('#' + key).addClass('is-invalid');
+                                    $('#' + key + '-error').text(value[0]);
+                                });
+                            }
+                            $('.contact-form img.loader').fadeOut('slow', function () {
+                                $(this).remove()
+                            });
+                            $('#submit').removeAttr('disabled');
+                        });
+                });
+
+                return false;
+            });
+        });
+
+    });  // end document ready function
 
 
 	/* ==================================================

@@ -11,6 +11,7 @@ return [
     "Create_Account" => "إنشاء حساب",
     "Already_Account" => "هل لديك حساب ؟",
     "Login" => "تسجيل الدخول",
+    "Logout" => "تسجيل الخروج",
     "Forgot_Password" => "هل نسيت كلمة السر؟",
     "Sign_In" => "تسجيل الدخول",
     "Not_Member" => "لست عضوا؟",

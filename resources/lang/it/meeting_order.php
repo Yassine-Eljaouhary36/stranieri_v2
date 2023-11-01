@@ -2,6 +2,7 @@
 
 return [
     "Appointment_Details" => "Dettagli dell'Appuntamento",
+    "Make_Appointment" => "fissare un appuntamento",
     "Checkout" => "Pagamento",
     "Back" => "Indietro",
     "Close" => "Chiudi",
@@ -54,6 +55,7 @@ return [
     "Message_Thank_You_Order" => "L'ordine è stato effettuato con successo.",
     
     "Title_Meeting_Taken" => "L'incontro è stato prenotato!",
-    "Message_Meeting_Taken" => "Spiacente, l'incontro è stato prenotato da un altro cliente! Per favore, scegline un altro."
+    "Message_Meeting_Taken" => "Spiacente, l'incontro è stato prenotato da un altro cliente! Per favore, scegline un altro.",
 
+    "orders" => "ordini"
 ];

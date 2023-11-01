@@ -67,6 +67,7 @@
         }
         </style>
     @endpush
+    <x-breadcrumb globalTitle="{{__('meeting_order.Orders')}}" secondTitle="{{__('meeting_order.Orders')}}" />
     <div class="orders-container" style="{{ app()->getLocale() == 'ar' ? "direction: rtl;" : "" }}">
         <div class="text-center pt-2 pb-4 d-flex justify-content-between">
             <div class="pt-2"> <b>{{__('meeting_order.You_Have')}} </b>
@@ -76,7 +77,7 @@
             </div>
             <div>
                 <div class="btn-group dropstart">
-                    <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="custom-button dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-filter"></i> {{__('meeting_order.Status')}}
                     </button>
                     <ul class="dropdown-menu">

@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-lg-2 col-md-6 footer-item">
                     <div class="f-item link">
-                        <h4 class="widget-title">Our Company</h4>
+                        <h4 class="widget-title">{{__('frontend.quick_links')}}</h4>
                         <ul>
                             @foreach ( App()->pages as $page )
                                 <li>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-lg-2 col-md-6 footer-item">
                     <div class="f-item link">
-                        <h4 class="widget-title">Our Services</h4>
+                        <h4 class="widget-title">{{__('frontend.services')}}</h4>
                         <ul>
                             @foreach ( App()->services as $service)
                                 <li>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 footer-item">
                     <div class="opening-hours">
-                        <h4 class="widget-title">Opening Hours</h4>
+                        <h4 class="widget-title">{{__('frontend.opening_hours')}}</h4>
                         <ul>
                             <li> 
                                 <div class="working-day">{{App()->communication->workingtime ?? ''}}</div>
@@ -87,7 +87,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <p>&copy; Copyright 2024. All Rights Reserved by <a href="{{route('home')}}">{{setting('site.title') ?? ''}}</a></p>
+                    <p>&copy; {{__('frontend.copyright')}} <a href="{{route('home')}}">{{setting('site.title') ?? ''}}</a></p>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
     <div class="meeting-panel">
         <div class="calendar">
             <div class="calendar-header">
-                <button class="nav-btn" @click="goToPreviousDay">
+                <button class="custom-button" @click="goToPreviousDay">
                     <i class="fas fa-angle-left"></i>
                 </button>
                 <div>
@@ -15,7 +15,7 @@
                         {{ transilation('week') }}
                     </label>
                 </div>
-                <button class="nav-btn" @click="goToNextDay">
+                <button class="custom-button" @click="goToNextDay">
                     <i class="fas fa-angle-right"></i>
                 </button>
             </div>
@@ -295,7 +295,7 @@ export default {
         saveCartToCookie() {
             const expirationDate = new Date();
             expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000); // Expires in 1 day
-            document.cookie = `cart=${JSON.stringify(this.cart)};expires=${expirationDate.toUTCString()}`;
+            document.cookie = `cart=${JSON.stringify(this.cart)};expires=${expirationDate.toUTCString()}; path=/`;
         },
         transilation(parameter) {
             switch (this.local) {

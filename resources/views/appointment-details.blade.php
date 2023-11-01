@@ -24,6 +24,7 @@
 
 </style>
 @endpush
+<x-breadcrumb globalTitle="{{ __('meeting_order.Appointment_Details') }}" secondTitle="{{ __('meeting_order.Appointment_Details') }}" />
 <div id="app" class="cart-container">
 
     

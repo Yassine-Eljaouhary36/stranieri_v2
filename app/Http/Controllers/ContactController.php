@@ -23,14 +23,16 @@ class ContactController extends Controller
             "subject" => $request->subject,
             "comment" => $request->comment
         ];
-        dd($request);
+ 
         $contact = Contact::create($validated);
+        $message = __('register_login.Something_Went_Wrong');
+        
         if ($contact) {
             try {
                 Mail::send('email.contact', ['dataMail' => $dataMail], function ($message) use ($request) {
                     $message->from($request->email, $request->name);
                     $message->sender(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-                    $message->to($request->email);
+                    $message->to(env('MAIL_FROM_ADDRESS'));
                     $message->replyTo($request->email, $request->name);
                     $message->subject($request->subject);
                     $message->priority(1);
@@ -38,10 +40,14 @@ class ContactController extends Controller
                 });
             } catch (\Exception $e) {
                 if ($e->getMessage()) {
-                    return back()->with('custom_alert', ['type' => 'worning', 'title' => __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Please_Try_Again_Later')]);
+                    return response()->json(['message' => $message]);
                 }
             }
-        } 
+        } else {
+            return response()->json(['message' => $message]);
+        }
+        $message = __('contact.sucess_message');
+        return response()->json(['message' => $message]);
       
     }
 }

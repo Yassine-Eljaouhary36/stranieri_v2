@@ -19899,7 +19899,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     saveCartToCookie: function saveCartToCookie() {
       var expirationDate = new Date();
       expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000); // Expires in 1 day
-      document.cookie = "cart=".concat(JSON.stringify(this.cart), ";expires=").concat(expirationDate.toUTCString());
+      document.cookie = "cart=".concat(JSON.stringify(this.cart), ";expires=").concat(expirationDate.toUTCString(), "; path=/");
     },
     transilation: function transilation(parameter) {
       switch (this.local) {
@@ -20227,7 +20227,7 @@ var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "nav-btn",
+    "class": "custom-button",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.goToPreviousDay && $options.goToPreviousDay.apply($options, arguments);
     })
@@ -20254,7 +20254,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     value: "week"
   }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.selectedOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.transilation('week')), 1 /* TEXT */)], 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "nav-btn",
+    "class": "custom-button",
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.goToNextDay && $options.goToNextDay.apply($options, arguments);
     })
@@ -42548,7 +42548,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AppointmentDetails_vue_vue_type_template_id_4f490dce_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true */ "./resources/js/components/AppointmentDetails.vue?vue&type=template&id=4f490dce&scoped=true");
 /* harmony import */ var _AppointmentDetails_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppointmentDetails.vue?vue&type=script&lang=js */ "./resources/js/components/AppointmentDetails.vue?vue&type=script&lang=js");
 /* harmony import */ var _AppointmentDetails_vue_vue_type_style_index_0_id_4f490dce_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css */ "./resources/js/components/AppointmentDetails.vue?vue&type=style&index=0&id=4f490dce&scoped=true&lang=css");
-/* harmony import */ var C_xampp_htdocs_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_xampp_htdocs_stranireri_v3_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -42556,7 +42556,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AppointmentDetails_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AppointmentDetails_vue_vue_type_template_id_4f490dce_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-4f490dce"],['__file',"resources/js/components/AppointmentDetails.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_stranireri_v3_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AppointmentDetails_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AppointmentDetails_vue_vue_type_template_id_4f490dce_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-4f490dce"],['__file',"resources/js/components/AppointmentDetails.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -42579,7 +42579,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MeetingsManager_vue_vue_type_template_id_dd878e4c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MeetingsManager.vue?vue&type=template&id=dd878e4c */ "./resources/js/components/MeetingsManager.vue?vue&type=template&id=dd878e4c");
 /* harmony import */ var _MeetingsManager_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MeetingsManager.vue?vue&type=script&lang=js */ "./resources/js/components/MeetingsManager.vue?vue&type=script&lang=js");
 /* harmony import */ var _MeetingsManager_vue_vue_type_style_index_0_id_dd878e4c_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MeetingsManager.vue?vue&type=style&index=0&id=dd878e4c&lang=css */ "./resources/js/components/MeetingsManager.vue?vue&type=style&index=0&id=dd878e4c&lang=css");
-/* harmony import */ var C_xampp_htdocs_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_xampp_htdocs_stranireri_v3_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -42587,7 +42587,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_MeetingsManager_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_MeetingsManager_vue_vue_type_template_id_dd878e4c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/MeetingsManager.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_stranireri_v3_example_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_MeetingsManager_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_MeetingsManager_vue_vue_type_template_id_dd878e4c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/MeetingsManager.vue"]])
 /* hot reload */
 if (false) {}
 

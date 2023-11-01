@@ -99,10 +99,5 @@
     </div>
     <!-- End Services -->
     @endif
-    <x-about-us/>
-    <x-choose-us/>
-    <x-partners/>
-    <x-team/>
-    <x-cta/>
     <x-testimonails/>
 @endsection

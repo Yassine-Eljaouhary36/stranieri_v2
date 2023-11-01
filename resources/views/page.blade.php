@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<x-breadcrumb globalTitle="{{$page->title}}" secondTitle="{{$page->title}}" />
 <div class="container-fluid bg-white py-5">
     <div class="container">
         <div class="row"> 

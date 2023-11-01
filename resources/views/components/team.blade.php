@@ -14,8 +14,8 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <div class="site-heading text-center">
-                        <h4 class="sub-heading">Team Members</h4>
-                        <h2 class="title">Meet our experts</h2>
+                        <h4 class="sub-heading">{{__('frontend.team_members')}}</h4>
+                        <h2 class="title">{{__('frontend.meet_our_experts')}}</h2>
                         <div class="devider"></div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                 @foreach ($team as $key => $member)
                 <!-- Single Item -->
                 <div class="col-xl-3 col-md-6">
-                    <div class="team-style-one {{ $key === 0 ? 'active' : '' }}"  style="height: 100%;">
+                    <div class="team-style-one active"  style="height: 100%;">
                         <div class="thumb">
                             @if ($member->image && file_exists('storage/' . $member->logo))
                                 <img style="height: 250px;overflow: hidden;object-fit: cover;width: 100%;" src="{{ asset('storage/' . $member->image) }}" alt="{{ $member->image }}" title="{{ $member->image }}">

@@ -123,5 +123,35 @@
 
 
 
+.custom-button {
+    transition-duration: 0.4s; 
+    display: inline-block;
+      font-weight: 600;
+      text-transform: capitalize;
+      transition: all 0.35s ease-in-out;
+      overflow: hidden;
+      border-radius: 5px;
+      border: 2px solid transparent;
+      -webkit-box-shadow: inherit;
+      box-shadow: inherit;
+      letter-spacing: 0.5px;
+      background: #e7edf8;
+      position: relative;
+      z-index: 1;
+      padding: 10px 20px !important;
+      background: #df0a0a;
+      color: #ffffff;
+      cursor: pointer;
+  }
+  
+  .custom-button:hover {
+     background-color: #040836;
+      border-color: #040836;
+  }
 
+  @media (max-width: 600px) {
+    .custom-button {
+     padding: 5px 15px !important;
+    }
+  }
   

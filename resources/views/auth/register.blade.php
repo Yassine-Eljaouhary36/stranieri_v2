@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<x-breadcrumb globalTitle="{{ __('register_login.Create_Account') }}" secondTitle="{{ __('register_login.Create_Account') }}" />
 <section >
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -81,10 +82,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col mt-1 mb-2">
+                    <div class="col mt-1 mb-2" style="display: flex; align-items: center">
                       {{-- <div class="form-check text-start my-1"> --}}
-                        <input class="form-check-input mx-1" type="checkbox" id="flexCheckDefault" name="agree" required>
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class=" mx-1" type="checkbox" id="flexCheckDefault" name="agree" required>
+                        <label class="pt-1" for="flexCheckDefault">
                           {{ __('register_login.Confirm_Agree') }} <a href="{{ route('privacy.policy') }}" target="_blank">{{ __('register_login.Terms_Conditions') }}</a>
                         </label>
                       {{-- </div> --}}
@@ -93,7 +94,7 @@
 
             
                 <div  class="d-grid gap-2 col-6 mx-auto my-1">
-                  <button type="submit" class="btn btn-primary btn-lg">{{ __('register_login.register') }}</button>
+                  <button type="submit" class="custom-button">{{ __('register_login.register') }}</button>
                 </div>
   
                 <div class="row">

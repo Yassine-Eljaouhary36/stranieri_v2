@@ -57,5 +57,25 @@ return [
         'it' => 'Italian ',
     ],
     
-    
+    'consulting_success' => 'نجاح الاستشارات',
+    'worldwide_clients' => 'عملاء عالميون',
+    'what_we_do' => 'ما نقوم به',
+    'what_we_do_excerpt' => 'خدمة ممتازة ودعم لك',
+    'partners' => 'شركاء في جميع أنحاء العالم',
+    'team_members' => 'أعضاء الفريق',
+    'meet_our_experts' => 'تعرف على خبرائنا',
+    'looking_for_firstclass' => 'بحثك عن مستشار أعمال من الدرجة الأولى؟',
+    'business_consultant?' => 'مستشار أعمال؟',
+    'business_advices' => 'توجيهات الأعمال على مدى 30 عامًا',
+    'business_excellence' => 'تحقيق جوائز التميز في الأعمال',
+    'copyright' => 'حقوق النشر 2024. جميع الحقوق محفوظة بواسطة',
+    'quick_links' => 'روابط سريعة',
+    'opening_hours' => 'ساعات العمل',
+    'team_members' => 'أعضاء الفريق',
+    'home' => 'الرئيسية',
+    'you_need_to_know' => 'ما تحتاج معرفته قبل البدء في كل شيء',
+    'need_help' => 'بحاجة إلى مساعدة؟',
+    'frequently_asked_question' => 'الأسئلة الشائعة',
+    'our_location' => 'موقعنا',
+    'service_details' => 'تفاصيل الخدمة'
 ];

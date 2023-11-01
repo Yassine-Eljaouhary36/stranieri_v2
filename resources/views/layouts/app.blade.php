@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" dir="ltr">
 
 <head>
     <!-- ========== Meta Tags ========== -->
@@ -9,11 +9,10 @@
     <meta name="description" content="Consua - Consulting Business Template">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- ========== Page Title ========== -->
-    <title>Consua - Consulting Business Template</title>
+    <title>{{setting('site.title') ?? ''}}</title>
 
     <!-- ========== Favicon Icon ========== -->
-    <link rel="shortcut icon" href="{{asset('/img/favicon.png')}}" type="image/x-icon">
-
+    <link rel="shortcut icon" href="{{ asset('/img/favicon.png') }}">
     <!-- ========== Start Stylesheet ========== -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
@@ -28,16 +27,18 @@
     <link href="{{asset('css/unit-test.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/custom-style.css') }}">
-    @stack('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    {{-- <script src="https://kit.fontawesome.com/ab2018bbfb.js" crossorigin="anonymous"></script> --}}
+   
     <!-- ========== End Stylesheet ========== -->
 
 </head>
 
 <body>
 
-    @include('layouts.preloader')
+    {{-- @include('layouts.preloader') --}}
     @include('layouts.top-bar')
     @include('layouts.navbar')
 
@@ -69,6 +70,8 @@
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('js/validnavs.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @stack('styles')
     @stack('scripts')
 </body>
 </html>

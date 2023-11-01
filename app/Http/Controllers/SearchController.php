@@ -28,22 +28,22 @@ class SearchController extends Controller
 
             if ($services) {
                 foreach ($services as $key => $service) {
-                    $service_result = explode('|', $service->name);
-                    $output .= '<div><a href="' . url('service/' . $service->slug) . '">' . $service_result[0] . '</a><span class="ml-2 mb-2 badge badge-primary">Services</span></div>';
+                    $service_result = explode('|', $service->title);
+                    $output .= '<div><a href="' . url('service/' . $service->slug) . '">' . $service_result[0] . '</a><span style="margin-left:8px" class="ml-2 badge bg-primary">Services</span></div>';
                 }
             }
             if ($faqs) {
                 foreach ($faqs as $key => $faq) {
                     $faq_result = explode('|', $faq->question);
-                    $output .= '<div><a href="' . url('faq') . '">' . $faq_result[0] . '</a><span class="ml-2 mb-2 badge badge-secondary">Faqs</span></div>';
+                    $output .= '<div><a href="' . url('faq') . '">' . $faq_result[0] . '</a><span style="margin-left:8px" class="ml-2 badge bg-secondary">Faqs</span></div>';
                 }
             }
         }
-dd($output);
+
         if ($output) {
             return Response('<div class="data">' . $output . '</div>');
         } else {
-            return '<div class="data">There are no results that match your search</div>';
+            return Response('<div class="data">There are no results that match your search</div>');
         }
     }
 }

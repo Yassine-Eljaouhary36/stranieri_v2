@@ -2,6 +2,7 @@
 
 return [
     "Appointment_Details" => "Appointment details",
+    "Make_Appointment" => "Make an appointement",
     "Checkout" => "checkout",
     "Back" => "back",
     "Close" => "close",
@@ -56,5 +57,6 @@ return [
     "Title_Meeting_Taken" => "The meeting has been taken!",
     "Message_Meeting_Taken" => "Sorry , the meeting was taken by another client! please choose other one again .",
 
+    "orders" => "orders"
 
 ];

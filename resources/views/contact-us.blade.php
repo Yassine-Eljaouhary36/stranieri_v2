@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <x-breadcrumb globalTitle="Contact Us" secondTitle="Contact" />
+    <x-breadcrumb globalTitle="{{__('frontend.contact_us')}}" secondTitle="{{__('frontend.contact_us')}}" />
 
         <!-- Start Contact Us 
     ============================================= -->
@@ -16,14 +16,14 @@
                 <div class="contact-stye-one col-lg-5 mb-md-50 mb-xs-20">
 
                     <div class="contact-style-one-info">
-                        <h2>Contact Information</h2>
+                        <h2>{{__('frontend.contact_info')}}</h2>
                         <ul>
                             <li class="wow fadeInUp">
                                 <div class="icon">
                                     <i class="fas fa-phone-alt"></i>
                                 </div>
                                 <div class="content">
-                                    <h5 class="title">Hotline</h5>
+                                    <h5 class="title">{{__('frontend.mobile')}}</h5>
                                     <a href="tel:+{{App()->communication->phone ?? ''}}">{{App()->communication->phone ?? ''}}</a>
                                 </div>
                             </li>
@@ -32,7 +32,7 @@
                                     <i class="fas fa-map-marker-alt"></i>
                                 </div>
                                 <div class="info">
-                                    <h5 class="title">Our Location</h5>
+                                    <h5 class="title">{{__('frontend.our_location')}}</h5>
                                     <p>
                                         {{App()->communication->address ?? ''}}
                                     </p>
@@ -43,8 +43,8 @@
                                     <i class="fas fa-envelope-open-text"></i>
                                 </div>
                                 <div class="info">
-                                    <h5 class="title">Official Email</h5>
-                                    <a href="mailto:tel:+{{App()->communication->email ?? ''}}">tel:+{{App()->communication->email ?? ''}}</a>
+                                    <h5 class="title">{{__('frontend.email')}}</h5>
+                                    <a href="mailto:{{App()->communication->email ?? ''}}">{{App()->communication->email ?? ''}}</a>
                                 </div>
                             </li>
                         </ul>
@@ -53,8 +53,8 @@
                 
                 <div class="contact-stye-one col-lg-7 pl-60 pl-md-15 pl-xs-15">
                     <div class="contact-form-style-one">
-                        <h5 class="sub-title">Have Questions?</h5>
-                        <h2 class="heading">Send us a Massage</h2>
+                        <h5 class="sub-title">{{__('frontend.looking_for_something')}}</h5>
+                        <h2 class="heading">{{__('frontend.do_not_hesitate')}}</h2>
                         <form action="{{ route('contact') }}" method="POST" class="contact-form contact-form">
                             @csrf
                             <div class="row">
@@ -82,7 +82,7 @@
                                     <div class="form-group">
                                         <input class="form-control @error('email') is-invalid @enderror"
                                             data-error="Please enter your email" id="email" name="email"
-                                            placeholder="Email*" type="email" value="{{ old('email') }}">
+                                            placeholder="Email *" type="email" value="{{ old('email') }}">
                                         <span class="alert-error"></span>
                                     </div>
                                 </div>
@@ -99,21 +99,21 @@
                                 <div class="col-lg-12">
                                     <div class="form-group comments">
                                         <textarea class="form-control @error('comment') is-invalid @enderror" id="comment" name="comment"
-                                            placeholder="How Can We Assist You? *">
-                                            {{ old('comment') }}</textarea>
+                                            placeholder="How Can We Assist You? *">{{ old('comment') }}</textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <button type="submit" name="submit" id="submit">
-                                        <i class="fa fa-paper-plane"></i> Get in Touch
+                                        <i class="fa fa-paper-plane"></i> {{__('frontend.send')}}
                                     </button>
                                 </div>
                             </div>
                             <!-- Alert Message -->
                             <div class="col-lg-12 alert-notification">
                                 <div id="message" class="alert-msg"></div>
+                                <div id="toast-container" class="toast-top-right"></div>
                             </div>
                         </form>
                     </div>

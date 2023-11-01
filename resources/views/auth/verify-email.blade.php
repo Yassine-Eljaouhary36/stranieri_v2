@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<x-breadcrumb globalTitle="{{ __('register_login.Title_Verification_Email') }}" secondTitle="{{ __('register_login.Title_Verification_Email') }}" />
 <section >
     <div class="container py-5 h-100" style="{{ app()->getLocale() == 'ar' ? "direction: rtl;" : "" }}">
       <div class="row justify-content-center align-items-center h-100">
@@ -21,7 +22,7 @@
             
                             <div>
                                 <button
-                                class="btn btn-dark"
+                                class="custom-button"
                                 type="submit"
                                 >
                                     {{ __('register_login.Resend_Verification_Email') }}

@@ -1,3 +1,10 @@
+@php
+    $string = setting('site.title') ?? '';
+    $string = str_replace(' ', '', $string);
+    $characters = str_split($string);
+
+@endphp
+
 <!-- Start Preloader 
 ============================================= -->
 <div id="preloader">
@@ -5,24 +12,11 @@
         <div class="animation-preloader">
             <div class="spinner"></div>
             <div class="txt-loading">
-                <span data-text-preloader="C" class="letters-loading">
-                    C
-                </span>
-                <span data-text-preloader="O" class="letters-loading">
-                    O
-                </span>
-                <span data-text-preloader="N" class="letters-loading">
-                    N
-                </span>
-                <span data-text-preloader="S" class="letters-loading">
-                    S
-                </span>
-                <span data-text-preloader="U" class="letters-loading">
-                    U
-                </span>
-                <span data-text-preloader="A" class="letters-loading">
-                    A
-                </span>
+                @foreach ( $characters as $character )
+                   <span data-text-preloader="{{$character}}" class="letters-loading">
+                        {{$character}}
+                    </span> 
+                @endforeach
             </div>
         </div>
         <div class="loader">

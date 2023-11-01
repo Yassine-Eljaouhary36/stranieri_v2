@@ -13,15 +13,6 @@
                     <p>
                         {{App()->communication->about_us ?? ''}}
                     </p>
-                    <div class="owner-info">
-                        {{-- <div class="left-info">
-                            <h4>Richard Garrett</h4>
-                            <span>CEO & Founder</span>
-                        </div> --}}
-                        <div class="right-info">
-                            <img src="{{asset('/img/signature.png')}}" alt="Image Not Found">
-                        </div>
-                    </div>
                 </div>
                 <div class="about-style-one col-xl-5 offset-xl-1 col-lg-6 offset-lg-1">
                     <div class="about-thumb">
@@ -39,7 +30,7 @@
                                             <div class="timer" data-to="{{setting('site.Consulting_Success') ?? ''}}" data-speed="2000">{{setting('site.Consulting_Success') ?? ''}}</div>
                                             <div class="operator">%</div>
                                         </div>
-                                        <span class="medium">Consulting Success</span>
+                                        <span class="medium">{{__('frontend.consulting_success')}}</span>
                                     </div>
                                 </li>
                                 <li>
@@ -51,7 +42,7 @@
                                             <div class="timer" data-to="{{setting('site.Worldwide_Clients') ?? ''}}" data-speed="2000">{{setting('site.Worldwide_Clients') ?? ''}}</div>
                                             <div class="operator">+</div>
                                         </div>
-                                        <span class="medium">Worldwide Clients</span>
+                                        <span class="medium">{{__('frontend.worldwide_clients')}}</span>
                                     </div>
                                 </li>
                             </ul>

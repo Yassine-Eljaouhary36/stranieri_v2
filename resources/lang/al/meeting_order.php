@@ -2,6 +2,7 @@
 
 return [
     "Appointment_Details" => "Detajet e Takimit",
+    "Make_Appointment" => "Lini një takim",
     "Checkout" => "Kassa",
     "Back" => "Prapa",
     "Close" => "Mbyll",
@@ -51,5 +52,7 @@ return [
     "Title_Thank_You_Order" => "Faleminderit për Porosinë Tuaj!",
     "Message_Thank_You_Order" => "Porosia është kryer me sukses.",
     "Title_Meeting_Taken" => "Takimi është marrë!",
-    "Message_Meeting_Taken" => "Na vjen keq, takimi është marrë nga një klient tjetër! Ju lutemi zgjidhni një takim tjetër."
+    "Message_Meeting_Taken" => "Na vjen keq, takimi është marrë nga një klient tjetër! Ju lutemi zgjidhni një takim tjetër.",
+
+    "orders" => "urdhërat"
 ];

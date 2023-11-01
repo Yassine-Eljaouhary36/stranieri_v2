@@ -11,7 +11,7 @@
             <div class="col-lg-5">
                 <div class="partner-map text-center" style="background-image: url({{asset('/img/shape/map.png')}});">
                     <h2 class="mask-text" style="background-color: #737373;">{{setting('site.Number_partners') ?? ''}}</h2>
-                    <h4>Partners in world wide</h4>
+                    <h4>{{__('frontend.partners')}}</h4>
                 </div>
             </div>
             <div class="col-lg-6 offset-lg-1">

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<x-breadcrumb globalTitle="{{__('register_login.Reset_Password')}}" secondTitle="{{__('register_login.Reset_Password')}}" />
 <section >
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -29,7 +30,7 @@
                   
                     <!-- Submit button -->
                     <div  class="d-grid gap-2 col-6 mx-auto mb-4">
-                        <button type="submit" class="btn btn-primary btn-lg">{{__('register_login.Reset_Password')}}</button>
+                        <button type="submit" class="custom-button">{{__('register_login.Reset_Password')}}</button>
                     </div>
                     
                   

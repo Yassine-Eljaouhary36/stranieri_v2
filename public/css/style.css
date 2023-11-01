@@ -12189,3 +12189,20 @@ ul.list-regular li::after {
 		font: bold 2em 'Outfit', sans-serif;
 	}
 }
+
+::-webkit-scrollbar {
+    width: 0;
+    border: 2px solid #ccc;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #eee;
+    border: 2px solid #ccc;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #eee;
+    border: 2px solid #ccc;
+}

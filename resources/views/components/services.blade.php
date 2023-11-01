@@ -9,8 +9,8 @@
             <div class="row align-center">
                 <div class="col-lg-5 mb-md-60">
                     <div class="service-nav-info">
-                        <h4 class="sub-title">What we do</h4>
-                        <h2>Excellent service and support for you</h2>
+                        <h4 class="sub-title">{{__('frontend.what_we_do')}}</h4>
+                        <h2>{{__('frontend.what_we_do_excerpt')}}</h2>
                         <div class="nav nav-tabs service-tab-navs" id="nav-tab" role="tablist">
                             @foreach (App()->servicesWithIncludedServices as $key => $service)
                                 <button class="nav-link {{ $key === 0 ? 'active' : '' }}" id="nav-id-{{$key+1}}" data-bs-toggle="tab" data-bs-target="#tab{{$key+1}}" type="button" role="tab" aria-controls="tab{{$key+1}}" aria-selected="{{ $key === 0 ? 'active' : 'false' }}">
@@ -30,10 +30,11 @@
                                     @foreach ( $service->includedServices as $includedService )
                                         <!-- Single Item -->
                                         <div class="col-lg-6 col-md-6 mt-60 mt-md-30 mt-xs-30 {{ $key === 0 ? 'wow fadeInUp' : '' }}">
-                                            <div class="services-style-one shadow-lg p-3 bg-body rounded">
-                                                <h4><a href="services-single.html">{{$includedService->title}}</a></h4>
+                                            <div class="services-style-one">
+                                                <i class="{{$includedService->icon ?? ''}}"></i>
+                                                <h4><a href="#">{{$includedService->title ?? ''}}</a></h4>
                                                 <p>
-                                                    Prevailed always tolerably discourse and loser assurance creatively coin applauded more uncommonly. Him everything trouble
+                                                    {{$includedService->body ?? ''}}
                                                 </p>
                                             </div>
                                         </div>

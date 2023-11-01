@@ -11,6 +11,7 @@ return [
     "Create_Account" => "Krijo Llogari",
     "Already_Account" => "Keni Llogari?",
     "Login" => "Hyrja",
+    "Logout" => "Dilni",
     "Forgot_Password" => "Keni Harruar Fjalëkalimin?",
     "Sign_In" => "Hyrja",
     "Not_Member" => "Nuk Jeni Anëtar?",

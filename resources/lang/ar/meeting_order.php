@@ -2,6 +2,7 @@
 
 return [
     "Appointment_Details" => "تفاصيل الموعد",
+    "Make_Appointment" => "إحجز موعد",
     "Checkout" => "الدفع",
     "Back" => "عودة",
     "Close" => "إغلاق",
@@ -54,7 +55,8 @@ return [
     "Message_Thank_You_Order" => "تمت عملية الطلب بنجاح.",
     
     "Title_Meeting_Taken" => "تم حجز الاجتماع!",
-    "Message_Meeting_Taken" => "عذرًا، تم حجز الاجتماع من قبل عميل آخر! الرجاء اختيار اجتماع آخر مرة أخرى."
+    "Message_Meeting_Taken" => "عذرًا، تم حجز الاجتماع من قبل عميل آخر! الرجاء اختيار اجتماع آخر مرة أخرى.",
 
+    "orders" => "طلبات"
 
 ];

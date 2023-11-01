@@ -56,4 +56,26 @@ return [
         'it' => 'Italian ',
     ],
     
+    
+    'consulting_success' => 'Successo della consulenza',
+    'worldwide_clients' => 'Clienti in tutto il mondo',
+    'what_we_do' => 'Cosa facciamo',
+    'what_we_do_excerpt' => 'Servizio eccellente e supporto per te',
+    'partners' => 'Partner in tutto il mondo',
+    'team_members' => 'Membri del team',
+    'meet_our_experts' => 'Incontra i nostri esperti',
+    'looking_for_firstclass' => 'Cerchi un consulente aziendale di prima classe?',
+    'business_consultant?' => 'Consulente aziendale?',
+    'business_advices' => 'Consigli aziendali dati da oltre 30 anni',
+    'business_excellence' => 'Premi di eccellenza aziendale ottenuti',
+    'copyright' => 'Copyright 2024. Tutti i diritti riservati da',
+    'quick_links' => 'Link veloci',
+    'opening_hours' => 'Orari di apertura',
+    'team_members' => 'Membri del team',
+    'home' => 'Home',
+    'you_need_to_know' => 'Ciò che devi sapere prima di iniziare tutto.',
+    'need_help' => 'Hai bisogno di aiuto?',
+    'frequently_asked_question' => 'Domande frequenti',
+    'our_location' => 'La nostra posizione',
+    'Dettagli servizio'
 ];

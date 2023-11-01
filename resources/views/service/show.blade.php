@@ -4,7 +4,7 @@
 @extends('layouts.app')
 @section('content')
 
-    <x-breadcrumb globalTitle="Service Details" secondTitle="Service" />
+    <x-breadcrumb globalTitle="{{__('frontend.service_details')}}" secondTitle="{{__('frontend.service_details')}}" />
 
     <!-- Star Services Details Area
     ============================================= -->
@@ -78,12 +78,12 @@
                         @endif
                         <div class="single-widget bg-dark quick-contact-widget text-light" style="background-image: url(assets/img/shape/15.png);">
                             <div class="content">
-                                <h3>Need Help?</h3>
+                                <h3>{{__('frontend.need_help')}}</h3>
                                 <h2><a href="tel:{{ App()->communication->phone }}"> {{ App()->communication->phone }}</a></h2>
                                 <h4>   <a href="mailto:{{ App()->communication->email }}">
                                     {{ App()->communication->email }}
                                 </a></h4>
-                                <a class="btn mt-30 circle btn-sm btn-gradient" href="route('show-contact')">Contact Us</a>
+                                <a class="btn mt-30 circle btn-sm btn-gradient" href="{{route('show-contact')}}">{{__('frontend.contact_us')}}</a>
                             </div>
                         </div>
                     </div>

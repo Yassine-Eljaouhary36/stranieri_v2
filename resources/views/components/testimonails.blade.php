@@ -5,12 +5,11 @@
     <div class="container">
         <div class="row align-center">
             <div class="col-lg-4">
-                <div class="testimonial-thumb">
-                    <div class="thumb-item">
-                        <img src="{{asset('/img/illustration/5.png')}}" alt="illustration">
-                        <div class="mini-shape">
-                            <img src="{{asset('/img/shape/19.png')}}" alt="illustration">
-                        </div>
+                <div class="thumb-item p-5">
+                    <img src="{{ asset('img/testimonials.png') }}" alt="illustration" class="h-100 w-100">
+                    <div class="mini-shape">
+                        <img src="{{ asset('img/shape/19-blue.png') }}" alt="illustration"
+                            style="    transform: rotate3d(1, 1, 1, 45deg);">
                     </div>
                 </div>
             </div>
