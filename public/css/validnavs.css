@@ -181,7 +181,9 @@ Version: 1.0
 
 .navbar-brand>img {
 	display: block;
-	max-height: 60px;
+	width: 150%;
+	max-height: 70px;
+    max-width: 200px !important;
 }
 
 .navbar-toggle {
@@ -2452,6 +2454,8 @@ nav.navbar.validnavs.brand-center {
 	.navbar-brand>img {
 		height: auto;
 		max-height: 60px;
+		width: 100%;
+		max-width: 130px !important;
 	}
 
 	nav.navbar.validnavs.navbar-fixed .logo-display {
@@ -3257,5 +3261,8 @@ nav.navbar.validnavs .navbar-collapse.collapse button i {
 
 	nav.navbar.validnavs.navbar-fixed.no-background.navbar-style-one .navbar-nav li a {
 		color: var(--color-heading);
+	}
+	.navbar-brand>img {
+		max-width: 150px !important;
 	}
 }

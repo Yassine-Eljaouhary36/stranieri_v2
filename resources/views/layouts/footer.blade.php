@@ -14,9 +14,9 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 footer-item pr-50 pr-xs-15">
                     <div class="f-item about">
-                        @if (setting('site.logo') && file_exists('storage/' . setting('site.logo')))
+                        {{-- @if (setting('site.logo') && file_exists('storage/' . setting('site.logo'))) --}}
                             <img class="logo" src="{{ asset('storage/' . setting('site.logo')) }}" alt="Logo">
-                        @endif
+                        {{-- @endif --}}
                         <p>
                             {{ \Illuminate\Support\Str::limit(App()->communication->about_us ?? '', 190 , '...')}}
                         </p>

@@ -10,7 +10,7 @@
                           <i class="fa fa-bars"></i>
                       </button>
                       <a class="navbar-brand" href="/">
-                          <img style="max-width: 130%;" src="{{ asset('storage/' . setting('site.logo')) }}" alt="logo">
+                          <img  src="{{ asset('storage/' . setting('site.logo')) }}" alt="logo">
                       </a>
                       <i type="button" class="fas fa-search search-btn float-end d-md-none" data-bs-toggle="modal"
                           data-bs-target="#searchBox"></i>

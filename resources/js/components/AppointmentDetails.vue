@@ -8,6 +8,7 @@
                     <th class="text-center">{{titletime}} </th>
                     <th class="text-center">{{titledate}} </th>
                     <th class="text-center">{{titleprice}}</th>
+                    <th class="text-center"></th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,9 @@
                     </td>
                     <td class="text-center">
                         <span class="item-price">{{ formatPrice(price) }}</span>
+                    </td>
+                    <td class="text-center">
+                        <i class="fas fa-trash text-danger" style="cursor: pointer;" @click="clearCart"></i>
                     </td>
                 </tr>
             </tbody>
@@ -46,6 +50,10 @@
         };
     }, 
     methods: {
+        clearCart(){
+            document.cookie = "cart=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = '/customer/meetings-panel'
+        },
         getCookie(name) {
             const cookies = document.cookie.split('; ');
             for (const cookie of cookies) {
@@ -163,7 +171,7 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     margin: 0px 10px;
-
+    /* overflow-x: auto; */
 }
 
 .rlt{

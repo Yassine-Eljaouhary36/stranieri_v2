@@ -5569,7 +5569,7 @@ p {
 	right: 50px;
 	bottom: 0;
 	padding: 15px;
-	background: var(--color-primary);
+	background: #607d8b87;
 	z-index: 1;
 	text-align: center;
 	transition: all 0.35s ease-in-out;
@@ -5611,7 +5611,7 @@ p {
 .team-style-one.active .thumb::after, 
 .team-style-one:hover .thumb::after {
 	opacity: 0.5;
-	visibility: visible;
+	/* visibility: visible; */
 	bottom: 0;
 	transition-delay: 200ms;
 }
@@ -5623,7 +5623,7 @@ p {
 	content: "";
 	height: 200px;
 	width: 130px;
-	background: var(--color-primary);
+	background: #607d8b87;;
 	opacity: 0;
 	visibility: hidden;
 	transform: skewX(-40deg);

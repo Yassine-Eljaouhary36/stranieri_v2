@@ -88,7 +88,7 @@ Route::get('/privacy-policy', function () {
     return view('privacy_policy');
 })->name('privacy.policy');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => config('base.admin_path')], function () {
     Voyager::routes();
     Route::middleware('admin.user')->group(function(){
         Route::get("/", [DashboardController::class, 'statistics'])->name('voyager.dashboard');

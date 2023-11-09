@@ -22,6 +22,15 @@
         font-weight: bold;
     }
 
+    @media screen and (max-width: 650px) {
+
+    .cart-container{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    }
+
 </style>
 @endpush
 <x-breadcrumb globalTitle="{{ __('meeting_order.Appointment_Details') }}" secondTitle="{{ __('meeting_order.Appointment_Details') }}" />
@@ -107,9 +116,9 @@
                 </button>
             @endif
         @else
-            <a class="btn-custom btn-custom-success " href="{{route('showLoginForm')}}">
+            <a class="btn-custom btn-custom-success " href="{{route('showRegistrationForm')}}">
                 <i class="fas fa-user"></i>
-               {{ __('register_login.Login') }}
+               {{ __('register_login.register') }}
             </a>
         @endauth
         
