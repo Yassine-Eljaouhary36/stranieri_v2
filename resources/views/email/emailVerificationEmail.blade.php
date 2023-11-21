@@ -65,9 +65,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            @if (setting('site.logo') != null)
-                <img src="{{asset('storage/'.(setting('site.logo')))}}" alt="Logo" width="100">
-            @endif
+            <img src="{{asset('storage/'.setting('site.logo') )}}" alt="Logo" width="100">
         </div>
         
         <h1>Email Verification</h1>
@@ -86,7 +84,7 @@
         
         <div class="contact-info">
             <p>Contact Information:</p>
-            <p>Email: contact@test.com</p>
+            <p>Email: {{env('MAIL_FROM_ADDRESS')}}</p>
         </div>
         
         <p>Thank you!</p>

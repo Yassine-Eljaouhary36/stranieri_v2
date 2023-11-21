@@ -77,5 +77,15 @@ return [
     'need_help' => 'Need Help?',
     'frequently_asked_question' => 'Frequently Asked Question',
     'our_location' => 'Our Location',
-    'service_details' => 'Service Details'
+    'service_details' => 'Service Details',
+    'book_now' => 'Book now',
+    'service_not_exist'=>'this service is not available',
+    'years_experience'=>'Years experience',
+    'service'=>'Service',
+    'duration'=>'Duration',
+    'Choose_service'=>'Choose the desired service',
+    'popular_services' =>'Popular Services',
+    'faqs' =>'Frequently Asked Questions',
+    'cart' => 'Cart'
+
 ];

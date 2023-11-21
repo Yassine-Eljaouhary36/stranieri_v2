@@ -23,6 +23,10 @@ class PageController extends Controller
         $activeFaqs = \App\Models\Faq::where('active', true)
         ->take(10)
         ->get();
+        if (!$activeFaqs) {
+            abort(404);
+        }
+        $activeFaqs = $activeFaqs->translate(App::getLocale(), 'fallbackLocale');
         return view('faq',compact('activeFaqs'));
     }
 

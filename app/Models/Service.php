@@ -14,4 +14,9 @@ class Service extends Model
     {
         return $this->hasMany(IncludedService::class);
     }
+
+    public function meeting()
+    {
+        return $this->hasOne(Meeting::class);
+    }
 }

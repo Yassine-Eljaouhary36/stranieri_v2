@@ -104,6 +104,14 @@
                     <td class="text-center"><span class="text-secondary">{{ $data['ref'] }}</span></td>
                 </tr>
                 <tr>
+                    <td class="text-center">{{ __('Service')}} </td>
+                    <td class="text-center"><span class="text-secondary">{{ $data['service']['title']}}</span></td>
+                </tr>
+                <tr>
+                    <td class="text-center">{{ __('duration')}} </td>
+                    <td class="text-center"><span class="text-secondary">{{ $data['service']['duration'] . 'min'}}</span></td>
+                </tr>
+                <tr>
                     <td class="text-center">{{ __('Date meeting')}} </td>
                     <td class="text-center"><span class="text-secondary">{{ \Carbon\Carbon::parse($data['meeting']['DateMeeting'])->format('H:i d/m/Y') }}</span></td>
                 </tr>

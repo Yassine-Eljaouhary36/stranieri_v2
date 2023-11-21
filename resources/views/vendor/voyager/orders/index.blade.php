@@ -31,6 +31,8 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Meeting Date</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Duration</th>
                         <th scope="col">Status</th>
                         <th scope="col">Total</th>
                         <th scope="col">Date</th>
@@ -42,6 +44,8 @@
                         <tr>
                             <th scope="row">{{ $order->id }}</th>
                             <td>{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A d-m-Y') ?? '' }}</td>
+                            <th scope="row">{{ $order->meeting->service->title ?? '' }}</th>
+                            <th scope="row">{{ $order->meeting->service?->duration .'min'?? '' }}</th>
                             <td>
                                 @include('orders.order-status', ['status' => $order->status])
                             </td>

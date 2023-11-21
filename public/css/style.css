@@ -98,7 +98,7 @@ Sidebar heading:  20px 'Outfit', sans-serif
 	--dark-secondary: #022b6d;
 	--dark-optional: #3e00a7;
 	--white: #ffffff;
-	--color-primary: #DF0A0A;
+	--color-primary: #6f42c1;
 	--color-secondary: #0b57e3;
 	--color-optional: #57B33E;
 	--color-heading: #0e0e0e;
@@ -110,7 +110,7 @@ Sidebar heading:  20px 'Outfit', sans-serif
 	--bg-gradient: linear-gradient(90deg, var(--color-secondary)  0%, var(--color-primary) 100%);
 	--bg-gradient-secondary: linear-gradient(90deg, var(--color-secondary)  40%, var(--dark-secondary) 100%);
 	--bg-gradient-reverse: linear-gradient(90deg, var(--color-primary)  0%, var(--color-secondary) 100%);
-	--gradient-bg: linear-gradient(90deg, #DF0A0A  0%, #930707 100%);
+	--gradient-bg: linear-gradient(90deg, #6f42c1  0%, #3c079e 100%);
 	--bg-gradient-optional: linear-gradient(90deg, #57B33E  50%, #b59f11 100%);
 }
 
@@ -2790,8 +2790,8 @@ p {
 	nav.navbar.navbar-style-one.validnavs.navbar-fixed.no-background .navbar-header::after {
 		position: absolute;
 		right: 0;
-		bottom: 0;
-		height: 300px;
+		bottom: 47px;
+		height: 950%;
 		width: 500%;
 		background: var(--white);
 		z-index: -1;
@@ -2800,12 +2800,12 @@ p {
 
 	nav.navbar.navbar-style-one.validnavs.navbar-fixed.no-background .navbar-header::before {
 		position: absolute;
-		right: -10px;
-		bottom: 15px;
+		right: -25px;
+		bottom: 30px;
 		content: "";
-		height: 300px;
+		height: 900%;
 		width: 100%;
-		background: #cfd2d5;
+		background: #6f42c1;
 		z-index: -1;
 		transform: skewX(15deg);
 	}
@@ -2816,7 +2816,8 @@ p {
 
 	nav.navbar.navbar-style-one.validnavs.navbar-fixed.no-background .navbar-header img {
 		position: relative;
-		top: -35px;
+		top: -58px;
+		left: 11px;
 	}
 }
 
@@ -4863,7 +4864,7 @@ p {
 	height: 0;
 	width: 40px;
 	position: absolute;
-	background: #a63131;
+	background: #a87cfb;
 	z-index: -1;
 	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 	transition: all 0.35s ease-in-out;

@@ -77,5 +77,15 @@ return [
     'need_help' => 'Keni nevojë për ndihmë?',
     'frequently_asked_question' => 'Pyetje të shpeshta',
     'our_location' => 'Vendndodhja jonë',
-    'Detajet e shërbimit'
+    'service_details' => 'Detajet e Shërbimit',
+    'book_now' => 'Rezervoni tani',
+    'service_not_exist'=>'ky shërbim nuk është i disponueshëm',
+    'years_experience'=>'Vite përvojë',
+    'service' => 'Shërbim',
+    'duration' => 'Kohëzgjatje',
+    'Choose_service' => 'Zgjidhni shërbimin e dëshiruar',
+    'popular_services' => 'Shërbimet e Popullarizuara',
+    'faqs' => 'Pyetje të Bëra Shpesh',
+    'cart' => 'Shporta',
+
 ];

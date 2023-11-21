@@ -16,7 +16,7 @@
                                     <h4>{{ \Illuminate\Support\Str::limit($offer->title ?? '', 50 , '...')}}</h4>
                                     <h2><strong>{{ \Illuminate\Support\Str::limit($offer->excerpt, 32 , '...') }}</strong></h2>
                                     <div class="button mt-40">
-                                        <a class="btn-animation" href="#"><i class="fas fa-arrow-right"></i> <span>See Offer</span></a>
+                                        <a class="btn-animation" href="{{route('services')}}"><i class="fas fa-arrow-right"></i> <span>{{__('frontend.services')}}</span></a>
                                     </div>
                                 </div>
                             </div>

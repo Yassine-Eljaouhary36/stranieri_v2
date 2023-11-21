@@ -16,6 +16,7 @@ class Meeting extends Model
         'status',
         'client_id',
         'order_id',
+        'service_id',
     ];
 
     public function client()
@@ -27,6 +28,10 @@ class Meeting extends Model
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 
     protected static function boot()

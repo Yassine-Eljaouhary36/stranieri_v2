@@ -116,6 +116,14 @@
                     <table class="order-infos-table mt-3"  >
                         <tbody>
                             <tr>
+                                <td class="text-center">{{ __('frontend.service')}} </td>
+                                <td class="text-center"><span class="text-secondary">{{ $meeting->service?->translate(app()->getLocale() , 'fallbackLocale')->title ?? '' }}</span></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">{{ __('frontend.duration')}} </td>
+                                <td class="text-center"><span class="text-secondary">{{ $meeting->service?->duration .'min' ?? '' }}</span></td>
+                            </tr>
+                            <tr>
                                 <td class="text-center">{{ __('meeting_order.Time_Meeting')}} </td>
                                 <td class="text-center"><span class="text-secondary">{{ \Carbon\Carbon::parse($meeting->DateMeeting)->format('h:i A') }}</span></td>
                             </tr>

@@ -25,7 +25,8 @@ class ServiceController extends Controller
         $service = $services->where('slug', Request()->slug)->where('status', 'PUBLISHED')->first();
         $activeFaqs = \App\Models\Faq::where('active', true)
             ->take(10)
-            ->get();
+            ->get()
+            ->translate(App::getLocale(), 'fallbackLocale');
 
         if ($service) {
             return view('service.show',compact('service','services','activeFaqs'));

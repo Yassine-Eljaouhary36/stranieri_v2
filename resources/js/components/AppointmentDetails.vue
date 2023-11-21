@@ -1,6 +1,5 @@
 <template>
 
-    <div class="cart-item"  >
         
         <table class="styled-table" >
             <thead>
@@ -26,12 +25,12 @@
                         <span class="item-price">{{ formatPrice(price) }}</span>
                     </td>
                     <td class="text-center">
-                        <i class="fas fa-trash text-danger" style="cursor: pointer;" @click="clearCart"></i>
+                        <i class="fas fa-trash text-danger p-2 rounded-circle border border-danger border-1"  style="cursor: pointer;" @click="clearCart"></i>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
+    
   
 </template>
   
@@ -52,6 +51,7 @@
     methods: {
         clearCart(){
             document.cookie = "cart=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "serviceId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             window.location.href = '/customer/meetings-panel'
         },
         getCookie(name) {
@@ -160,20 +160,6 @@
     background-color: #e0e0e0;
 }
 
-.cart-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 15px;  
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-    background-color: #fcfcfd;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin: 0px 10px;
-    /* overflow-x: auto; */
-}
-
 .rlt{
     flex-direction: row-reverse; 
 }
@@ -214,14 +200,14 @@
 
 @media screen and (max-width: 650px) {
 
-    .cart-item {
-        flex-direction: column;
-    }
     .item-details {
         margin-bottom: 10px;
     }
     .item-date-time {
         margin-bottom: 10px;
+    }
+    .item-day{
+        flex-direction: column;
     }
 
 }

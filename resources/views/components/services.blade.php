@@ -32,9 +32,9 @@
                                         <div class="col-lg-6 col-md-6 mt-60 mt-md-30 mt-xs-30 {{ $key === 0 ? 'wow fadeInUp' : '' }}">
                                             <div class="services-style-one">
                                                 <i class="{{$includedService->icon ?? ''}}"></i>
-                                                <h4><a href="#">{{$includedService->title ?? ''}}</a></h4>
+                                                <h4><a href="#">{{$includedService->translate(app()->getLocale(), 'fallbackLocale')->title ?? ''}}</a></h4>
                                                 <p>
-                                                    {{$includedService->body ?? ''}}
+                                                    {{$includedService->translate(app()->getLocale(), 'fallbackLocale')->body ?? ''}}
                                                 </p>
                                             </div>
                                         </div>

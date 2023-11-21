@@ -96,6 +96,8 @@
                 <thead>
                     <tr>
                         <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('meeting_order.Ref')}}</th>
+                        <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('frontend.service')}}</th>
+                        <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('frontend.duration')}}</th>
                         <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('meeting_order.Meeting_At')}}</th>
                         <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('meeting_order.Paid_At')}}</th>
                         <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}" > {{__('meeting_order.Status')}}</th>
@@ -106,6 +108,8 @@
                     @forelse ($orders as $key => $order)
                         <tr  class="order" data-status="{{ $order->status }}">
                             <td class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ $order->ref ?? '' }}</td>
+                            <td style="min-width: 200px" class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ $order->meeting->service?->translate(app()->getLocale() , 'fallbackLocale')->title ?? '' }}</td>
+                            <td style="min-width: 50px" class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ $order->meeting->service?->duration .'min'?? '' }}</td>
                             <td style="min-width: 186px" class="text-secondary {{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A d-m-Y') ?? '' }}</td>
                             <td style="min-width: 186px" class="text-secondary {{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ $order->created_at->format('h:i A d-m-Y') ?? '' }}</td>
                             <td style="min-width: 186px" class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}"> 

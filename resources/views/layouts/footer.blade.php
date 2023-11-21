@@ -15,7 +15,7 @@
                 <div class="col-lg-4 col-md-6 footer-item pr-50 pr-xs-15">
                     <div class="f-item about">
                         {{-- @if (setting('site.logo') && file_exists('storage/' . setting('site.logo'))) --}}
-                            <img class="logo" src="{{ asset('storage/' . setting('site.logo')) }}" alt="Logo">
+                            <img class="logo" src="{{ asset('storage/' . setting('site.light_logo')) }}" alt="Logo">
                         {{-- @endif --}}
                         <p>
                             {{ \Illuminate\Support\Str::limit(App()->communication->about_us ?? '', 190 , '...')}}
@@ -47,6 +47,9 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 footer-item">
+                    <div>
+                        <a href="{{route('index')}}" style="color: black" class="bookButton mt-2"><i class="ml-1 fas fa-calendar"></i> {{__('frontend.book_an_appointment')}}</a>
+                    </div>
                     <div class="opening-hours">
                         <h4 class="widget-title">{{__('frontend.opening_hours')}}</h4>
                         <ul>
@@ -55,28 +58,6 @@
                             </li>
                         </ul>
                     </div>
-                    <ul class="footer-social">
-                        <li>
-                            <a href="{{App()->communication->instagram ?? ''}}">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{App()->communication->pinterest ?? ''}}">
-                                <i class="fab fa-pinterest-square"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{App()->communication->youtube ?? ''}}">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{App()->communication->linkedin ?? ''}}">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>

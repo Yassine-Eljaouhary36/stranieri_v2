@@ -66,7 +66,7 @@
             <div class="invoice-logo">
                 {{-- <img src="https://assets.stickpng.com/images/5954bb45deaf2c03413be353.png" alt="Logo" width="100"> --}}
                 @if (setting('site.logo') != null)
-                    <img src="{{asset('storage/'.(setting('site.logo')))}}" alt="Logo" width="100">
+                    <img src="{{asset('storage/'.setting('site.logo') )}}" alt="Logo" width="100">
                 @endif
             </div>
         </div>
@@ -85,6 +85,14 @@
                     <tr>
                         <td class="text-center">{{ __('Order reference')}} </td>
                         <td class="text-center"><span class="text-secondary">{{ $order->ref }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">{{ __('service')}} </td>
+                        <td class="text-center"><span class="text-secondary">{{ $order->meeting->service->title }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">{{ __('duration')}} </td>
+                        <td class="text-center"><span class="text-secondary">{{ $order->meeting->service->duration . 'min' }}</span></td>
                     </tr>
                     <tr>
                         <td class="text-center">{{ __('Date meeting')}} </td>

@@ -2325,13 +2325,13 @@ nav.navbar.validnavs.brand-center {
 		padding: 0;
 	}
 
-	.navbar .attr-right .attr-nav li.button a {
+	/* .navbar .attr-right .attr-nav li.button a {
 		padding: 13px 25px !important;
 	}
 
 	.navbar.navbar-style-three .attr-right .attr-nav li.button a {
 		background: var(--color-optional) !important;
-	}
+	} */
 
 	.attr-nav>ul>li>a {
 		padding: 16px 15px 15px;

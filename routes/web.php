@@ -30,9 +30,7 @@ use TCG\Voyager\Facades\Voyager;
 Route::get('/',function(){
     return view('home');
 })->name('home');
-Route::get('/team',function(){
-    return view('team.index');
-})->name('team');
+
 Route::get('/faq',[PageController::class , 'faq'])->name('faq');
 Route::get('/about-us',[PageController::class , 'about'])->name('about-us');
 Route::get('/contact',[ContactController::class , 'index'])->name('show-contact');

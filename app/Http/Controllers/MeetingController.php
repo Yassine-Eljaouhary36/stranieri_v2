@@ -6,11 +6,13 @@ use App\Jobs\OrderInProcess;
 use App\Models\Day;
 use App\Models\Meeting;
 use App\Models\Order;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use DateTime;
+use Illuminate\Support\Facades\App;
 
 class MeetingController extends Controller
 {
@@ -40,8 +42,27 @@ class MeetingController extends Controller
 
         $dateMeeting = json_decode(request()->cookie('cart'))[0] ?? null;
 
+        $serviceId = json_decode(request()->cookie('serviceId')) ?? null;
+
+        $service=null;
+        if($serviceId){
+            $service = Service::where('id', $serviceId)
+            ->where('status', 'PUBLISHED')
+            ->first(); 
+            if($service){
+                $service = $service->translate(App::getLocale(), 'fallbackLocale');
+            }
+        }
+        
+       $services = [];
+        if (!$service) {
+            $services = Service::where('status', 'PUBLISHED')
+                           ->get(['id', 'title', 'price','duration']);
+        }
+        
         $client = Auth::guard('client')->user();
-        $originalPrice=is_numeric(setting('site.price_meeting')) ? setting('site.price_meeting'): 0;
+        $originalPrice = $service ? (is_numeric($service->price) ? $service->price : 0) : 0;
+
         $discountPercentage = is_numeric(setting('site.discount_percentage')) ? setting('site.discount_percentage'): 0;
 
         $discountedPrice = $originalPrice - ($originalPrice * ($discountPercentage / 100));
@@ -72,6 +93,8 @@ class MeetingController extends Controller
                     'taxRate'           => $taxRate * 100,
                     'orderTotal'        => number_format($orderTotal, 2, ',', ' '),
             ],
+            'service'=> $service,
+            'services'=> $services,
         ]);
 
 
@@ -106,6 +129,17 @@ class MeetingController extends Controller
         if (!$adjustedTargetDate->greaterThan($currentDate)) {
             return back()->with('custom_alert', ['type' => 'warning', 'title' =>  __('register_login.Something_Went_Wrong'), 'message' => __('register_login.Please_Try_Again_Later')]);
         }
+        $serviceId = json_decode(request()->cookie('serviceId')) ?? null;
+
+        $service=null;
+        if($serviceId){
+            $service = Service::where('id', $serviceId)
+            ->where('status', 'PUBLISHED')
+            ->first(); 
+        }
+        if (!$service){
+            return back()->with('custom_alert', ['type' => 'warning', 'title' =>  __('register_login.Something_Went_Wrong'), 'message' => __('frontend.service_not_exist')]);
+        }
         $meetings = Meeting::where(function ($query) {
             $query->where('status', 'paid')
                   ->orWhere('status', 'in process');
@@ -120,7 +154,7 @@ class MeetingController extends Controller
             $paymentMethod = $request->payment_method;
 
             $taxRate = is_numeric(setting('site.tax_rate')) ? setting('site.tax_rate'): 0;
-            $originalPrice=is_numeric(setting('site.price_meeting')) ? setting('site.price_meeting'): 0;
+            $originalPrice = $service ? (is_numeric($service->price) ? $service->price : 0) : 0;
             $discountPercentage = is_numeric(setting('site.discount_percentage')) ? setting('site.discount_percentage'): 0;
             $discountedPrice = $originalPrice - ($originalPrice * ($discountPercentage / 100));
             $amountSaved = $originalPrice - $discountedPrice;
@@ -128,7 +162,7 @@ class MeetingController extends Controller
             
             $orderTotal = $discountedPrice + ($taxRate * $discountedPrice);
             $estimatedTax = $taxRate * $discountedPrice;
-
+            
             $order = Order::create([
                 'paid_amount' => $orderTotal,
                 'discount'=>$amountSaved,
@@ -142,7 +176,8 @@ class MeetingController extends Controller
                 'DateMeeting' => $request->dateMeeting, 
                 'status' => 'in process', 
                 'order_id'=> $order->id,
-                'client_id' => $client->id
+                'client_id' => $client->id,
+                'service_id' => $service->id
             ]);
             try {
                 $client->createOrGetStripeCustomer();
@@ -158,7 +193,7 @@ class MeetingController extends Controller
             }
             // Clear the 'token' value from the session
             session()->forget('token');
-            dispatch(new OrderInProcess($order));
+            // dispatch(new OrderInProcess($order));
             return redirect()->route('order',$order)->with('custom_alert', ['type' => 'success', 'title' => __('meeting_order.Title_Thank_You_Order'), 'message' => __('meeting_order.Message_Thank_You_Order')]);
         }
         return back()->with('custom_alert', ['type' => 'warning', 'title' => __('meeting_order.Title_Meeting_Taken'), 'message' => __('meeting_order.Message_Meeting_Taken')]);;

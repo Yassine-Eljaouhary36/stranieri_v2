@@ -24,16 +24,20 @@
                       </button>
                       <ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
                           {{ menu('navbar', 'layouts.nav') }}
+                            <li class="text-left d-lg-none">
+                                <a class="button"
+                                href="{{route('show-contact')}}">{{__('frontend.contact_us')}}</a>
+                            </li>
                           @auth('client')
                               <li class="dropdown">
                                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
                                           class="fas fa-user"></i></a>
                                   <ul class="dropdown-menu">
                                       <li> <a class="breadcrumb-item active text-primary" href="{{ route('orders') }}"><i
-                                                  class="mr-2 fa-solid fa-boxes-stacked"></i>{{__('register_login.orders')}} </a></li>
+                                                  class="mr-2 fa-solid fa-boxes-stacked"></i>{{__('meeting_order.orders')}} </a></li>
                                       <li>
                                           <a class="breadcrumb-item active text-primary" href="{{ route('logout') }}">
-                                              <i class="mr-2 fa-solid fa-right-to-bracket"></i>{{__('register_login.logout')}}
+                                              <i class="mr-2 fa-solid fa-right-to-bracket"></i>{{__('register_login.Logout')}}
                                           </a>
                                       </li>
                                   </ul>
@@ -80,7 +84,8 @@
                       <div class="attr-nav">
                           <ul>
                             <li class="button">
-                              <a href="{{route('index')}}">{{__('frontend.book_an_appointment')}}</a>
+                              <a
+                                href="{{route('show-contact')}}">{{__('frontend.contact_us')}}</a>
                             </li>
                           </ul>
                       </div>
@@ -114,4 +119,27 @@
             }
         </style>
     @endpush
+@else
+    @if (Route::currentRouteName() !== 'index')
+        <a class="bookNow-btn" href="{{ route('index') }}" style="display: flex; align-items: center">
+            <i class="fas fa-calendar" style="margin-right: 5px"></i> {{__('frontend.book_an_appointment')}}
+        </a>
+        @push('styles')
+            <style>
+                .bookNow-btn {
+                    position: fixed;
+                    bottom: 10px;
+                    right: 15px;
+                    z-index: 999;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 1px 0 0 #fff6af !important;
+                    background: linear-gradient(180deg,#ffec64 5%,#ffab23) !important;
+                    background-color: #ffec64 !important;
+                    border: 1px solid #fa2 !important;
+                    color: #333 !important;
+                }
+            </style>
+        @endpush
+    @endif
 @endif

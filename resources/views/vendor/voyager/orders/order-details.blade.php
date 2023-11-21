@@ -32,6 +32,8 @@
                     <tr>
                         <th>Ref</th>
                         <th>Meeting Date</th>
+                        <th>Service</th>
+                        <th>Duration</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -42,6 +44,8 @@
                         <td style="min-width: 192px">
                             {{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A d-m-Y') ?? '' }}
                         </td>
+                        <td style="min-width: 200px">{{ $order->meeting->service->title ?? '' }}</td>
+                        <td style="min-width: 50">{{ $order->meeting->service?->duration .'min'?? '' }}</td>
                         <td style="min-width: 186px">{{ $order->meeting->status }}</td>
                         <td>
                             <a href="{{route('voyager.meetings.edit', $order->meeting->id)}}"

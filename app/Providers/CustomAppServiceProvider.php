@@ -49,7 +49,7 @@ class CustomAppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('services', function () {
-            $services = Service::where('status', 1)->orderby('order', 'ASC')->take(5)->get(); 
+            $services = Service::where('status', 1)->orderby('order', 'ASC')->take(4)->get(); 
             return $services->translate(App::getLocale(), 'fallbackLocale');
         });
 
@@ -60,7 +60,7 @@ class CustomAppServiceProvider extends ServiceProvider
 
         $this->app->singleton('pages', function () {
             $pages = Page::where('status', 'ACTIVE')->take(5)->get(); 
-            return $pages;
+            return $pages->translate(App::getLocale(), 'fallbackLocale');
         });
     }
 

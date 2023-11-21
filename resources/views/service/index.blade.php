@@ -2,11 +2,12 @@
     $firstServiceWithThumbnail = $servicesp->first(function ($service) {
         return !is_null($service->thumbnail);
     });
+    $firstServiceWithThumbnail=$firstServiceWithThumbnail->translate(app()->getLocale(), 'fallbackLocale');
 ?>
 @extends('layouts.app')
 @section('content')
 
-    <x-breadcrumb globalTitle="Our Services" secondTitle="Service" />
+    <x-breadcrumb globalTitle="{{__('frontend.services')}}" secondTitle="{{__('frontend.services')}}" />
     
     @if (!$services->isEmpty())
     <!-- Start Aobut 
@@ -24,7 +25,7 @@
                             <img src="{{ asset('storage/' . $firstServiceWithThumbnail->thumbnail) }}" alt="Thumbnail Not Found" title="{{ $firstServiceWithThumbnail->title }}">
                         @endif
                         <div class="experience">
-                            <h2><strong>15</strong> Years experience</h2>
+                            <h2><strong>15</strong> {{__('frontend.years_experience')}}</h2>
                         </div>
                         <div class="shape">
                             <img src="{{asset('/img/shape/anim-5.png')}}" alt="Shape">
@@ -66,7 +67,7 @@
                     <div class="col-xl-4 col-md-6 mb-30">
                         <div class="services-style-two active" style="height: 100%;overflow: hidden;">
                             <div class="thumb">
-                                @if ($service->image && file_exists('storage/' . $service->image))
+                                @if ($service->image)
                                     <img style="width: 100%;overflow: hidden;object-fit: cover; height: 200px;" src="{{ asset('storage/' . $service->image) }}" alt="No picture" title="{{ $service->title }}">
                                 @endif
                                 <div class="title">
@@ -84,6 +85,10 @@
                                     <a href="{{ route('service', $service->slug) }}">Read More</a>
                                     <div class="devider"></div>
                                 </div>
+                                <div class="buy d-flex justify-content-between align-items-center">
+                                    <div><h5 class="text-success mt-4">${{$service->price}}</h5></div>
+                                    <a href="#" class="bookButton mt-3" onclick="saveServiceToCookie({{ $service->id }})"><i class="ml-1 fas fa-calendar"></i> {{__('frontend.book_now')}}</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -100,4 +105,16 @@
     <!-- End Services -->
     @endif
     <x-testimonails/>
+
+    @push('scripts')
+        <script>
+
+            function saveServiceToCookie(serviceId) {
+                const expirationDate = new Date();
+                expirationDate.setTime(expirationDate.getTime() + 24 * 60 * 60 * 1000); // Expires in 1 day
+                document.cookie = `serviceId=${serviceId};expires=${expirationDate.toUTCString()}; path=/`;
+                window.location.href = '/customer/appointment-details'
+            }
+        </script>
+    @endpush
 @endsection

@@ -77,5 +77,15 @@ return [
     'need_help' => 'بحاجة إلى مساعدة؟',
     'frequently_asked_question' => 'الأسئلة الشائعة',
     'our_location' => 'موقعنا',
-    'service_details' => 'تفاصيل الخدمة'
+    'service_details' => 'تفاصيل الخدمة',
+    'book_now' => 'احجز الآن',
+    'service_not_exist'=>'هذه الخدمة غير متوفرة',
+    'years_experience'=>'سنوات خبرة',
+    'service' => 'الخدمة',
+    'duration' => 'المدة',
+    'Choose_service' => 'اختر الخدمة المرغوبة',
+    'popular_services' => 'الخدمات الشهيرة',
+    'faqs' => 'الأسئلة الشائعة',
+    'cart' => 'سلة التسوق',
+
 ];

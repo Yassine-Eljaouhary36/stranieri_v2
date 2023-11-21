@@ -7,7 +7,7 @@
         </div>
         <div class="container">
             <div class="row align-center">
-                <div class="about-style-one col-xl-6 col-lg-5">
+                <div class="about-style-one col-xl-6 col-lg-5" style="{{ app()->getLocale() == 'ar' ? "direction: rtl;" : "" }}">
                     <div class="h4 sub-heading">{{App()->communication->title ?? ''}}</div>
                     <h2 class="title mb-25">{{App()->communication->excerpt ?? ''}}</h2>
                     <p>

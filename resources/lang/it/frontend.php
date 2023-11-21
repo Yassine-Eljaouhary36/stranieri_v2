@@ -77,5 +77,15 @@ return [
     'need_help' => 'Hai bisogno di aiuto?',
     'frequently_asked_question' => 'Domande frequenti',
     'our_location' => 'La nostra posizione',
-    'Dettagli servizio'
+    'service_details' => 'Dettagli del servizio',
+    'book_now' => 'Prenota ora',
+    'service_not_exist'=>'questo servizio non è disponibile',
+    'years_experience'=>'Anni di esperienza',
+    'service' => 'Servizio',
+    'duration' => 'Durata',
+    'Choose_service' => 'Scegli il servizio desiderato',
+    'popular_services' => 'Servizi Popolari',
+    'faqs' => 'Domande frequenti',
+    'cart' => 'Carrello',
+
 ];

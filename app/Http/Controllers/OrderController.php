@@ -47,6 +47,10 @@ class OrderController extends Controller
             'meeting'=>[
                 'DateMeeting'=>$paidOrder->meeting->DateMeeting,
             ],
+            'service'=>[
+                'title'=>$paidOrder->meeting->service->title,
+                'duration'=>$paidOrder->meeting->service->duration,
+            ],
             'discount'=>$paidOrder->discount,
             'paid_amount'=>$paidOrder->paid_amount,
             'tax'=>$paidOrder->tax,

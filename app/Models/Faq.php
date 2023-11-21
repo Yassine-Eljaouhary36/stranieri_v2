@@ -10,6 +10,6 @@ class Faq extends Model
 {
     protected $table="faqs";
     use Translatable;
-    protected $translatable = ['question','Answer'];
+    protected $translatable = ['question','answer'];
     use HasFactory;
 }

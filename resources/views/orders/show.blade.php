@@ -109,15 +109,15 @@
         }
     </style>
 @endpush
-
+<x-breadcrumb globalTitle="{{ __('meeting_order.Meeting_Details')}}" secondTitle="{{ __('meeting_order.Meeting_Details')}}" />
 <div class="cart-container" >
     <div class="order-header mt-2 mb-3">
         <a href="{{route('orders')}}" class="btn btn-md btn-outline-warning">
-            <i class="mr-1 fa-solid fa-arrow-left"></i> {{ __('meeting_order.Back')}}
+            <i class="mr-1 fas fa-arrow-left"></i> {{ __('meeting_order.Back')}}
         </a>
         @if ($order->meeting->status=='paid')
             <a href="{{route('download-invoice',$order)}}" class="btn btn-md btn-outline-primary">
-                <i class="fa-solid fa-print"></i> {{ __('meeting_order.Print')}}
+                <i class="fas fa-print"></i> {{ __('meeting_order.Print')}}
             </a>
         @endif
     </div>
@@ -126,18 +126,20 @@
         <table class="styled-table">
             <thead>
                 <tr>
-                    <th>{{ __('meeting_order.Ref')}}</th>
-                    <th>{{ __('meeting_order.Order_Date')}}</th>
-                    <th>{{ __('meeting_order.Paid_Amount')}}</th>
-                    <th>{{ __('meeting_order.Discount')}}</th>
-                    <th>{{ __('meeting_order.Price')}}</th>
-                    <th>{{ __('meeting_order.Tax')}}</th>
-                    <th>{{ __('meeting_order.Order_Status')}}</th>
+                    <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ __('meeting_order.Ref')}}</th>
+                    <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ __('frontend.service')}}</th>
+                    <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ __('meeting_order.Order_Date')}}</th>
+                    <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ __('meeting_order.Paid_Amount')}}</th>
+                    <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ __('meeting_order.Discount')}}</th>
+                    <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ __('meeting_order.Price')}}</th>
+                    <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ __('meeting_order.Tax')}}</th>
+                    <th class="{{ app()->getLocale() == 'ar' ? "text-end" : "" }}">{{ __('meeting_order.Order_Status')}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr  class="order">
                     <td>{{ $order->ref ?? '' }}</td>
+                    <td>{{ $order->meeting->service?->translate(app()->getLocale() , 'fallbackLocale')->title ?? '' }}</td>
                     <td class="text-secondary">{{ $order->created_at->format('d-m-Y') ?? '' }}</td>
                     <td class="text-primary fw-bold"> ${{ number_format($order->paid_amount, 2) ?? '' }}</td>
                     <td class="text-success fw-bold"> -${{ number_format($order->discount, 2) ?? '' }}</td>
@@ -151,11 +153,11 @@
         </table>
     </div>
     <div class="clock-container mt-2">
-        <div class="fw-bold text-secondary fs-3">
+        <div class="fw-bold text-secondary fs-3 mb-2">
             {{ __('meeting_order.Meeting_Details')}}
         </div>
-        <div class="time fw-bold" id="timeDisplay">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A') }}</div>
-        <div class="date text-secondary" id="dateDisplay">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('d/m/Y') }}</div>
+        <div class="time fw-bold mb-2" id="timeDisplay">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('h:i A') }}</div>
+        <div class="date text-secondary mb-2" id="dateDisplay">{{ \Carbon\Carbon::parse($order->meeting->DateMeeting)->format('d/m/Y') }}</div>
         <div class="mt-2">
             @switch($order->meeting->status)
                 @case('paid')

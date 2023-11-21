@@ -66,7 +66,7 @@
     <div class="container">
         <div class="logo">
             @if (setting('site.logo') != null)
-                    <img src="{{asset('storage/'.(setting('site.logo')))}}" alt="Logo" width="100">
+                <img src="{{asset('storage/'.setting('site.logo') )}}" alt="Logo" width="100">
             @endif
         </div>
         
@@ -86,7 +86,7 @@
         
         <div class="contact-info">
             <p>Contact Information:</p>
-            <p>Email: contact@elitechit.com</p>
+            <p>Email: {{env('MAIL_FROM_ADDRESS')}}</p>
         </div>
         
         <p>Thank you!</p>

@@ -16,7 +16,7 @@ class MeetingRequirements
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!empty(json_decode(request()->cookie('cart'))[0]) && is_numeric(setting('site.price_meeting')) ) {
+        if (!empty(json_decode(request()->cookie('cart'))[0]) ) {
             return $next($request);
         }
         return redirect()->route('index'); 
