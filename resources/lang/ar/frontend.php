@@ -68,7 +68,7 @@ return [
     'business_consultant?' => 'مستشار أعمال؟',
     'business_advices' => 'توجيهات الأعمال على مدى 30 عامًا',
     'business_excellence' => 'تحقيق جوائز التميز في الأعمال',
-    'copyright' => 'حقوق النشر 2024. جميع الحقوق محفوظة بواسطة',
+    'copyright' => 'حقوق النشر :year. جميع الحقوق محفوظة بواسطة',
     'quick_links' => 'روابط سريعة',
     'opening_hours' => 'ساعات العمل',
     'team_members' => 'أعضاء الفريق',

@@ -1,4 +1,15 @@
-
+@push('styles')
+<style>
+    .select-lang .selected {
+        border-radius: 3px;
+        border: 1px dashed #5d4190;
+       color: #5d4190;
+    }
+    .nice-select.open .list {
+        padding: 5px;
+    }
+</style>
+@endpush
 <header>
   <nav
       class="navbar mobile-sidenav navbar-style-one navbar-sticky navbar-default validnavs white navbar-fixed no-background">
@@ -59,9 +70,9 @@
                       <ul class="dropdown-menu">
                         <form class="d-flex" method="post" action="{{route('langs')}}" onchange="langs.submit()" id="langs">
                           @csrf
-                          <select aria-label="Default select example" name="lang">
+                          <select aria-label="Default select example" name="lang" class="select-lang">
                             <li>           
-                              <option value="en" {{ app()->getLocale() == 'en' ? "selected" : "" }}>@lang('frontend.languages.en')</option>
+                              <option style="padding: 5px" value="en" {{ app()->getLocale() == 'en' ? "selected" : "" }}>@lang('frontend.languages.en')</option>
                             </li>
                             <li>           
                               <option value="it" {{ app()->getLocale() == 'it' ? "selected" : "" }}>@lang('frontend.languages.it')</option>

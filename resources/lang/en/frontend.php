@@ -68,7 +68,7 @@ return [
     
     'business_advices' => 'Business advices given over 30 years',
     'business_excellence' => 'Business Excellence awards achieved',
-    'copyright' => 'Copyright 2024. All Rights Reserved by',
+    'copyright' => 'Copyright :year. All Rights Reserved by',
     'quick_links' => 'Quick Links',
     'opening_hours' => 'Opening Hours',
     'team_members' => 'Team Members',

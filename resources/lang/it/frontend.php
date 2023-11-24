@@ -68,7 +68,7 @@ return [
     'business_consultant?' => 'Consulente aziendale?',
     'business_advices' => 'Consigli aziendali dati da oltre 30 anni',
     'business_excellence' => 'Premi di eccellenza aziendale ottenuti',
-    'copyright' => 'Copyright 2024. Tutti i diritti riservati da',
+    'copyright' => 'Copyright :year. Tutti i diritti riservati da',
     'quick_links' => 'Link veloci',
     'opening_hours' => 'Orari di apertura',
     'team_members' => 'Membri del team',

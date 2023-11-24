@@ -47,14 +47,23 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 footer-item">
-                    <div>
-                        <a href="{{route('index')}}" style="color: black" class="bookButton mt-2"><i class="ml-1 fas fa-calendar"></i> {{__('frontend.book_an_appointment')}}</a>
-                    </div>
-                    <div class="opening-hours">
+                    <div class="f-item link">
                         <h4 class="widget-title">{{__('frontend.opening_hours')}}</h4>
                         <ul>
                             <li> 
                                 <div class="working-day">{{App()->communication->workingtime ?? ''}}</div>
+                            </li>
+                            <li> 
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:{{ App()->communication->email }}">
+                                    {{ App()->communication->email }}
+                                </a>
+                            </li>
+                            <li> 
+                                <li>
+                                    <i class="fas fa-phone-alt"></i>
+                                    <a href="tel:{{ App()->communication->phone }}"> {{ App()->communication->phone }}</a>
+                                </li>
                             </li>
                         </ul>
                     </div>
@@ -62,13 +71,16 @@
             </div>
         </div>
     </div>
-
+    @php
+        $year = date('Y');
+        $copyrightMessage = trans('frontend.copyright', ['year' => $year]);
+    @endphp
     <!-- Start Footer Bottom -->
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <p>&copy; {{__('frontend.copyright')}} <a href="{{route('home')}}">{{setting('site.title') ?? ''}}</a></p>
+                    <p>&copy; {{$copyrightMessage}} <a href="{{route('home')}}">{{setting('site.title') ?? ''}}</a></p>
                 </div>
             </div>
         </div>

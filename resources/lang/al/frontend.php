@@ -24,7 +24,7 @@ return [
     'site_map'                              => 'Harta e sitit',
 
     // butonat
-    'book_an_appoination'                   => 'Rezervoni një takim',
+    'book_an_appointment'                   => 'Rezervoni një takim',
     'send'                                  => 'Send',
     'read_more'                             => 'Lexo më shumë',
     'read_less'                             => 'Trego më pak',
@@ -68,7 +68,7 @@ return [
     'business_consultant?' => 'Këshilltar i biznesit?',
     'business_advices' => 'Këshilla të biznesit të dhëna për mbi 30 vjet',
     'business_excellence' => 'Merrni çmime të shkëlqimit në biznes',
-    'copyright' => 'Të drejtat e autorsise 2024. Të gjitha të drejtat e rezervuara nga',
+    'copyright' => 'Të drejtat e autorsise :year. Të gjitha të drejtat e rezervuara nga',
     'quick_links' => 'Lidhje të shpejta',
     'opening_hours' => 'Orët e hapjes',
     'team_members' => 'Anëtarë të ekipit',
