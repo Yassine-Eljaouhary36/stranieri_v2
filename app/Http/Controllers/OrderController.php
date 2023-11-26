@@ -17,7 +17,11 @@ class OrderController extends Controller
         $authenticatedClientWithOrders = Client::with('orders')->find($client->id);
 
         $orders = $authenticatedClientWithOrders->orders()->paginate(10);
-        $orderStatuses = ['Paid','In process','Canceled'];
+        $orderStatuses = [
+            ['value'=>'Paid','display'=>trans('meeting_order.paid')],
+            ['value'=>'In process','display'=>trans('meeting_order.in_process')],
+            ['value'=>'Canceled','display'=>trans('meeting_order.canceled')],
+        ];
         return view('orders.index', compact('orders','orderStatuses'));
     }
 

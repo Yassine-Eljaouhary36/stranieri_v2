@@ -57,5 +57,10 @@ return [
     "Title_Meeting_Taken" => "L'incontro è stato prenotato!",
     "Message_Meeting_Taken" => "Spiacente, l'incontro è stato prenotato da un altro cliente! Per favore, scegline un altro.",
 
-    "orders" => "ordini"
+    "orders" => "ordini",
+    
+    'all' => 'Tutti',
+    'paid' => 'Pagato',
+    'in_process' => 'In elaborazione',
+    'canceled' => 'Annullato',
 ];

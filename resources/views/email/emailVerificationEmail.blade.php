@@ -65,7 +65,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{asset('storage/'.setting('site.logo') )}}" alt="Logo" width="100">
+            <img src="{{asset('storage/'.str_replace('\\', '/',setting('site.logo')))}}" alt="Logo" width="200">
         </div>
         
         <h1>Email Verification</h1>

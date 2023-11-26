@@ -95,7 +95,7 @@ class LoginController extends Controller
         ]);
         
         try {
-            Mail::send('email.emailForgotPassword', ['token' => $token , 'logo'=> setting('site.logo')], function ($message) use ($request) {
+            Mail::send('email.emailForgotPassword', ['token' => $token], function ($message) use ($request) {
                 $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->sender(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->to($request->email);

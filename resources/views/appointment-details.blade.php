@@ -83,27 +83,27 @@
         $titletime=__('meeting_order.Meeting_Time_Title');
         $titledate=__('meeting_order.Meeting_Date_Title');
     @endphp
-    <div class="cart-item"  >
+    <div class="cart-item"  style="{{ app()->getLocale() == 'ar' ? "direction: rtl;" : "" }}">
     
         <div class="row text-secondary bg-light-subtle p-3">
             <div class="col-lg-8 col-sm-12 d-flex mb-3" style="align-items: center">
-                @if (!$service)
+                {{-- @if (!$service) --}}
                     <select id="mySelect" class="service-select " aria-label="Default select example" onchange="selectService()">
                         <option selected>{{__('frontend.Choose_service')}}</option>
                         @foreach ( $services as $serviceItem)
-                            <option value="{{$serviceItem->id}}" data-price="{{$serviceItem->price}}" data-duration="{{$serviceItem->duration}}" >{{$serviceItem->title}}</option>
+                            <option value="{{$serviceItem->id}}" data-price="{{$serviceItem->price}}" data-duration="{{$serviceItem->duration}}" {{ $serviceItem->id == $service?->id ? "selected" : "" }}>{{$serviceItem->title}}</option>
                         @endforeach
                     </select>
-                @else
+                {{-- @else
                 <div class="w-100 service-selected" style="{{ app()->getLocale() == 'ar' ? "flex-direction: row-reverse;" : "" }}">
                     <span class="text-secondary mr-2 fw-bold text-decoration-underline">{{__('frontend.service')}}</span>
                     <span>{{$service->title}}</span>       
                 </div>
 
-                @endif
+                @endif --}}
             </div>
             <div class="col-lg-4 col-sm-12">
-                <div class="service-selected" style="{{ app()->getLocale() == 'ar' ? "flex-direction: row-reverse;" : "" }}">
+                <div class="service-selected">
                     <span class="text-secondary mr-2 fw-bold text-decoration-underline">{{__('frontend.duration')}}</span>
                     <span id="duration">{{$service !== null ? $service->duration.'min' : '' }}</span>
                 </div>
@@ -118,8 +118,8 @@
             ></appointment-details>
 
     </div>
-    <div class="row mt-3 mx-2">
-        <div style="margin-right: 15px" class="{{ app()->getLocale() == 'ar' ? "text-end" : "text-justify" }} col-md-5 col-lg-4 text-secondary bg-light-subtle custom-infos-space p-3 mr-3 mb-3">
+    <div class="row mt-3 mx-2" style="{{ app()->getLocale() == 'ar' ? "direction: rtl;" : "" }}">
+        <div style="{{ app()->getLocale() == 'ar' ? "margin-left: 15px" : "margin-right: 15px" }}" class="{{ app()->getLocale() == 'ar' ? "text-end" : "text-justify" }} col-md-5 col-lg-4 text-secondary bg-light-subtle custom-infos-space p-3 mr-3 mb-3">
 
             {{-- @if (intVal($data['totalDiscount']) > 0) --}}
                 <div class=" py-1"><span class="text-secondary">{{ __('meeting_order.You_Saved') }} </span><span class="text-secondary" id="amount-saved">${{ $data['totalDiscount'] }}</span></div>

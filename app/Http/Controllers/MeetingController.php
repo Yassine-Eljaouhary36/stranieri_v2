@@ -55,10 +55,11 @@ class MeetingController extends Controller
         }
         
        $services = [];
-        if (!$service) {
+        // if (!$service) {
             $services = Service::where('status', 'PUBLISHED')
                            ->get(['id', 'title', 'price','duration']);
-        }
+            $services = $services->translate(App::getLocale(), 'fallbackLocale');
+        // }
         
         $client = Auth::guard('client')->user();
         $originalPrice = $service ? (is_numeric($service->price) ? $service->price : 0) : 0;

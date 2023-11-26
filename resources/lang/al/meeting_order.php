@@ -54,5 +54,10 @@ return [
     "Title_Meeting_Taken" => "Takimi është marrë!",
     "Message_Meeting_Taken" => "Na vjen keq, takimi është marrë nga një klient tjetër! Ju lutemi zgjidhni një takim tjetër.",
 
-    "orders" => "urdhërat"
+    "orders" => "urdhërat",
+    
+    'all' => 'Të gjitha',
+    'paid' => 'Paguar',
+    'in_process' => 'Në proces',
+    'canceled' => 'Anuluar',
 ];

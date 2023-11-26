@@ -66,7 +66,7 @@
             <div class="invoice-logo">
                 {{-- <img src="https://assets.stickpng.com/images/5954bb45deaf2c03413be353.png" alt="Logo" width="100"> --}}
                 @if (setting('site.logo') != null)
-                    <img src="{{asset('storage/'.setting('site.logo') )}}" alt="Logo" width="100">
+                    <img src="{{asset('storage/'.str_replace('\\', '/',setting('site.logo')))}}" alt="Logo" width="200">
                 @endif
             </div>
         </div>

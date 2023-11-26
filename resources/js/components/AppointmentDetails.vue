@@ -4,8 +4,8 @@
         <table class="styled-table" >
             <thead>
                 <tr>
-                    <th class="text-center">{{titletime}} </th>
-                    <th class="text-center">{{titledate}} </th>
+                    <th class="text-center">{{titledate}}</th>
+                    <th class="text-center">{{titletime}}</th>
                     <th class="text-center">{{titleprice}}</th>
                     <th class="text-center"></th>
                 </tr>
@@ -14,7 +14,7 @@
                 <tr v-for="item in cart" :key="item">       
                     <td  class="text-center">
                         <div  
-                            :class="{'item-day':true ,'rlt':local=='ar' }"  
+                            :class="{'item-day':true ,'ltr':local=='ar' }"  
                             > <span style="padding: 0px 5px;">{{formatDateToGetDay(item) }} </span> <span>{{ formatDateToCustomFormat(item) }}</span> 
                         </div>
                     </td>  

@@ -81,9 +81,9 @@
                         <i class="fas fa-filter"></i> {{__('meeting_order.Status')}}
                     </button>
                     <ul class="dropdown-menu">
-                        <li><button class="statusFilter dropdown-item" type="button" data-status="" >All</button></li>
+                        <li><button class="statusFilter dropdown-item" type="button" data-status="" >{{__('meeting_order.all')}}</button></li>
                         @foreach($orderStatuses as $status)
-                            <li><button class="statusFilter dropdown-item" type="button" data-status="{{ $status }}">{{ $status }}</button></li>
+                            <li><button class="statusFilter dropdown-item" type="button" data-status="{{ $status['value'] }}">{{ $status['display'] }}</button></li>
                         @endforeach
                     </ul>
                 </div>
