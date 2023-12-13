@@ -69,8 +69,8 @@
         </div>
         
         <h1>Email Verification</h1>
-        <p>Dear User,</p>
-        <p>Thank you for signing up with <b>Test Company</b>! Please click the button below to verify your email address:</p>
+        <p>Hello dear ,</p>
+        <p>Thank you for signing up with <b>{{{{setting('site.title')}}}}</b>! Please click the button below to verify your email address:</p>
         
         <div class="verification-button">
             <a href="{{ route('client.verify', $token) }}">Verify Email Address</a>
@@ -84,7 +84,7 @@
         
         <div class="contact-info">
             <p>Contact Information:</p>
-            <p>Email: {{env('MAIL_FROM_ADDRESS')}}</p>
+            <p>Email: {{ App()->communication->email }}</p>
         </div>
         
         <p>Thank you!</p>

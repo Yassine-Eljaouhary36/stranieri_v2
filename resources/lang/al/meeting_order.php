@@ -39,7 +39,7 @@ return [
         "Failed" => "Dështuar",
         "Refunded" => "Rikthyer"
     ],
-    "Print" => "Printo",
+    "Print" => "Shkarko",
     "Order_Reference" => "Referenca e Porosisë:",
     "Price" => "Çmimi",
     "Discount" => "Zbritja",
@@ -60,4 +60,14 @@ return [
     'paid' => 'Paguar',
     'in_process' => 'Në proces',
     'canceled' => 'Anuluar',
+
+    'country' => 'Shteti',
+    'Address_one' => 'Adresa 1',
+    'Address_two' => 'Adresa 2',
+    'city' => 'Qyteti',
+    'ZIP' => 'Kodi Postar',
+
+    'Billing_Address' => 'Adresa e faturës',
+    'Select_country' => 'Zgjidhni vendin',
+
 ];

@@ -39,7 +39,7 @@ return [
         "Failed" => "Fallito",
         "Refunded" => "Rimborsato"
     ],
-    "Print" => "Stampa",
+    "Print" => "Scaricamento",
     "Order_Reference" => "Riferimento dell'Ordine:",
     "Price" => "Prezzo",
     "Discount" => "Sconto",
@@ -63,4 +63,14 @@ return [
     'paid' => 'Pagato',
     'in_process' => 'In elaborazione',
     'canceled' => 'Annullato',
+
+    'country' => 'Paese',
+    'Address_one' => 'Indirizzo 1',
+    'Address_two' => 'Indirizzo 2',
+    'city' => 'Città',
+    'ZIP' => 'Codice Postale',
+
+    'Billing_Address' => 'Indirizzo di fatturazione',
+    'Select_country' => 'Seleziona il paese',
+
 ];

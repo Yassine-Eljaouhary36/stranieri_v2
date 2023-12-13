@@ -39,7 +39,7 @@ return [
         "Failed" => "فشل", 
         "Refunded"=>"مسترد" 
     ],
-    "Print" => "طباعة",
+    "Print" => "تحميل",
     "Order_Reference" => "مرجع الطلب :",
     "Price" => "السعر",
     "Discount" => "الخصم",
@@ -63,5 +63,15 @@ return [
     'paid' => 'مدفوع',
     'in_process' => 'قيد المعالجة',
     'canceled' => 'ملغى',
+
+    
+    'country' => 'البلد',
+    'Address_one' => 'العنوان 1',
+    'Address_two' => 'العنوان 2',
+    'city' => 'المدينة',
+    'ZIP' => 'الرمز البريدي',
+    
+    'Billing_Address' => 'عنوان الفاتورة',
+    'Select_country' => 'اختر البلد',
 
 ];

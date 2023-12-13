@@ -55,8 +55,8 @@ class DashboardController extends BaseVoyagerController
         $todayTax = Order::whereDate('created_at', $currentDate)->sum('Tax');
         $todayProfit = $todayIncome - $todayTax;
 
-        $weeklyIncome = Order::whereBetween('created_at', [$currentDate->startOfWeek(), $currentDate->endOfWeek()])->sum('Paid_amount');
-        $weeklyTax = Order::whereBetween('created_at', [$currentDate->startOfWeek(), $currentDate->endOfWeek()])->sum('Tax');
+        $weeklyIncome = Order::whereBetween('created_at', [$currentDate->startOfWeek()->toDateString(), $currentDate->endOfWeek()->toDateString()])->sum('Paid_amount');
+        $weeklyTax = Order::whereBetween('created_at', [$currentDate->startOfWeek()->toDateString(), $currentDate->endOfWeek()->toDateString()])->sum('Tax');
         $weeklyProfit = $weeklyIncome - $weeklyTax;
 
         $monthlyIncome = Order::whereYear('created_at', $currentDate->year)->whereMonth('created_at', $currentDate->month)->sum('Paid_amount');

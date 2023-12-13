@@ -64,7 +64,7 @@ class OrderController extends Controller
         ];
       
         $pdf = Pdf::loadView('pdf.invoice', compact('data') );
-        return $pdf->download('invoice.pdf');
+        return $pdf->download('invoice_'.$paidOrder->ref.'.pdf');
     }
 
 }

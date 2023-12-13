@@ -64,14 +64,14 @@ class OrderPaid implements ShouldQueue
         $pdf = Pdf::loadView('pdf.invoice', compact('data'));
         $attachment = $pdf->output();
         try {
-            Mail::send('email.emailOrderPaid', ['client' => $client,'order' => $this->order], function ($message) use ($client,$attachment) {
+            Mail::send('email.emailOrderPaid', ['client' => $client,'order' => $this->order], function ($message) use ($client,$attachment,$paidOrder) {
                 $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->sender(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->to($client->email);
                 $message->replyTo(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                 $message->subject('Your Order Paid');
                 $message->priority(1);
-                $message->attachData($attachment, 'invoice.pdf', ['mime' => 'application/pdf']);
+                $message->attachData($attachment, 'invoice_'.$paidOrder->ref.'.pdf', ['mime' => 'application/pdf']);
             });
         } catch (\Exception $e) {
             // if ($e->getMessage()) {

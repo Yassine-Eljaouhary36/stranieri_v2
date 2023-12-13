@@ -109,7 +109,7 @@
   @include('components.searchBar')
 </header>
 
-@if (request()->cookie('cart') && count((array) request()->cookie('cart')) > 0 )
+@if (request()->cookie('cart') && count((array) request()->cookie('cart')) > 0 && !in_array(Route::currentRouteName(), ['showRegistrationForm', 'showLoginForm','show-Details']) )
     <a class="cart-btn d-lg-none d-block" href="{{ route('show-Details') }}" style="display: flex; align-items: center">
         <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i>
         Cart
@@ -131,7 +131,7 @@
         </style>
     @endpush
 @else
-    @if (Route::currentRouteName() !== 'index')
+    @if (!in_array(Route::currentRouteName(), ['showRegistrationForm', 'showLoginForm','index', 'services','show-Details','order']))
         <a class="bookNow-btn" href="{{ route('index') }}" style="display: flex; align-items: center">
             <i class="fas fa-calendar" style="margin-right: 5px"></i> {{__('frontend.book_an_appointment')}}
         </a>

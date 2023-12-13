@@ -103,10 +103,6 @@
                         <td class="text-center"><span class="text-primary">${{ number_format($order->paid_amount, 2) ?? '' }}</span></td>
                     </tr>
                     <tr>
-                        <td class="text-center">{{ __('Tax')}} </td>
-                        <td class="text-center"><span class="text-danger">${{ number_format($order->tax, 2) ?? '' }}</span></td>
-                    </tr>
-                    <tr>
                         <td class="text-center">{{ __('Order Date')}} </td>
                         <td class="text-center"><span class="text-danger">{{ \Carbon\Carbon::parse($order->created_at)->format('H:i d-m-Y') ?? '' }}</span></td>
                     </tr>
@@ -119,7 +115,7 @@
                 Please note: we would like to remind you of our refund policy, which states that you can only request for a refund if you cancel your meeting at least 72 hours before the scheduled start time.
             </p>
             <p>
-                If you have any questions or concerns, please contact us at {{env('MAIL_FROM_ADDRESS')}}.
+                If you have any questions or concerns, please contact us at {{ App()->communication->email }}.
             </p>
         </div>
     </div>

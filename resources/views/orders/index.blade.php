@@ -64,6 +64,9 @@
             .table-container {
                 max-width: 100%;
             }
+            .orders-container {
+               margin: 50px 15px;
+            }
         }
         </style>
     @endpush

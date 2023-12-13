@@ -71,7 +71,7 @@
         </div>
         
         <h1>Password Reset</h1>
-        <p>Hi there,</p>
+        <p>Hello dear ,</p>
         <p>We received a request to reset your password. If you initiated this request, please click the button below to reset your password:</p>
         
         <div class="reset-button">
@@ -86,7 +86,7 @@
         
         <div class="contact-info">
             <p>Contact Information:</p>
-            <p>Email: {{env('MAIL_FROM_ADDRESS')}}</p>
+            <p>Email: {{ App()->communication->email }}</p>
         </div>
         
         <p>Thank you!</p>

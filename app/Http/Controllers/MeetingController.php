@@ -88,7 +88,7 @@ class MeetingController extends Controller
             'local'=>str_replace('_', '-', app()->getLocale()),
             'client'=>$client,
             'data' => [
-                    'totalBeforeTax'    => number_format($originalPrice, 2, ',', ' '),
+                    'totalBeforeTax'    => number_format($discountedPrice, 2, ',', ' '),
                     'totalDiscount'     => number_format($amountSaved, 2, ',', ' '),
                     'estimatedTax'      => number_format($estimatedTax, 2, ',', ' '), // 20% tax
                     'taxRate'           => $taxRate * 100,
@@ -195,8 +195,9 @@ class MeetingController extends Controller
             // Clear the 'token' value from the session
             session()->forget('token');
             // dispatch(new OrderInProcess($order));
+            setcookie("cart", "", time() - 3600, "/");
             return redirect()->route('order',$order)->with('custom_alert', ['type' => 'success', 'title' => __('meeting_order.Title_Thank_You_Order'), 'message' => __('meeting_order.Message_Thank_You_Order')]);
         }
-        return back()->with('custom_alert', ['type' => 'warning', 'title' => __('meeting_order.Title_Meeting_Taken'), 'message' => __('meeting_order.Message_Meeting_Taken')]);;
+        return back()->with('custom_alert', ['type' => 'warning', 'title' => __('meeting_order.Title_Meeting_Taken'), 'message' => __('meeting_order.Message_Meeting_Taken')]);
     }
 }

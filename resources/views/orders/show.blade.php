@@ -112,11 +112,11 @@
 <x-breadcrumb globalTitle="{{ __('meeting_order.Meeting_Details')}}" secondTitle="{{ __('meeting_order.Meeting_Details')}}" />
 <div class="cart-container" >
     <div class="order-header mt-2 mb-3">
-        <a href="{{route('orders')}}" class="btn btn-md btn-outline-warning">
+        <a href="{{route('orders')}}" class="custom-button">
             <i class="mr-1 fas fa-arrow-left"></i> {{ __('meeting_order.Back')}}
         </a>
         @if ($order->meeting->status=='paid')
-            <a href="{{route('download-invoice',$order)}}" class="btn btn-md btn-outline-primary">
+            <a href="{{route('download-invoice',$order)}}" class="custom-button">
                 <i class="fas fa-print"></i> {{ __('meeting_order.Print')}}
             </a>
         @endif
@@ -139,13 +139,13 @@
             <tbody>
                 <tr  class="order">
                     <td>{{ $order->ref ?? '' }}</td>
-                    <td>{{ $order->meeting->service?->translate(app()->getLocale() , 'fallbackLocale')->title ?? '' }}</td>
-                    <td class="text-secondary">{{ $order->created_at->format('d-m-Y') ?? '' }}</td>
-                    <td class="text-primary fw-bold"> ${{ number_format($order->paid_amount, 2) ?? '' }}</td>
-                    <td class="text-success fw-bold"> -${{ number_format($order->discount, 2) ?? '' }}</td>
-                    <td class="text-secondary fw-bold"> ${{ number_format($order->price, 2) ?? '' }}</td>
-                    <td class="text-danger fw-bold"> +${{ number_format($order->tax, 2) ?? '' }}</td>
-                    <td  class="text-center"> 
+                    <td style="min-width: 150px">{{ $order->meeting->service?->translate(app()->getLocale() , 'fallbackLocale')->title ?? '' }}</td>
+                    <td style="min-width: 150px" class="text-secondary">{{ $order->created_at->format('d-m-Y') ?? '' }}</td>
+                    <td style="min-width: 20px" class="text-primary fw-bold"> ${{ number_format($order->paid_amount, 2) ?? '' }}</td>
+                    <td style="min-width: 20px" class="text-success fw-bold"> -${{ number_format($order->discount, 2) ?? '' }}</td>
+                    <td style="min-width: 20px" class="text-secondary fw-bold"> ${{ number_format($order->price, 2) ?? '' }}</td>
+                    <td style="min-width: 20px" class="text-danger fw-bold"> +${{ number_format($order->tax, 2) ?? '' }}</td>
+                    <td style="min-width: 50px"  class="text-center"> 
                         @include('orders.order-status', ['order' => $order])
                     </td>
                 </tr>
@@ -182,5 +182,14 @@
     </div>
 </div>
 
-
+@push('scripts')
+    <script>
+        function clearCart(){
+            document.cookie = "cart=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "serviceId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            console.log('test');
+        }
+        clearCart()
+    </script>
+@endpush
 @endsection

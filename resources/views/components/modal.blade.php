@@ -24,7 +24,7 @@
                         </button>
                     @else
                     <button id="address-button" class="btn-custom btn-custom-success " type="submit">
-                        {{ __('Submit') }}
+                        {{ __('meeting_order.Submit') }}
                         <i class="fas fa-paper-plane"></i>
                     </button>
                     @endif
@@ -128,7 +128,7 @@
             const addressButton = document.getElementById('address-button');
 
             var address_one = document.getElementById('address_one');
-            var country = document.getElementById('country');
+            var country = document.getElementById('soValue');
             var city = document.getElementById('city');
             var zip = document.getElementById('zip');
             addressButton.addEventListener('click', async (e) => {

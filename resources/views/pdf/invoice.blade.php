@@ -77,6 +77,15 @@
             background-color: #e2f4ff;
             font-weight: bold;
         }
+        .footer{
+            padding: 20px;
+            background-color: #a276f4;
+            color: white;
+            font-weight: 600;
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 50px
+        }
     </style>
 </head>
 <body>
@@ -84,7 +93,7 @@
         <div class="header">
             <div class="invoice-logo">
                 @if (setting('site.logo') != null)
-                    <img src="{{asset('storage/'.str_replace('\\', '/',setting('site.logo')))}}" alt="Logo" width="100">
+                    <img src="{{asset('storage/'.str_replace('\\', '/',setting('site.logo')))}}" alt="Logo" width="200">
                 @endif 
             </div>
             <h1>Invoice</h1>
@@ -120,10 +129,6 @@
                     <td class="text-center"><span class="text-primary">${{ number_format($data['paid_amount'], 2) ?? '' }}</span></td>
                 </tr>
                 <tr>
-                    <td class="text-center">{{ __('Tax')}} </td>
-                    <td class="text-center"><span class="text-danger">${{ number_format($data['tax'], 2) ?? '' }}</span></td>
-                </tr>
-                <tr>
                     <td class="text-center">{{ __('Order Date')}} </td>
                     <td class="text-center"><span class="text-danger">{{ \Carbon\Carbon::parse($data['created_at'])->format('H:i d-m-Y') ?? '' }}</span></td>
                 </tr>
@@ -132,6 +137,10 @@
         <div class="client-info">
             <p>Email: {{$data['client']['email']}} </p>
             <p>Billing Address: {{$data['client']['address_one']}} ,{{$data['client']['address_two']}} , {{$data['client']['city']}} , {{$data['client']['country']}} </p>
+        </div>
+        <div class="footer">
+            <span style="padding: 0px 5px">{{ App()->communication->email }}</span>
+            <span style="padding: 0px 5px">{{ App()->communication->phone }}</span>
         </div> 
     </div>
 </body>

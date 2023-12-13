@@ -39,7 +39,7 @@ return [
         "Failed" => "failed",
         "Refunded"=>"refunded"
     ],
-    "Print" => "print",
+    "Print" => "Download",
     "Order_Reference" => "Order reference :",
     "Price" => "Price",
     "Discount" => "Discount",
@@ -64,4 +64,13 @@ return [
     'in_process' => 'In process',
     'canceled' => 'Canceled',
 
+
+    'country' => 'Country',
+    'Address_one' => 'Address 1',
+    'Address_two' => 'Address 2',
+    'city' => 'City',
+    'ZIP' => 'ZIP Code',
+    'Billing_Address' => 'Billing Address',
+
+    'Select_country' => 'select country'
 ];

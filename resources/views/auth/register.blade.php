@@ -20,7 +20,7 @@
                   <div class="col-md-6 mb-4">
   
                     <div class="form-outline">
-                        <label class="form-label" for="first_name">{{ __('register_login.First_Name') }}</label>
+                        <label class="form-label" for="first_name">{{ __('register_login.First_Name') }} <span class="text-danger">*</span></label>
                         <input value="{{ old('first_name') }}"  type="text" name="first_name"  id="first_name" class="@error('first_name') is-invalid @enderror form-control form-control-lg" />
                         <div class="invalid-feedback"> {{ $errors->first('first_name') ?? '' }}</div>
                     </div>
@@ -29,7 +29,7 @@
                   <div class="col-md-6 mb-4">
   
                     <div class="form-outline">
-                        <label class="form-label" for="last_name">{{ __('register_login.Last_Name') }}</label>
+                        <label class="form-label" for="last_name">{{ __('register_login.Last_Name') }} <span class="text-danger">*</span></label>
                         <input value="{{ old('last_name') }}"  type="text" name="last_name" id="last_name" class="@error('last_name') is-invalid @enderror form-control form-control-lg" />
                         <div class="invalid-feedback"> {{ $errors->first('last_name') ?? '' }}</div>
                     </div>
@@ -42,7 +42,7 @@
                     <div class="col-md-6 mb-4">
     
                       <div class="form-outline">
-                          <label class="form-label" for="email">{{ __('register_login.Email_Address') }}</label>
+                          <label class="form-label" for="email">{{ __('register_login.Email_Address') }} <span class="text-danger">*</span></label>
                           <input value="{{ old('email') }}"  type="email" name="email"  id="email" class="@error('email') is-invalid @enderror form-control form-control-lg" />
                           <div class="invalid-feedback"> {{ $errors->first('email') ?? '' }}</div>
                       </div>
@@ -64,7 +64,7 @@
                     <div class="col-md-6 mb-4">
     
                         <div class="form-outline">
-                            <label class="form-label" for="password">{{ __('register_login.Password') }}</label>
+                            <label class="form-label" for="password">{{ __('register_login.Password') }} <span class="text-danger">*</span></label>
                             <input value="{{ old('password') }}"  type="password" name="password" id="password" class="@error('password') is-invalid @enderror form-control form-control-lg" />
                             <div class="invalid-feedback"> {{ $errors->first('password') ?? '' }}</div>
                         </div>
@@ -73,7 +73,7 @@
                       <div class="col-md-6 mb-4">
     
                         <div class="form-outline">
-                            <label class="form-label" for="password_confirmation">{{ __('register_login.Confirm_Password') }}</label>
+                            <label class="form-label" for="password_confirmation">{{ __('register_login.Confirm_Password') }} <span class="text-danger">*</span></label>
                             <input value="{{ old('password_confirmation') }}"  type="password" name="password_confirmation" id="password_confirmation" class="@error('password_confirmation') is-invalid @enderror form-control form-control-lg" />
                             <div class="invalid-feedback"> {{ $errors->first('password_confirmation') ?? '' }}</div>
                         </div>
@@ -86,7 +86,7 @@
                       {{-- <div class="form-check text-start my-1"> --}}
                         <input class=" mx-1" type="checkbox" id="flexCheckDefault" name="agree" required>
                         <label class="pt-1" for="flexCheckDefault">
-                          {{ __('register_login.Confirm_Agree') }} <a href="{{ route('privacy.policy') }}" target="_blank">{{ __('register_login.Terms_Conditions') }}</a>
+                          {{ __('register_login.Confirm_Agree') }} <a href="{{ url('/page/termini-condizioni') }}" target="_blank">{{ __('register_login.Terms_Conditions') }} <span class="text-danger">*</span></a>
                         </label>
                       {{-- </div> --}}
                     </div>
